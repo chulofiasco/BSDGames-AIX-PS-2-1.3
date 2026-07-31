@@ -50,7 +50,7 @@ __RCSID("$NetBSD: morse.c,v 1.13 2004/02/13 23:16:11 jsm Exp $");
 #include <unistd.h>
 
 static const char
-	*const digit[] = {
+	*digit[] = {
 	"-----",
 	".----",
 	"..---",
@@ -62,7 +62,7 @@ static const char
 	"---..",
 	"----.",
 },
-	*const alph[] = {
+	*alph[] = {
 	".-",
 	"-...",
 	"-.-.",
@@ -91,7 +91,7 @@ static const char
 	"--..",
 };
 
-const struct punc {
+struct punc {
 	char c;
 	const char *morse;
 } other[] = {
@@ -121,7 +121,7 @@ static int dflag;
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	int ch;
 	char *p;
@@ -152,10 +152,10 @@ main(argc, argv)
 			} while (*++argv);
 		} else {
 			char foo[10];	/* All morse chars shorter than this */
-			int isblank, i;
+			int seen_blank, i;
 
 			i = 0;
-			isblank = 0;
+			seen_blank = 0;
 			while ((ch = getchar()) != EOF) {
 				if (ch == '-' || ch == '.') {
 					foo[i++] = ch;
@@ -167,20 +167,20 @@ main(argc, argv)
 						while ((ch = getchar()) != EOF &&
 						    (ch == '.' || ch == '-'))
 							;
-						isblank = 1;
+						seen_blank = 1;
 					}
 				} else if (i) {
 					foo[i] = '\0';
 					decode(foo);
 					i = 0;
-					isblank = 0;
+					seen_blank = 0;
 				} else if (isspace(ch)) {
-					if (isblank) {
+					if (seen_blank) {
 						/* print whitespace for each double blank */
 						putchar(' ');
-						isblank = 0;
+						seen_blank = 0;
 					} else
-						isblank = 1;
+						seen_blank = 1;
 				}
 			}
 		}

@@ -532,7 +532,7 @@ void
 prompt(promptno)
 	int	promptno;
 {
-	static const char	*const names[] = {
+	static const char	names[][16] = {
 				">>:Move:",
 				"Really?",
 				"Another hand?",

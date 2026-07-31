@@ -58,8 +58,8 @@
  */
 
 #include "include.h"
-#undef bool
 #include <curses.h>
+extern char *getlogin();
 
 int	main(int, char **);
 
@@ -75,6 +75,9 @@ main(argc, argv)
 	double  dtemp;			/* for temporary calculations */
 
 	initialstate();			/* init globals */
+
+	if (argc < 0)
+		return 0;
 
 	/* process arguments */
 	while (--argc && (*++argv)[0] == '-')

@@ -146,7 +146,7 @@ void restore(void);
 int rest_f(const char *);
 
 /* getinp.c */
-int getinp(const char *, const char *const []);
+int getinp(const char *, const char *[]);
 
 /* houses.c */
 void buy_houses(void);

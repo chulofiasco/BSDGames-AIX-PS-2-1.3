@@ -35,6 +35,17 @@
 
 #define	bool	char
 
+/* AIX 1.2: no u_int64_t; card file offsets fit in 32 bits */
+#ifndef _U_INT64_T
+typedef unsigned long u_int64_t;
+#define _U_INT64_T
+#endif
+/* AIX 1.2: no int32_t in sys/types.h */
+#ifndef _INT32_T
+typedef int int32_t;
+#define _INT32_T
+#endif
+
 #define	CC_D	deck[0]
 #define	CH_D	deck[1]
 

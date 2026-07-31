@@ -1,3 +1,4 @@
+.TH NUMBER 6 "March 31, 1994"
 .\"	$NetBSD: number.6,v 1.7 2003/08/07 09:37:30 agc Exp $
 .\"
 .\" Copyright (c) 1989, 1993, 1994
@@ -29,31 +30,28 @@
 .\"
 .\"	@(#)number.6	8.2 (Berkeley) 3/31/94
 .\"
-.Dd March 31, 1994
-.Dt NUMBER 6
-.Os
-.Sh NAME
-.Nm number
-.Nd convert Arabic numerals to English
-.Sh SYNOPSIS
-.Nm
-.Op Fl l
-.Op Ar number ...
-.Sh DESCRIPTION
+.SH NAME
+number \- convert Arabic numerals to English
+.SH SYNOPSIS
+.B number
+[\fB\-l\fP]
+[\fInumber\fP ...]
+.SH DESCRIPTION
 The
-.Nm
+.B number
 utility prints the English equivalent of the number to the standard
 output, with each 10^3 magnitude displayed on a separate line.
 If no argument is specified,
-.Nm
+.B number
 reads lines from the standard input.
-.Pp
+.PP
 The options are as follows:
-.Bl -tag -width Ds
-.It Fl l
+.TP
+\fB\-l\fP
 Display the number on a single line.
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 Although
-.Nm
+.B number
 understand fractions, it doesn't understand exponents.
+

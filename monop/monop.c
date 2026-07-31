@@ -49,6 +49,9 @@ __RCSID("$NetBSD: monop.c,v 1.15 2004/01/27 20:30:30 jsm Exp $");
 #include <unistd.h>
 #include "monop.def"
 
+/* AIX 1.2: sbrk not declared in any system header */
+extern char *sbrk(int);
+
 int main(int, char *[]);
 static void getplayers(void);
 static void init_players(void);
@@ -66,6 +69,9 @@ main(ac, av)
 {
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
+
+	if (ac < 0)
+		return 0;
 
 	srand(getpid());
 	heapstart = sbrk(0);

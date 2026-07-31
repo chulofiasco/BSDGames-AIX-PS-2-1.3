@@ -51,7 +51,7 @@ static int comp(const char *);
 
 int
 getinp(prompt, list)
-	const char *prompt, *const list[]; 
+	const char *prompt, *list[];
 {
 	int i, n_match, match = 0;
 	char *sp;

@@ -1,5 +1,8 @@
 /*	$NetBSD: malloc.c,v 1.4 2004/12/14 00:21:01 nathanw Exp $	*/
 
+/* AIX 1.2: sbrk not declared in any system header */
+extern char *sbrk(int);
+
 /*
  * Copyright (c) 1983, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -59,6 +62,7 @@ __RCSID("$NetBSD: malloc.c,v 1.4 2004/12/14 00:21:01 nathanw Exp $");
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+/* AIX 1.2 has no pthreads; stub out mutex operations */
 #include <pthread.h>
 
 

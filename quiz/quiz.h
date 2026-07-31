@@ -35,8 +35,12 @@
  *	@(#)quiz.h	8.1 (Berkeley) 5/31/93
  */
 
+#ifndef TRUE
 #define	TRUE		1
+#endif
+#ifndef FALSE
 #define	FALSE		0
+#endif
 
 /* Length of compiled regexp machine; increase if not big enough. */
 #define	RXP_LINE_SZ	8192
@@ -50,7 +54,7 @@ typedef struct qentry {
 	char	*q_text;		/* category text string from file */
 	int	 q_asked;		/* TRUE if question's been asked */
 	int	 q_answered;		/* TRUE if question's been answered */
-} QE;
+} QENTRY;
 
 extern char rxperr[];
 

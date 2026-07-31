@@ -54,19 +54,19 @@ __RCSID("$NetBSD: number.c,v 1.10 2004/11/05 21:30:32 dsl Exp $");
 
 #define	MAXNUM		65		/* Biggest number we handle. */
 
-static const char	*const name1[] = {
+static const char	*name1[] = {
 	"",		"one",		"two",		"three",
 	"four",		"five",		"six",		"seven",
 	"eight",	"nine",		"ten",		"eleven",
 	"twelve",	"thirteen",	"fourteen",	"fifteen",
 	"sixteen",	"seventeen",	"eighteen",	"nineteen",
 },
-		*const name2[] = {
+		*name2[] = {
 	"",		"ten",		"twenty",	"thirty",
 	"forty",	"fifty",	"sixty",	"seventy",
 	"eighty",	"ninety",
 },
-		*const name3[] = {
+		*name3[] = {
 	"hundred",	"thousand",	"million",	"billion",
 	"trillion",	"quadrillion",	"quintillion",	"sextillion",
 	"septillion",	"octillion",	"nonillion",	"decillion",
@@ -124,7 +124,7 @@ main(argc, argv)
 				(void)printf("...\n");
 			convert(*argv);
 		}
-	exit(0);
+	return 0;
 }
 
 void
@@ -287,7 +287,7 @@ pfract(len, singular)
 	int len;
 	int singular;
 {
-	static const char *const pref[] = { "", "ten-", "hundred-" };
+	static const char *pref[] = { "", "ten-", "hundred-" };
 
 	switch(len) {
 	case 1:

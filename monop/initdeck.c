@@ -81,8 +81,12 @@ h2nl(u_int32_t h)
  * string to print, terminated with a null byte.
  */
 
+#ifndef TRUE
 #define	TRUE	1
+#endif
+#ifndef FALSE
 #define	FALSE	0
+#endif
 
 #define	bool	char
 
@@ -122,8 +126,8 @@ main(ac, av)
 	/*
 	 * allocate space for pointers.
 	 */
-	CC_D.offsets = calloc(CC_D.num_cards + 1, /* sizeof (off_t) */ 8);
-	CH_D.offsets = calloc(CH_D.num_cards + 1, /* sizeof (off_t) */ 8);
+	CC_D.offsets = (u_int64_t *)calloc(CC_D.num_cards + 1, /* sizeof (off_t) */ 8);
+	CH_D.offsets = (u_int64_t *)calloc(CH_D.num_cards + 1, /* sizeof (off_t) */ 8);
 	if (CC_D.offsets == NULL || CH_D.offsets == NULL) {
 		fprintf(stderr, "out of memory\n");
 		exit(1);
@@ -173,6 +177,7 @@ main(ac, av)
 	printf("There were %d com. chest and %d chance cards\n",
 	    CC_D.num_cards, CH_D.num_cards);
 	exit(0);
+	return 0;
 }
 
 static void

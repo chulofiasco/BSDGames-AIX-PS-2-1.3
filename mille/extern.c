@@ -52,9 +52,9 @@ bool	Debug,			/* set if debugging code on		*/
 	Saved;			/* set if game just saved		*/
 
 char	Initstr[100];		/* initial string for error field	*/
-const char	*C_fmt = "%-18.18s",	/* format for printing cards	*/
-	*Fromfile = NULL,	/* startup file for game		*/
-	*const _cn[NUM_CARDS] = {	/* Card name buffer		*/
+char	C_fmt[] = "%-18.18s";	/* format for printing cards		*/
+const char	*Fromfile = NULL;	/* startup file for game		*/
+char	_cn[NUM_CARDS][15] = {	/* Card name buffer			*/
 		"",
 		"25",
 		"50",
@@ -65,7 +65,7 @@ const char	*C_fmt = "%-18.18s",	/* format for printing cards	*/
 		"Flat Tire",
 		"Accident",
 		"Stop",
-		"Speed Limit", 
+		"Speed Limit",
 		"Gasoline",
 		"Spare Tire",
 		"Repairs",
@@ -75,8 +75,7 @@ const char	*C_fmt = "%-18.18s",	/* format for printing cards	*/
 		"Puncture Proof",
 		"Driving Ace",
 		"Right of Way"
-	},
-	*const *C_name = &_cn[1];	/* Card names			*/
+	};				/* C_name = _cn+1 (see mille.h)		*/
 
 int	Card_no,		/* Card number for current move		*/
 	End,			/* End value for current hand		*/

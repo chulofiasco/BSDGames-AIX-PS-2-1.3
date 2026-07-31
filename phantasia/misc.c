@@ -5,7 +5,6 @@
  */
 
 #include "include.h"
-#undef bool
 #include <curses.h>
 
 
@@ -70,7 +69,7 @@ descrlocation(playerp, shortflag)
 	double  circle;		/* corresponding circle for coordinates */
 	int     quadrant;	/* quandrant of grid */
 	const char   *label;	/* pointer to place name */
-	static const char *const nametable[4][4] =	/* names of places */
+	static char nametable[4][4][24] =	/* names of places */
 	{
 		{"Anorien", "Ithilien", "Rohan", "Lorien"},
 		{"Gondor", "Mordor", "Dunland", "Rovanion"},
@@ -414,7 +413,7 @@ displaystats()
 void
 allstatslist()
 {
-	static const char *const flags[] = /* to print value of some bools */
+	static char flags[][8] = /* to print value of some bools */
 	{
 		"False",
 		" True"
@@ -450,7 +449,7 @@ descrtype(playerp, shortflag)
 	phbool  shortflag;
 {
 	int     type;		/* for caluculating result subscript */
-	static const char *const results[] =/* description table */
+	static char results[][20] =/* description table */
 	{
 		" Magic User", " MU",
 		" Fighter", " F ",
@@ -582,7 +581,7 @@ death(how)
 {
 	FILE   *fp;		/* for updating various files */
 	int     ch;		/* input */
-	static const char *const deathmesg[] =
+	static char deathmesg[][64] =
 	/* add more messages here, if desired */
 	{
 		"You have been wounded beyond repair.  ",

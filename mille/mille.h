@@ -44,6 +44,15 @@
 # include	<termios.h>
 # include	<unistd.h>
 
+/* AIX 1.2 has no stdbool.h and no ssize_t in sys/types.h */
+#ifndef bool
+#define bool int
+#endif
+#ifndef _SSIZE_T_DEFINED
+typedef int ssize_t;
+#define _SSIZE_T_DEFINED
+#endif
+
 /*
  * @(#)mille.h	1.1 (Berkeley) 4/1/82
  */
@@ -212,7 +221,10 @@ typedef struct {
 extern bool	Debug, Finished, Next, On_exit, Order, Saved;
 
 extern char	Initstr[];
-extern const char	*C_fmt, *const *C_name, *Fromfile;
+extern char	C_fmt[];
+extern char	_cn[NUM_CARDS][15];
+#define		C_name	(_cn + 1)
+extern const char	*Fromfile;
 
 extern int	Card_no, End, Handstart, Movetype, Numgos,
 		Numneed[], Numseen[NUM_CARDS], Play, Window;
@@ -248,7 +260,7 @@ int	getyn(int);
 int	haspicked(const PLAY *);
 void	init(void);
 int	is_repair(CARD);
-int	main(int, char **);
+int	main(int, char *[]);
 void	newboard(void);
 void	newscore(void);
 int	onecard(const PLAY *);

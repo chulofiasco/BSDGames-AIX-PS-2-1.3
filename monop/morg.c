@@ -45,7 +45,7 @@ __RCSID("$NetBSD: morg.c,v 1.10 2004/01/27 20:30:30 jsm Exp $");
  */
 
 static const char	*names[MAX_PRP+2],
-		*const morg_coms[]	= {
+		*morg_coms[]	= {
 			"quit",		/*  0 */
 			"print",	/*  1 */
 			"where",	/*  2 */

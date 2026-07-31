@@ -73,7 +73,7 @@ void	awardtreasure(void);
 void	battleplayer(long);
 void	callmonster(int);
 void	cancelmonster(void);
-void	catchalarm(int) __attribute__((__noreturn__));
+void	catchalarm(int);
 void	changestats(bool);
 void	checkbattle(void);
 void	checktampered(void);

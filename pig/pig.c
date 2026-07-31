@@ -90,7 +90,7 @@ main(argc, argv)
 		}
 		(void)putchar(ch);
 	}
-	exit(0);
+	return 0;
 }
 
 void

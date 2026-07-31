@@ -1,3 +1,4 @@
+.TH QUIZ 6 "May 31, 1993"
 .\"	$NetBSD: quiz.6,v 1.10 2003/08/07 09:37:34 agc Exp $
 .\"
 .\" Copyright (c) 1991, 1993
@@ -32,88 +33,88 @@
 .\"
 .\"	@(#)quiz.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt QUIZ 6
-.Os
-.Sh NAME
-.Nm quiz
-.Nd random knowledge tests
-.Sh SYNOPSIS
-.Nm
-.Op Fl t
-.Op Fl i Ar file
-.Op Ar question answer
-.Sh DESCRIPTION
+.SH NAME
+quiz \- random knowledge tests
+.SH SYNOPSIS
+.B quiz
+[\fB\-t\fP]
+[\fB\-i\fP \fIfile\fP]
+[\fIquestion\fP answer]
+.SH DESCRIPTION
 The
-.Nm
+.B quiz
 utility tests your knowledge of random facts.
 It has a database of subjects from which you can choose.
 With no arguments,
-.Nm
+.B quiz
 displays the list of available subjects.
-.Pp
+.PP
 The options are as follows:
-.Bl -tag -width indent
-.It Fl t
+.TP
+\fB\-t\fP
 Use tutorial mode, in which questions are repeated later if you didn't get
 them right the first time, and new questions are presented less frequently
 to help you learn the older ones.
-.It Fl i
+.TP
+\fB\-i\fP
 Specify an alternative index file.
-.El
-.Pp
+.PP
+.PP
 Subjects are divided into categories.
 You can pick any two categories from the same subject.
-.Nm
+.B quiz
 will ask questions from the first category and it expects answers from
 the second category.
 For example, the command
-.Dq quiz victim killer
+"quiz victim killer"
 asks questions which are the names of victims, and expects you to answer
 with the cause of their untimely demise, whereas the command
-.Dq quiz killer victim
+"quiz killer victim"
 works the other way around.
-.Pp
+.PP
 If you get the answer wrong,
-.Nm
+.B quiz
 lets you try again.
 To see the right answer, enter a blank line.
-.Ss Index and Data File Syntax
+.SS Index and Data File Syntax
 The index and data files have a similar syntax.
 Lines in them consist of several categories separated by colons.
 The categories are regular expressions formed using the following
 meta-characters:
-.sp
-.Bl -tag -width "pat|pat" -compact -offset indent
-.It pat|pat
+.'"' mdoc: .sp 
+.TP
+pat|pat
 alternative patterns
-.It {pat}
+.TP
+{pat}
 optional pattern
-.It [pat]
+.TP
+[pat]
 delimiters, as in pat[pat|pat]pat
-.El
-.Pp
+.PP
+.PP
 In an index file, each line represents a subject.
 The first category in each subject is the pathname of the data file for
 the subject.
 The remaining categories are regular expressions for the titles of each
 category in the subject.
-.Pp
+.PP
 In data files, each line represents a question/answer set.
 Each category is the information for the question/answer for that category.
-.Pp
+.PP
 The backslash character (``\e'') is used to quote syntactically significant
 characters, or at the end of a line to signify that a continuation line
 follows.
-.Pp
+.PP
 If either a question or its answer is empty,
-.Nm
+.B quiz
 will refrain from asking it.
-.Sh FILES
-.Bl -tag -width @quiz_dir@ -compact
-.It Pa @quiz_dir@
+.SH FILES
+.TP
+\fI@quiz_dir@\fP
 The default index and data files.
-.El
-.Sh BUGS
-.Nm
+.PP
+.SH BUGS
+.B quiz
 is pretty cynical about certain subjects.
+

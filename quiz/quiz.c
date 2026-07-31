@@ -61,7 +61,7 @@ __RCSID("$NetBSD: quiz.c,v 1.20 2004/01/27 20:30:30 jsm Exp $");
 #include "quiz.h"
 #include "pathnames.h"
 
-static QE qlist;
+static QENTRY qlist;
 static int catone, cattwo, tflag;
 static u_int qsize;
 
@@ -116,7 +116,7 @@ main(argc, argv)
 	default:
 		usage();
 	}
-	exit(0);
+	return 0;
 }
 
 void
@@ -124,7 +124,7 @@ get_file(file)
 	const char *file;
 {
 	FILE *fp;
-	QE *qp;
+	QENTRY *qp;
 	size_t len;
 	char *lp;
 
@@ -144,7 +144,7 @@ get_file(file)
 		if (qp->q_text && qp->q_text[strlen(qp->q_text) - 1] == '\\')
 			qp->q_text = appdstr(qp->q_text, lp, len);
 		else {
-			if ((qp->q_next = malloc(sizeof(QE))) == NULL)
+			if ((qp->q_next = malloc(sizeof(QENTRY))) == NULL)
 				errx(1, "malloc");
 			qp = qp->q_next;
 			if ((qp->q_text = malloc(len + 1)) == NULL)
@@ -162,7 +162,7 @@ get_file(file)
 void
 show_index()
 {
-	QE *qp;
+	QENTRY *qp;
 	const char *p, *s;
 	FILE *pf;
 	const char *pager;
@@ -196,7 +196,7 @@ void
 get_cats(cat1, cat2)
 	char *cat1, *cat2;
 {
-	QE *qp;
+	QENTRY *qp;
 	int i;
 	const char *s;
 
@@ -228,7 +228,7 @@ get_cats(cat1, cat2)
 void
 quiz()
 {
-	QE *qp;
+	QENTRY *qp;
 	int i;
 	size_t len;
 	u_int guesses, rights, wrongs;

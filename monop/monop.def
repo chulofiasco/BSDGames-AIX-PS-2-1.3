@@ -40,7 +40,7 @@ bool	fixing,			/* set if fixing up debt		*/
 	spec;			/* set if moving by card to RR or UTIL	*/
 
 const char	*name_list[MAX_PL+2],	/* list of players' names	*/
-	*const comlist[]	= {	/* list of normal commands 	*/
+	*comlist[]	= {	/* list of normal commands 	*/
 	"quit",		/*  0 */	"print",	/*  1 */
 	"where",	/*  2 */	"own holdings",	/*  3 */
 	"holdings",	/*  4 */	"mortgage",	/*  5 */
@@ -52,14 +52,14 @@ const char	*name_list[MAX_PL+2],	/* list of players' names	*/
 	"",		/* 16 */
 	0
 	},
-	*const yncoms[]	= {	/* list of commands for yes/no answers	*/
+	*yncoms[]	= {	/* list of commands for yes/no answers	*/
 	"yes",		/*  0 */	"no",		/*  1 */
 	"quit",		/*  2 */	"print",	/*  3 */
 	"where",	/*  4 */	"own holdings",	/*  5 */
 	"holdings",	/*  6 */
 	0
 	},
-	*const lucky_mes[]	= {	/* "got lucky" messages		*/
+	*lucky_mes[]	= {	/* "got lucky" messages		*/
 	"You lucky stiff",		"You got lucky",
 	"What a lucky person!",		"You must have a 4-leaf clover",
 	"My, my!  Aren't we lucky!",	"Luck smiles upon you",
@@ -76,7 +76,7 @@ int	player,			/* current player number		*/
 	num_luck	= sizeof lucky_mes / sizeof (char *);
 
 /* list of command functions		*/
-void (*const func[])(void) = { /* array of function calls for commands */
+void (*func[])(void) = { /* array of function calls for commands */
 	quit,			/* quit game		|*  0 *|	*/
 	printboard,		/* print board		|*  1 *|	*/
 	where,			/* where players are	|*  2 *|	*/

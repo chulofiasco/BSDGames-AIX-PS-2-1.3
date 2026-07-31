@@ -41,6 +41,10 @@ __RCSID("$NetBSD: varpush.c,v 1.8 2004/01/27 20:30:30 jsm Exp $");
 # include	<paths.h>
 # include	"mille.h"
 
+/* AIX 1.2: strerror/readv not declared in system headers */
+extern char *strerror(int);
+extern ssize_t readv(int, const struct iovec *, int);
+
 /*
  * @(#)varpush.c	1.1 (Berkeley) 4/1/82
  */
@@ -59,7 +63,7 @@ varpush(file, func)
 #endif
 {
 	int		temp;
-	const struct iovec vec[] = {
+	static struct iovec vec[] = {
 		{ (void *) &Debug, sizeof Debug },
 		{ (void *) &Finished, sizeof Finished },
 		{ (void *) &Order, sizeof Order },

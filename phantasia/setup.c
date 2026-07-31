@@ -9,7 +9,7 @@
 #include "include.h"
 
 int main(int, char *[]);
-void Error(const char *, const char *) __attribute__((__noreturn__));
+void Error(const char *, const char *);
 double drandom(void);
 
 /**/
@@ -44,7 +44,7 @@ double drandom(void);
 /
 / ************************************************************************/
 
-static const char *const files[] = {		/* all files to create */
+static char files[][64] = {		/* all files to create */
 	_PATH_MONST,
 	_PATH_PEOPLE,
 	_PATH_MESS,
@@ -53,22 +53,24 @@ static const char *const files[] = {		/* all files to create */
 	_PATH_GOLD,
 	_PATH_VOID,
 	_PATH_SCORE,
-	NULL,
+	""
 };
 
-const char *monsterfile = "monsters.asc";
+char *monsterfile;
 
 int
 main(argc, argv)
 	int argc;
 	char *argv[];
 {
-	const char *const *filename; /* for pointing to file names */
+	int		fi;		/* index into files[] */
 	int		fd;		/* file descriptor */
 	FILE		*fp;			/* for opening files */
 	struct stat	fbuf;		/* for getting files statistics */
 	int ch;
-	char *path;
+	char *path = NULL;
+
+	monsterfile = "monsters.asc";
 
 	while ((ch = getopt(argc, argv, "m:")) != -1)
 		switch(ch) {
@@ -87,11 +89,10 @@ main(argc, argv)
     umask(0117);		/* only owner can read/write created files */
 
     /* try to create data files */
-    filename = &files[0];
-    while (*filename != NULL)
+    for (fi = 0; files[fi][0]; fi++)
 	/* create each file */
 	{
-	path = strrchr(*filename, '/') + 1;
+	path = strrchr(files[fi], '/') + 1;
 	if (stat(path, &fbuf) == 0)
 	    /* file exists; remove it */
 	    {
@@ -106,7 +107,6 @@ main(argc, argv)
 
 	close(fd);			/* close newly created file */
 
-	++filename;			/* process next file */
 	}
 
     /* Initialize an empty file placeholder for the grail location. */
@@ -190,7 +190,7 @@ main(argc, argv)
 #endif
 #endif
 
-    exit(0);
+    return 0;
     /*NOTREACHED*/
 }
 /**/

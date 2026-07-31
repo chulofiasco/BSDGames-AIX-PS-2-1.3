@@ -59,15 +59,14 @@ static void	putppt(int);
 void
 usage(void)
 {
-	extern char *__progname;
-	fprintf(stderr, "usage: %s [-d] [string ...]\n", __progname);
+	fprintf(stderr, "usage: %s [-d] [string ...]\n", getprogname());
 	exit(1);
 }
 
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	char *p, buf[132];
 	int c, start, neednl, dflag;
@@ -127,7 +126,7 @@ main(argc, argv)
 			putppt(c);
 		(void) puts(EDGE);
 	}
-	exit(0);
+	return 0;
 }
 
 static void

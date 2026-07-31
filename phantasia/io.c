@@ -5,7 +5,6 @@
  */
 
 #include "include.h"
-#undef bool
 #include <curses.h>
 
 void
@@ -240,7 +239,7 @@ getanswer(choices, def)
 
 void
 catchalarm(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 	longjmp(Timeoenv, 1);
 }

@@ -48,6 +48,22 @@ __RCSID("$NetBSD: misc.c,v 1.11 2003/08/07 09:37:25 agc Exp $");
 #include	"unctrl.h"
 #endif
 
+#undef	CTRL
+#define	CTRL(c)		(c - 'A' + 1)
+
+/* AIX 1.2 curses has no vwprintw; implement via vsprintf + waddstr */
+#ifndef vwprintw
+static int
+vwprintw(win, fmt, ap)
+	WINDOW	*win;
+	const char	*fmt;
+	va_list		ap;
+{
+	char	buf[1024];
+	vsprintf(buf, fmt, ap);
+	return waddstr(win, buf);
+}
+#endif
 
 /*
  * @(#)misc.c	1.2 (Berkeley) 3/28/83

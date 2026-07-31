@@ -40,7 +40,7 @@ __RCSID("$NetBSD: print.c,v 1.8 2004/01/27 20:30:30 jsm Exp $");
 
 #include "monop.ext"
 
-static const char *header = "Name      Own      Price Mg # Rent";
+static const char header[] = "Name      Own      Price Mg # Rent";
 
 static void printmorg(const SQUARE *);
 

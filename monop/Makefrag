@@ -26,13 +26,13 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-monop_CLEANFILES := cards.pck
-monop_DIRS := $(GAMESDIR) $(MAN6DIR) $(shell dirname $(MONOP_CARDSFILE))
+monop_CLEANFILES = cards.pck
+monop_DIRS = $(GAMESDIR) $(MAN6DIR) $(SHAREDIR)
 
 monop_all:	monop/monop monop/cards.pck monop/monop.6
 
 monop/cards.pck:	monop/initdeck monop/cards.inp
-	$< monop/cards.inp $@
+	monop/initdeck monop/cards.inp monop/cards.pck
 
 monop_install:	monop_all
 	$(INSTALL_BINARY) monop/monop $(INSTALL_PREFIX)$(GAMESDIR)/monop

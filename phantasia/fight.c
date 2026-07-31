@@ -5,7 +5,6 @@
  */
 
 #include "include.h"
-#undef bool
 #include <curses.h>
 
 void

@@ -26,10 +26,10 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-phantasia_DIRS := $(GAMESDIR) $(MAN6DIR) $(PHANTASIA_DIR)
-phantasia_VFILES1 := gold lastdead mess monsters motd void
-phantasia_VFILES2 := scoreboard characs
-phantasia_CLEANFILES := $(phantasia_VFILES1) $(phantasia_VFILES2) scorefiles.stamp
+phantasia_DIRS = $(GAMESDIR) $(MAN6DIR) $(PHANTASIA_DIR)
+phantasia_VFILES1 = gold lastdead mess monsters motd void
+phantasia_VFILES2 = scoreboard characs
+phantasia_CLEANFILES = $(phantasia_VFILES1) $(phantasia_VFILES2) scorefiles.stamp
 
 phantasia_all:	phantasia/phantasia phantasia/phantasia.6 phantasia/scorefiles.stamp
 
@@ -44,7 +44,7 @@ phantasia_install:	phantasia_all
 	    cp phantasia/$$f $(INSTALL_PREFIX)$(PHANTASIA_DIR)/$$f; \
 	    $(INSTALL_SCORE_FILE) $(PHANTASIA_DIR)/$$f; done)
 	(set -e; for f in $(phantasia_VFILES2); do \
-	    if [ ! -e $(PHANTASIA_DIR)/$$f ]; then \
+	    if [ ! -f $(INSTALL_PREFIX)$(PHANTASIA_DIR)/$$f ]; then \
 		cp phantasia/$$f $(INSTALL_PREFIX)$(PHANTASIA_DIR)/$$f; fi; done; \
 	    $(INSTALL_SCORE_FILE) $(PHANTASIA_DIR)/scoreboard; \
 	    $(INSTALL_SCORE_FILE) -p $(PHANTASIA_DIR)/characs)

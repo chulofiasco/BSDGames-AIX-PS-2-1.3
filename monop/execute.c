@@ -47,6 +47,9 @@ __RCSID("$NetBSD: execute.c,v 1.11 2004/01/27 20:30:30 jsm Exp $");
 #include <sys/time.h>
 #include <time.h>
 
+/* AIX 1.2: sbrk not declared in any system header */
+extern char *sbrk(int);
+
 #define	SEGSIZE	8192
 
 typedef	struct stat	STAT;

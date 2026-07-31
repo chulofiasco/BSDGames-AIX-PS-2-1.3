@@ -1,3 +1,4 @@
+.TH POM 6 "January 9, 1999"
 .\"	$NetBSD: pom.6,v 1.12 2003/08/07 09:37:32 agc Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -29,43 +30,40 @@
 .\"
 .\"	@(#)pom.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd January 9, 1999
-.Dt POM 6
-.Os
-.Sh NAME
-.Nm pom
-.Nd display the phase of the moon
-.Sh SYNOPSIS
-.Nm
-.Op [[[[[cc]yy]mm]dd]HH]
-.Sh DESCRIPTION
+.SH NAME
+pom \- display the phase of the moon
+.SH SYNOPSIS
+.B pom
+[[[[[[cc]yy]mm]dd]HH]]
+.SH DESCRIPTION
 The
-.Nm
+.B pom
 utility displays the current phase of the moon.
 Useful for selecting software completion target dates and predicting
 managerial behavior.
-.Pp
-.Bl -tag -width [[[[[cc]yy]mm]dd]HH]
-.It Ar [[[[[cc]yy]mm]dd]HH]
+.PP
+.TP
+\fI[[[[[cc]yy]mm]dd]HH]\fP
 Display the phase of the moon for a given time.
 The format is similar to the canonical representation used by
-.Xr date 1 .
-.El
-.Sh SEE ALSO
-.Xr date 1
-.Sh AUTHOR
-.Nm
+date(1) .
+.PP
+.SH SEE ALSO
+date(1)
+.SH AUTHOR
+.B pom
 was written by
-.An Keith E. Brandt .
-.Sh BUGS
+Keith E. Brandt .
+.SH BUGS
 Times must be within range of the
-.Ux
+UNIX
 epoch.
-.Pp
+.PP
 This program does not allow for the difference between the TDT and
 UTC timescales (about one minute at the time of writing).
-.Sh ACKNOWLEDGEMENTS
+.SH ACKNOWLEDGEMENTS
 This program is based on algorithms from
 .%B Practical Astronomy with Your Calculator, Third Edition
 by Peter Duffett-Smith
-.Aq pjds@mrao.cam.ac.uk .
+<pjds@mrao.cam.ac.uk .>
+

@@ -107,8 +107,10 @@ main(argc, argv)
 		err(1, "time");
 	if (argc > 1) {
 		tmpt = parsetime(argv[1]);
-		strftime(buf, sizeof(buf), "%a %Y %b %e %H:%M:%S (%Z)",
+		strftime(buf, sizeof(buf), "%a %Y %b %d %H:%M:%S (%Z)",
 			localtime(&tmpt));
+		if (buf[13] == '0')
+			buf[13] = ' ';
 		printf("%s:  ", buf);
 	} else {
 		tmpt = now;
@@ -145,7 +147,7 @@ main(argc, argv)
 				    today);
 		}
 	}
-	exit(0);
+	return 0;
 }
 
 /*

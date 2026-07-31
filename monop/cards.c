@@ -50,9 +50,9 @@ __RCSID("$NetBSD: cards.c,v 1.14 2004/01/27 20:30:30 jsm Exp $");
 #define	GOJF	'F'	/* char for get-out-of-jail-free cards	*/
 
 #ifndef DEV
-static const char	*cardfile	= _PATH_CARDS;
+static const char	cardfile[]	= _PATH_CARDS;
 #else
-static const char	*cardfile	= "cards.pck";
+static const char	cardfile[]	= "cards.pck";
 #endif
 
 static FILE	*deckf;

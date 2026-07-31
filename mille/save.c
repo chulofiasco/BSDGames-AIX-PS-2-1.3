@@ -46,6 +46,11 @@ __RCSID("$NetBSD: save.c,v 1.11 2003/08/07 09:37:26 agc Exp $");
 #include "unctrl.h"
 #endif
 
+/* AIX 1.2: strerror/writev/readv not declared in system headers */
+extern char *strerror(int);
+extern ssize_t writev(int, const struct iovec *, int);
+extern ssize_t readv(int, const struct iovec *, int);
+
 /*
  * @(#)save.c	1.2 (Berkeley) 3/28/83
  */

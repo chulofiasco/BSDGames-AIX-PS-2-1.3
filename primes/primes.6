@@ -1,3 +1,4 @@
+.TH PRIMES 6 "February 8, 2004"
 .\"	$NetBSD: primes.6,v 1.2 2004/02/09 23:25:47 wiz Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -37,53 +38,50 @@
 .\"
 .\"   chongo <for a good prime call: 391581 * 2^216193 - 1> /\oo/\
 .\"
-.Dd February 8, 2004
-.Dt PRIMES 6
-.Os
-.Sh NAME
-.Nm primes
-.Nd generate primes
-.Sh SYNOPSIS
-.Nm primes
-.Op Ar start Op Ar stop
-.Sh DESCRIPTION
+.SH NAME
+primes \- generate primes
+.SH SYNOPSIS
+.B primes
+[\fIstart\fP Op \fIstop\fP]
+.SH DESCRIPTION
 The
-.Nm
+.B primes
 utility prints primes in ascending order, one per line, starting
 at or above
-.Ar start
+\fIstart\fP
 and continuing until, but not including
-.Ar stop .
+\fIstop .\fP
 The
-.Ar start
+\fIstart\fP
 value must be at least 0 and not greater than
-.Ar stop .
+\fIstop .\fP
 The
-.Ar stop
+\fIstop\fP
 value must not be greater than 4294967295.
 The default value of
-.Ar stop
+\fIstop\fP
 is 4294967295.
-.Pp
+.PP
 When the
-.Nm
+.B primes
 utility is invoked with no arguments,
-.Ar start
+\fIstart\fP
 is read from standard input.
-.Ar stop
+\fIstop\fP
 is taken to be 4294967295.
 The
-.Ar start
+\fIstart\fP
 value may be preceded by a single
-.Sq \&+ .
+'\&+ .'
 The
-.Ar start
+\fIstart\fP
 value is terminated by a non-digit character (such as a newline).
 The input line must not be longer than 255 characters.
-.Sh DIAGNOSTICS
+.SH DIAGNOSTICS
 Out of range or invalid input results in
 an appropriate error message
 being written to standard error.
-.Sh BUGS
-.Nm
+.SH BUGS
+.B primes
 won't get you a world record.
+
