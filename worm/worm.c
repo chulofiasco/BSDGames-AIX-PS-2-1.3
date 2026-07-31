@@ -78,12 +78,13 @@ int score = 0;
 int start_len = LENGTH;
 int visible_len;
 int lastch;
+int prizevalue = 0;		/* value of current prize on screen */
 char outbuf[BUFSIZ];
 
-void	crash(void) __attribute__((__noreturn__));
-void	display(const struct body *, char);
+void	crash(void);
+void	display(const struct body *, int);
 int	main(int, char **);
-void	leave(int) __attribute__((__noreturn__));
+void	leave(int);
 void	life(void);
 void	newpos(struct body *);
 void	process(int);
@@ -91,6 +92,16 @@ void	prize(void);
 int	rnd(int);
 void	setup(void);
 void	wake(int);
+
+static int
+isoccupied(int y, int x)
+{
+	struct body *bp;
+	for (bp = head; bp != NULL; bp = bp->prev)
+		if (bp->y == y && bp->x == x)
+			return 1;
+	return 0;
+}
 
 int
 main(argc, argv)
@@ -100,6 +111,9 @@ main(argc, argv)
 
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
+
+	if (argc < 0)
+		return 0;
 
 	setbuf(stdout, outbuf);
 	srand(getpid());
@@ -192,7 +206,7 @@ life()
 void
 display(pos, chr)
 	const struct body *pos;
-	char chr;
+	int chr;
 {
 	wmove(tv, pos->y, pos->x);
 	waddch(tv, chr);
@@ -213,7 +227,7 @@ leave(dummy)
 
 void
 wake(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 	signal(SIGALRM, wake);
 	fflush(stdout);
@@ -241,8 +255,8 @@ newpos(bp)
 	do {
 		bp->y = rnd(LINES-3)+ 1;
 		bp->x = rnd(COLS-3) + 1;
-		wmove(tv, bp->y, bp->x);
-	} while(winch(tv) != ' ');
+	} while (isoccupied(bp->y, bp->x));
+	wmove(tv, bp->y, bp->x);
 }
 
 void
@@ -251,6 +265,7 @@ prize()
 	int value;
 
 	value = rnd(9) + 1;
+	prizevalue = value;
 	newpos(&goody);
 	waddch(tv, value+'0');
 	wrefresh(tv);
@@ -320,7 +335,16 @@ process(ch)
 	else growing--;
 	display(head, BODY);
 	wmove(tv, y, x);
-	if (isdigit(ch = winch(tv)))
+	/* Replace winch(tv) - AIX 1.2 curses compat: check data structures */
+	if (y == goody.y && x == goody.x)
+		ch = prizevalue + '0';
+	else if (y < 1 || y > LINES-3 || x < 1 || x > COLS-3)
+		ch = '*';
+	else if (isoccupied(y, x))
+		ch = 'o';
+	else
+		ch = ' ';
+	if (isdigit(ch))
 	{
 		growing += ch-'0';
 		prize();

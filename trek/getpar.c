@@ -101,9 +101,9 @@ double getfltpar(s)
 
 const struct cvntab	Yntab[] =
 {
-	{ "y",	"es",	(cmdfun)1,	1 },
-	{ "n",	"o",	(cmdfun)0,	0 },
-	{ NULL,	NULL,	NULL,		0 }
+	{ "y",	"es",	1L,	1 },
+	{ "n",	"o",	0L,	0 },
+	{ "",	"",	0L,	0 }
 };
 
 int
@@ -151,7 +151,7 @@ const struct cvntab *getcodpar(s, tab)
 		if (input[0] == '?' && input[1] == 0)
 		{
 			c = 4;
-			for (r = tab; r->abrev; r++)
+			for (r = tab; r->abrev[0]; r++)
 			{
 				strcpy(input, r->abrev);
 				strcat(input, r->full);
@@ -167,7 +167,7 @@ const struct cvntab *getcodpar(s, tab)
 		}
 
 		/* search for in table */
-		for (r = tab; r->abrev; r++)
+		for (r = tab; r->abrev[0]; r++)
 		{
 			p = input;
 			for (q = r->abrev; *q; q++)
@@ -184,7 +184,7 @@ const struct cvntab *getcodpar(s, tab)
 		}
 
 		/* check for not found */
-		if (!r->abrev)
+		if (!r->abrev[0])
 		{
 			printf("invalid input; ? for valid inputs\n");
 			skiptonl(0);
@@ -296,7 +296,7 @@ testterm()
 
 int
 readdelim(d)
-char	d;
+int	d;
 {
 	char	c;
 

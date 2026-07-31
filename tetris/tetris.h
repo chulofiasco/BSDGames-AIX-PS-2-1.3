@@ -171,4 +171,4 @@ extern int	showpreview;
 
 int	fits_in(const struct shape *, int);
 void	place(const struct shape *, int, int);
-void	stop(const char *) __attribute__((__noreturn__));
+void	stop(const char *);

@@ -77,8 +77,8 @@ int	showpreview;
 static	void	elide(void);
 static	void	setup_board(void);
 	int	main(int, char **);
-	void	onintr(int) __attribute__((__noreturn__));
-	void	usage(void) __attribute__((__noreturn__));
+	void	onintr(int);
+	void	usage(void);
 
 /*
  * Set up the initial board.  The bottom display row is completely set,
@@ -127,7 +127,7 @@ elide()
 int
 main(argc, argv)
 	int argc;
-	char *argv[];
+	char **argv;
 {
 	int pos, c;
 	const char *keys;
@@ -317,12 +317,12 @@ main(argc, argv)
 
 	showscores(level);
 
-	exit(0);
+	return 0;
 }
 
 void
 onintr(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	scr_clear();
 	scr_end();

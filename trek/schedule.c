@@ -56,8 +56,8 @@ __RCSID("$NetBSD: schedule.c,v 1.5 2003/08/07 09:37:53 agc Exp $");
 struct event *schedule(type, offset, x, y, z)
 int	type;
 double	offset;
-char	x, y;
-char	z;
+int	x, y;
+int	z;
 {
 	struct event	*e;
 	int		i;

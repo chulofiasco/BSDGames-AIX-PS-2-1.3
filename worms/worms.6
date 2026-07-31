@@ -1,3 +1,4 @@
+.TH WORMS 6 "May 31, 1993"
 .\"	$NetBSD: worms.6,v 1.13 2003/08/07 09:37:57 agc Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -29,38 +30,41 @@
 .\"
 .\"	@(#)worms.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt WORMS 6
-.Sh NAME
-.Nm worms
-.Nd animate worms on a display terminal
-.Sh SYNOPSIS
-.Nm
-.Op Fl ft
-.Op Fl d Ar delay
-.Op Fl l Ar length
-.Op Fl n Ar number
-.Sh DESCRIPTION
+.SH NAME
+.SH NAME
+worms \- animate worms on a display terminal
+.SH SYNOPSIS
+.B worms
+[\fB\-ft\fP]
+[\fB\-d\fP \fIdelay\fP]
+[\fB\-l\fP \fIlength\fP]
+[\fB\-n\fP \fInumber\fP]
+.SH DESCRIPTION
 A
-.Ux
+UNIX
 version of the DEC-2136 program
-.Dq worms .
-.Pp
+"worms ."
+.PP
 The options are as follows:
-.Bl -tag -width indent
-.It Fl f
+.TP
+\fB\-f\fP
 Makes a
-.Dq field
+"field"
 for the worm(s) to eat.
-.It Fl t
+.TP
+\fB\-t\fP
 Makes each worm leave a trail behind it.
-.It Fl d
+.TP
+\fB\-d\fP
 Specifies a delay, in milliseconds, between each update.
 This is useful for fast terminals.
 Reasonable values are around 20-200.
 The default is 0.
-.It Fl l
+.TP
+\fB\-l\fP
 Specifies a length for each worm; the default is 16.
-.It Fl n
+.TP
+\fB\-n\fP
 Specifies the number of worms; the default is 3.
-.El
+.PP
+

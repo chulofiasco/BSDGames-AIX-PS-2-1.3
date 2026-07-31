@@ -26,7 +26,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-wump_DIRS := $(GAMESDIR) $(MAN6DIR) $(shell dirname $(WUMP_INFOFILE))
+wump_DIRS = $(GAMESDIR) $(MAN6DIR) $(SHAREDIR)
 
 wump_all:	wump/wump wump/wump.6 wump/wump.info
 

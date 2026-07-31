@@ -185,7 +185,7 @@ teleport:
 			flush_in();
 			goto ret;
 		  case CTRL('L'):
-			refresh();
+			wrefresh(curscr);
 			break;
 		  case EOF:
 			break;

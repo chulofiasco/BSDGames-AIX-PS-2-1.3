@@ -49,7 +49,7 @@ __RCSID("$NetBSD: impulse.c,v 1.6 2003/08/07 09:37:52 agc Exp $");
 /*ARGSUSED*/
 void
 impulse(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		course;
 	int		power;

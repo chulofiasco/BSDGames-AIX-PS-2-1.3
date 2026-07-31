@@ -34,9 +34,9 @@
 typedef void (*cmdfun)(int);
 struct cvntab		/* used for getcodpar() parameter list */
 {
-	const char	*abrev;
-	const char	*full;
-	cmdfun	value;
+	char	abrev[12];
+	char	full[16];
+	long	value;
 	int	value2;
 };
 

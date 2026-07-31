@@ -53,7 +53,7 @@ table(struct ship *from, struct ship *on, int rig, int shot, int hittable, int r
 	int crew[3];
 	int n;
 	int rigg[4];
-	const char *message;
+	const char *message = NULL;
 	const struct Tables *tp;
 
 	pc = on->file->pcrew;

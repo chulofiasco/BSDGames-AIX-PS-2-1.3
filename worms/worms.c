@@ -179,8 +179,8 @@ static struct	worm {
 
 volatile sig_atomic_t sig_caught = 0;
 
-int	 main(int, char **);
-void	 nomem(void) __attribute__((__noreturn__));
+int	 main(int, char *[]);
+void	 nomem(void);
 void	 onsig(int);
 
 int
@@ -237,8 +237,8 @@ main(argc, argv)
 			exit(1);
 		}
 
-	if (!(worm = malloc((size_t)number *
-	    sizeof(struct worm))) || !(mp = malloc((size_t)1024)))
+	if (!(worm = (struct worm *)malloc((size_t)number *
+	    sizeof(struct worm))) || !(mp = (char *)malloc((size_t)1024)))
 		nomem();
 	initscr();
 	curs_set(0);
@@ -246,9 +246,9 @@ main(argc, argv)
 	LI = LINES;
 	last = CO - 1;
 	bottom = LI - 1;
-	if (!(ip = malloc((size_t)(LI * CO * sizeof(short)))))
+	if (!(ip = (short *)malloc((size_t)(LI * CO * sizeof(short)))))
 		nomem();
-	if (!(ref = malloc((size_t)(LI * sizeof(short *)))))
+	if (!(ref = (short **)malloc((size_t)(LI * sizeof(short *)))))
 		nomem();
 	for (n = 0; n < LI; ++n) {
 		ref[n] = ip;
@@ -258,12 +258,12 @@ main(argc, argv)
 		*ip++ = 0;
 	for (n = number, w = &worm[0]; --n >= 0; w++) {
 		w->orientation = w->head = 0;
-		if (!(ip = malloc((size_t)(length * sizeof(short)))))
+		if (!(ip = (short *)malloc((size_t)(length * sizeof(short)))))
 			nomem();
 		w->xpos = ip;
 		for (x = length; --x >= 0;)
 			*ip++ = -1;
-		if (!(ip = malloc((size_t)(length * sizeof(short)))))
+		if (!(ip = (short *)malloc((size_t)(length * sizeof(short)))))
 			nomem();
 		w->ypos = ip;
 		for (y = length; --y >= 0;)
@@ -343,7 +343,7 @@ main(argc, argv)
 
 void
 onsig(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	sig_caught = 1;
 }

@@ -92,16 +92,16 @@ __RCSID("$NetBSD: computer.c,v 1.10 2004/01/27 20:30:30 jsm Exp $");
 
 struct cvntab	Cputab[] =
 {
-	{ "ch",		"art",			(cmdfun)1,		0 },
-	{ "t",		"rajectory",		(cmdfun)2,		0 },
-	{ "c",		"ourse",		(cmdfun)3,		0 },
-	{ "m",		"ove",			(cmdfun)3,		1 },
-	{ "s",		"core",			(cmdfun)4,		0 },
-	{ "p",		"heff",			(cmdfun)5,		0 },
-	{ "w",		"arpcost",		(cmdfun)6,		0 },
-	{ "i",		"mpcost",		(cmdfun)7,		0 },
-	{ "d",		"istresslist",		(cmdfun)8,		0 },
-	{ NULL,		NULL,			NULL,			0 }
+	{ "ch",		"art",			1L,	0 },
+	{ "t",		"rajectory",		2L,	0 },
+	{ "c",		"ourse",			3L,	0 },
+	{ "m",		"ove",			3L,	1 },
+	{ "s",		"core",			4L,	0 },
+	{ "p",		"heff",			5L,	0 },
+	{ "w",		"arpcost",		6L,	0 },
+	{ "i",		"mpcost",		7L,	0 },
+	{ "d",		"istresslist",		8L,	0 },
+	{ "",		"",			0L,	0 }
 };
 
 static int kalc(int, int, int, int, double *);
@@ -110,7 +110,7 @@ static void prkalc(int, double);
 /*ARGSUSED*/
 void
 computer(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		ix, iy;
 	int		i, j;

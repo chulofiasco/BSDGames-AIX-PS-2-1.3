@@ -70,7 +70,7 @@ struct xy	Visdelta[11] =
 /*ARGSUSED*/
 void
 visual(z)
-	int z __attribute__((__unused__));
+	int z;
 {
 	int		ix, iy;
 	int		co;

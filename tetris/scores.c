@@ -54,6 +54,12 @@
 #include <termcap.h>
 #include <unistd.h>
 
+extern char *getlogin();
+
+/* flock not available on AIX 1.2: use lockf (exclusive only) */
+#undef flock
+#define flock(fd, how) lockf((fd), F_LOCK, (off_t)0)
+
 #include "pathnames.h"
 #include "screen.h"
 #include "scores.h"
@@ -436,7 +442,7 @@ printem(level, offset, hs, n, me)
 				continue;
 			}
 			sp = &hs[item];
-			(void)snprintf(buf, sizeof(buf),
+			(void)sprintf(buf,
 			    "%3d%c %6d  %-11s (%6d on %d)",
 			    item + offset, sp->hs_time ? '*' : ' ',
 			    sp->hs_score * sp->hs_level,

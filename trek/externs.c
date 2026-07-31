@@ -64,7 +64,7 @@ const struct device	Device[NDEV] =
 	{ "*ERR 15*",		"Nobody" }
 };
 
-const char	*const Systemname[NINHAB] =
+char	Systemname[NINHAB][20] =
 {
 	"ERROR",
 	"Talos IV",

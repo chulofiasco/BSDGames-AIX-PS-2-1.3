@@ -56,6 +56,7 @@ __RCSID("$NetBSD: wump.c,v 1.17 2005/02/15 12:56:20 jsm Exp $");
 #include <err.h>
 #include <sys/types.h>
 #include <sys/file.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -133,7 +134,7 @@ void	pit_survive(void);
 int	shoot(char *);
 void	shoot_self(void);
 int	take_action(void);
-void	usage(void) __attribute__((__noreturn__));
+void	usage(void);
 void	wump_kill(void);
 int	wump_nearby(void);
 
@@ -143,6 +144,9 @@ main(argc, argv)
 	char **argv;
 {
 	int c;
+
+	if (argc < 0)
+		return 0;
 
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
@@ -243,14 +247,12 @@ quiver holds %d custom super anti-evil Wumpus arrows.  Good luck.\n",
 		} while (!take_action());
 
 		if (!getans("\nCare to play another game? (y-n) "))
-			exit(0);
+			return 0;
 		if (getans("In the same cave? (y-n) "))
 			clear_things_in_cave();
 		else
 			cave_init();
 	}
-	/* NOTREACHED */
-	return (0);
 }
 
 void

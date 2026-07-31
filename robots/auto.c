@@ -309,12 +309,12 @@ move_between(rob, hp)
 			 * close to the scrap in y
 			 */
 			dx = sign(My_pos.x - rob->x);
-			dy = sign(((slope * ((float) hp->x)) + cons) -
-				  ((float) hp->y));
+			dy = sign((int)(((slope * ((float) hp->x)) + cons) -
+				  ((float) hp->y)));
 		}
 		else {
-			dx = sign(((slope * ((float) hp->x)) + cons) -
-				  ((float) hp->y));
+			dx = sign((int)(((slope * ((float) hp->x)) + cons) -
+				  ((float) hp->y)));
 			dy = sign(My_pos.y - rob->y);
 		}
 	}

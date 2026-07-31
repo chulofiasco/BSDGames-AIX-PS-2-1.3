@@ -1,3 +1,4 @@
+.TH TETRIS 6 "May 31, 1993"
 .\"	$NetBSD: tetris.6,v 1.10 2003/08/07 09:37:48 agc Exp $
 .\"
 .\" Copyright (c) 1992, 1993
@@ -32,72 +33,78 @@
 .\"
 .\"	@(#)tetris.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt TETRIS 6
-.Os
-.Sh NAME
-.Nm tetris
-.Nd the game of tetris
-.Sh SYNOPSIS
-.Nm
-.Op Fl ps
-.Op Fl k Ar keys
-.Op Fl l Ar level
-.Sh DESCRIPTION
+.SH NAME
+tetris \- the game of tetris
+.SH SYNOPSIS
+.B tetris
+[\fB\-ps\fP]
+[\fB\-k\fP \fIkeys\fP]
+[\fB\-l\fP \fIlevel\fP]
+.SH DESCRIPTION
 The
-.Nm
+.B tetris
 command runs display-based game which must be played on a CRT terminal.
 The object is to fit the shapes together forming complete rows,
 which then vanish.
 When the shapes fill up to the top, the game ends.
 You can optionally select a level of play, or custom-select control keys.
-.Pp
+.PP
 The default level of play is 2.
-.Pp
+.PP
 The default control keys are as follows:
-.Pp
-.Bl -tag -width "xxspacexx" -compact -offset indent
-.It j
+.PP
+.TP
+j
 move left
-.It k
+.TP
+k
 rotate 1/4 turn counterclockwise
-.It l
+.TP
+l
 move right
-.It Aq space
+.TP
+<space>
 drop
-.It p
+.TP
+p
 pause
-.It q
+.TP
+q
 quit
-.El
-.Pp
+.PP
+.PP
 The options are as follows:
-.Bl -tag -width indent
-.It Fl k
+.TP
+\fB\-k\fP
 The default control keys can be changed using the
-.Fl k
+\fB\-k\fP
 option.
 The
-.Ar keys
+\fIkeys\fP
 argument must have the six keys in order, and, remember to quote any
 space or tab characters from the shell.
 For example:
-.sp
-.Dl "tetris -l 2 -k 'jkl pq'"
-.sp
+.'"' mdoc: .sp 
+.RS
+"tetris -l 2 -k 'jkl pq'"
+.RE
+.'"' mdoc: .sp 
 will play the default games, i.e. level 2 and with the default
 control keys.
 The current key settings are displayed at the bottom of the screen
 during play.
-.It Fl l
+.TP
+\fB\-l\fP
 Select a level of play.
-.It Fl s
+.TP
+\fB\-s\fP
 Display the top scores.
-.It Fl p
+.TP
+\fB\-p\fP
 Switch on previewing of the shape that will appear next.
-.El
-.Pp
-.Sh PLAY
+.PP
+.PP
+.SH PLAY
 At the start of the game, a shape will appear at the top of the screen,
 falling one square at a time.
 The speed at which it falls is determined directly by the level:
@@ -106,22 +113,24 @@ at level 9, they fall 9 times per second.
 (As the game goes on, things speed up,
 no matter what your initial selection.)
 When this shape
-.Dq touches down
+"touches down"
 on the bottom of the field, another will appear at the top.
-.Pp
+.PP
 You can move shapes to the left or right, rotate them counterclockwise,
 or drop them to the bottom by pressing the appropriate keys.
 As you fit them together, completed horizontal rows vanish,
 and any blocks above fall down to fill in.
 When the blocks stack up to the top of the screen, the game is over.
-.Sh SCORING
+.SH SCORING
 You get one point for every block you fit into the stack,
 and one point for every space a block falls when you hit the drop key.
 (Dropping the blocks is therefore a good way to increase your score.)
 Your total score is the product of the level of play
 and your accumulated
-.ie t points\(em200
-.el points -- 200
+.'"' mdoc: .ie t points\(em200
+t points\(em200
+.'"' mdoc: .el points -- 200
+points -- 200
 points on level 3 gives you a score of 600.
 Each player gets at most one entry on any level,
 for a total of nine scores in the high scores file.
@@ -129,29 +138,30 @@ Players who no longer have accounts are limited to one score.
 Also, scores over 5 years old are expired.
 The exception to these conditions is that the highest score on a given
 level is
-.Em always
+\fIalways\fP
 kept,
 so that following generations can pay homage to those who have
 wasted serious amounts of time.
-.Pp
+.PP
 The score list is produced at the end of the game.
 The printout includes each player's overall ranking,
 name, score, and how many points were scored on what level.
 Scores which are the highest on a given level
 are marked with asterisks
-.Dq * .
-.Sh FILES
-.Bl -tag -width @tetris_scorefile@xx
-.It @tetris_scorefile@
+"* ."
+.SH FILES
+.TP
+@tetris_scorefile@
 high score file
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 The higher levels are unplayable without a fast terminal connection.
-.Sh AUTHORS
+.SH AUTHORS
 Adapted from a 1989 International Obfuscated C Code Contest winner by
 Chris Torek and Darren F. Provine.
-.Pp
+.PP
 Manual adapted from the original entry written by Nancy L. Tinkham and
 Darren F. Provine.
-.Pp
+.PP
 Code for previewing next shape added by Hubert Feyrer in 1999.
+

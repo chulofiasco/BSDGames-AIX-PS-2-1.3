@@ -46,6 +46,12 @@
 # include	<termios.h>
 # include	<unistd.h>
 
+/* sys/ioctl.h (pulled in transitively) redefines CTRL to a form that
+ * does not accept quoted char literals such as CTRL('L').  Force our
+ * known-good definition after all system headers have been processed. */
+# undef  CTRL
+# define CTRL(x)  ((x) & 037)
+
 /*
  * miscellaneous constants
  */

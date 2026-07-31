@@ -56,7 +56,7 @@ __RCSID("$NetBSD: lrscan.c,v 1.6 2003/08/07 09:37:52 agc Exp $");
 /*ARGSUSED*/
 void
 lrscan(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		i, j;
 	struct quad	*q;

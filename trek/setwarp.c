@@ -52,7 +52,7 @@ __RCSID("$NetBSD: setwarp.c,v 1.6 2003/08/07 09:37:54 agc Exp $");
 /*ARGSUSED*/
 void
 setwarp(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	double	warpfac;
 

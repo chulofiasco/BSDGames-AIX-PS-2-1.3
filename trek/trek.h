@@ -80,7 +80,7 @@ struct quad		/* definition for each quadrant */
 */
 
 /* ascii names of systems */
-extern const char	*const Systemname[NINHAB];
+extern char	Systemname[NINHAB][20];
 
 /* quadrant definition */
 extern struct quad	Quad[NQUADS][NQUADS];
@@ -123,8 +123,8 @@ extern char	Sect[NSECTS][NSECTS];
 /* device names */
 struct device
 {
-	const char	*name;		/* device name */
-	const char	*person;	/* the person who fixes it */
+	char	name[20];	/* device name */
+	char	person[12];	/* the person who fixes it */
 };
 
 extern const struct device	Device[NDEV];
@@ -452,7 +452,7 @@ void killd(int, int , int);
 void klmove(int);
 
 /* lose.c */
-void lose(int) __attribute__((__noreturn__));
+void lose(int);
 
 /* lrscan.c */
 void lrscan(int);
@@ -470,8 +470,8 @@ void out(int);
 void phaser(int);
 
 /* play.c */
-void myreset(int) __attribute__((__noreturn__));
-void play(void) __attribute__((__noreturn__));
+void myreset(int);
+void play(void);
 
 /* ram.c */
 void ram(int, int );
@@ -522,4 +522,4 @@ void dowarp(int);
 void warp(int, int, double);
 
 /* win.c */
-void win(void) __attribute__((__noreturn__));
+void win(void);

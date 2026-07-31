@@ -53,7 +53,7 @@ init_field()
 {
 	int		i;
 	static bool	first = TRUE;
-	static const char	*const desc[] = {
+	static const char	*desc[] = {
 				"Directions:",
 				"",
 				"y k u",

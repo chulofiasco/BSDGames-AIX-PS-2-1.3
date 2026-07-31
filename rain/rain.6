@@ -1,3 +1,4 @@
+.TH RAIN 6 "May 31, 1993"
 .\"	$NetBSD: rain.6,v 1.11 2003/08/07 09:37:35 agc Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -29,26 +30,23 @@
 .\"
 .\"	@(#)rain.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt RAIN 6
-.Os
-.Sh NAME
-.Nm rain
-.Nd animated raindrops display
-.Sh SYNOPSIS
-.Nm
-.Op Fl d Ar delay
-.Sh DESCRIPTION
+.SH NAME
+rain \- animated raindrops display
+.SH SYNOPSIS
+.B rain
+[\fB\-d\fP \fIdelay\fP]
+.SH DESCRIPTION
 The output of
-.Nm
+.B rain
 is modeled after the
-.Tn VAX/VMS
+VAX/VMS
 program of the same name.
 To obtain the proper effect, either the terminal must be set for 9600
 baud or the
-.Fl d
+\fB\-d\fP
 option must be used to specify a delay, in milliseconds, between each
 update.
 A reasonable delay is 120; the default is 0.
-.Sh AUTHOR
-.An Eric P. Scott
+.SH AUTHOR
+Eric P. Scott
+

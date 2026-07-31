@@ -253,13 +253,15 @@ Sync(void)
 			goto bad;
 		if (isstr) {
 			char *p;
+			int sc;
 			for (p = buf;;) {
-				switch (*p++ = getc(sync_fp)) {
+				sc = getc(sync_fp);
+				switch (sc) {
 				case '\n':
-					p--;
 				case EOF:
 					break;
 				default:
+					*p++ = sc;
 					if (p >= buf + sizeof buf)
 						p--;
 					continue;

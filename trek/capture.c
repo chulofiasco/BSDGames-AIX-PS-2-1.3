@@ -58,7 +58,7 @@ __RCSID("$NetBSD: capture.c,v 1.6 2003/08/07 09:37:50 agc Exp $");
 /*ARGSUSED*/
 void
 capture(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		i;
 	struct kling	*k;

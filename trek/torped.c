@@ -68,7 +68,7 @@ static int randcourse(int);
 /*ARGSUSED*/
 void
 torped(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		ix, iy;
 	double		x, y, dx, dy;

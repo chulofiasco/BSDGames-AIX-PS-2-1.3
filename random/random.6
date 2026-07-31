@@ -1,3 +1,4 @@
+.TH RANDOM 6 "March 31, 1994"
 .\"	$NetBSD: random.6,v 1.6 2003/08/07 09:37:35 agc Exp $
 .\"
 .\" Copyright (c) 1994
@@ -29,39 +30,37 @@
 .\"
 .\"     @(#)random.6	8.2 (Berkeley) 3/31/94
 .\"
-.Dd March 31, 1994
-.Dt RANDOM 6
-.Os
-.Sh NAME
-.Nm random
-.Nd random lines from a file or random numbers
-.Sh SYNOPSIS
-.Nm
-.Op Fl er
-.Op Ar denominator
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+random \- random lines from a file or random numbers
+.SH SYNOPSIS
+.B random
+[\fB\-er\fP]
+[\fIdenominator\fP]
+.SH DESCRIPTION
+.B random
 reads lines from the standard input and copies them to the standard
 output with a probability of 1/denominator.
 The default value for
-.Ar denominator
+\fIdenominator\fP
 is 2.
-.Pp
+.PP
 The options are as follows:
-.Bl -tag -width Ds
-.It Fl e
+.TP
+\fB\-e\fP
 If the
-.Fl e
+\fB\-e\fP
 option is specified,
-.Nm
+.B random
 does not read or write anything, and simply exits with a random
 exit value of 0 to
-.Ar denominator Ns -1 ,
+\fIdenominator Ns -1 ,\fP
 inclusive.
-.It Fl r
+.TP
+\fB\-r\fP
 The
-.Fl r
+\fB\-r\fP
 option guarantees that the output is unbuffered.
-.El
-.Sh SEE ALSO
-.Xr fortune 6
+.PP
+.SH SEE ALSO
+fortune(6)
+

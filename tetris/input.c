@@ -40,7 +40,6 @@
 
 #include <sys/types.h>
 #include <sys/time.h>
-#include <sys/poll.h>
 
 #include <errno.h>
 #include <unistd.h>
@@ -75,40 +74,47 @@ int
 rwait(tvp)
 	struct timeval *tvp;
 {
-	struct pollfd set[1];
-	struct timeval starttv, endtv;
-	int timeout;
+	fd_set rset;
+	struct timeval starttv, elapsed, seltv;
 #define	NILTZ ((struct timezone *)0)
 
-	if (tvp) {
+	if (tvp)
 		(void) gettimeofday(&starttv, NILTZ);
-		endtv = *tvp;
-		timeout = tvp->tv_sec * 1000 + tvp->tv_usec / 1000;
-	} else
-		timeout = INFTIM;
 again:
-	set[0].fd = STDIN_FILENO;
-	set[0].events = POLLIN;
-	switch (poll(set, 1, timeout)) {
-
-	case -1:
-		if (tvp == 0)
-			return (-1);
-		if (errno == EINTR)
-			goto again;
-		stop("poll failed, help");
-		/* NOTREACHED */
-
-	case 0:	/* timed out */
-		tvp->tv_sec = 0;
-		tvp->tv_usec = 0;
-		return (0);
-	}
+	FD_ZERO(&rset);
+	FD_SET(STDIN_FILENO, &rset);
 	if (tvp) {
-		/* since there is input, we may not have timed out */
-		(void) gettimeofday(&endtv, NILTZ);
-		TV_SUB(&endtv, &starttv);
-		TV_SUB(tvp, &endtv);	/* adjust *tvp by elapsed time */
+		/* Compute remaining time */
+		(void) gettimeofday(&elapsed, NILTZ);
+		TV_SUB(&elapsed, &starttv);
+		seltv = *tvp;
+		TV_SUB(&seltv, &elapsed);
+		if (!TV_POS(&seltv)) {
+			tvp->tv_sec = tvp->tv_usec = 0;
+			return (0);
+		}
+		switch (select(STDIN_FILENO + 1, &rset,
+		    (fd_set *)0, (fd_set *)0, &seltv)) {
+		case -1:
+			if (errno == EINTR)
+				goto again;
+			stop("select failed, help");
+			/* NOTREACHED */
+		case 0:	/* timed out */
+			tvp->tv_sec = 0;
+			tvp->tv_usec = 0;
+			return (0);
+		}
+		/* input available: update *tvp with remaining time */
+		(void) gettimeofday(&elapsed, NILTZ);
+		TV_SUB(&elapsed, &starttv);
+		TV_SUB(tvp, &elapsed);
+	} else {
+		switch (select(STDIN_FILENO + 1, &rset,
+		    (fd_set *)0, (fd_set *)0, (struct timeval *)0)) {
+		case -1:
+			return (-1);
+		}
 	}
 	return (1);
 }

@@ -54,7 +54,7 @@ __RCSID("$NetBSD: lose.c,v 1.7 2003/08/07 09:37:52 agc Exp $");
 
 extern jmp_buf	env;
 
-const char	*const Losemsg[] =
+char	Losemsg[][64] =
 {
 	"You ran out of time",
 	"You ran out of energy",

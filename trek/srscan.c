@@ -57,7 +57,7 @@ __RCSID("$NetBSD: srscan.c,v 1.6 2003/08/07 09:37:54 agc Exp $");
 **	The current quadrant is filled in on the computer chart.
 */
 
-const char	*const Color[4] =
+char	Color[4][8] =
 {
 	"GREEN",
 	"DOCKED",

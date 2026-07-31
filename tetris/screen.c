@@ -64,7 +64,7 @@ static struct termios oldtt;
 static void (*tstp)(int);
 
 static	void	scr_stop(int);
-static	void	stopset(int) __attribute__((__noreturn__));
+static	void	stopset(int);
 
 
 /*

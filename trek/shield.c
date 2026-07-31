@@ -61,9 +61,9 @@ __RCSID("$NetBSD: shield.c,v 1.8 2003/08/07 09:37:54 agc Exp $");
 
 const struct cvntab Udtab[] =
 {
-	{ "u",		"p",		(cmdfun)1,	0 },
-	{ "d",		"own",		(cmdfun)0,	0 },
-	{ NULL,		NULL,		NULL,		0 }
+	{ "u",		"p",		1L,	0 },
+	{ "d",		"own",		0L,	0 },
+	{ "",		"",		0L,	0 }
 };
 
 void

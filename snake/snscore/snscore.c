@@ -126,5 +126,5 @@ main()
 		if (players[i].scores > players[i + 1].scores)
 			j = i + 2;
 	}
-	exit(0);
+	return 0;
 }

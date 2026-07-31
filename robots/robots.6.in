@@ -1,3 +1,4 @@
+.TH ROBOTS 6 "May 31, 1993"
 .\"	$NetBSD: robots.6,v 1.12 2003/08/07 09:37:37 agc Exp $
 .\"
 .\" Copyright (c) 1991, 1993
@@ -29,25 +30,21 @@
 .\"
 .\"	@(#)robots.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt ROBOTS 6
-.Os
-.Sh NAME
-.Nm robots
-.Nd fight off villainous robots
-.Sh SYNOPSIS
-.Nm
-.Op Fl Asjtan
-.Op Ar scorefile
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+robots \- fight off villainous robots
+.SH SYNOPSIS
+.B robots
+[\fB\-\fP Asjtan]
+[\fIscorefile\fP]
+.SH DESCRIPTION
+.B robots
 pits you against evil robots, who are trying to kill you (which is why
 they are evil).
 Fortunately for you, even though they are evil, they are not very bright
 and have a habit of bumping into each other, thus destroying themselves.
 In order to survive, you must get them to kill each other off, since you
 have no offensive weaponry.
-.Pp
+.PP
 Since you are stuck without offensive weaponry, you are endowed with one
 piece of defensive weaponry: a teleportation device.
 When two robots run into each other or a junk pile, they die.
@@ -55,101 +52,121 @@ If a robot runs into you, you die.
 When a robot dies, you get 10 points, and when all the robots die,
 you start on the next field.
 This keeps up until they finally get you.
-.Pp
+.PP
 Robots are represented on the screen by a
-.Sq \&+ ,
+'\&+ ,'
 the junk heaps from their collisions by a
-.Sq \(** ,
+'\(** ,'
 and you
 (the good guy)
 by a
-.Sq \@ .
-.Pp
+'\@ .'
+.PP
 The commands are:
-.Bl -tag -width indent -compact
-.It Ic h
+.TP
+\fBh\fP
 move one square left
-.It Ic l
+.TP
+\fBl\fP
 move one square right
-.It Ic k
+.TP
+\fBk\fP
 move one square up
-.It Ic j
+.TP
+\fBj\fP
 move one square down
-.It Ic y
+.TP
+\fBy\fP
 move one square up and left
-.It Ic u
+.TP
+\fBu\fP
 move one square up and right
-.It Ic b
+.TP
+\fBb\fP
 move one square down and left
-.It Ic n
+.TP
+\fBn\fP
 move one square down and right
-.It Ic \&.
+.TP
+\fB\&.\fP
 (also space) do nothing for one turn
-.It Ic HJKLBNYU
+.TP
+\fBHJKLBNYU\fP
 run as far as possible in the given direction
-.It Ic \*[Gt]
+.TP
+\fB\*[Gt]\fP
 do nothing for as long as possible
-.It Ic t
+.TP
+\fBt\fP
 teleport to a random location
-.It Ic w
+.TP
+\fBw\fP
 wait until you die or they all do
-.It Ic q
+.TP
+\fBq\fP
 quit
-.It Ic ^L
+.TP
+\fB^L\fP
 redraw the screen
-.El
-.Pp
+.PP
+.PP
 All commands can be preceded by a count.
-.Pp
+.PP
 If you use the
-.Sq Ic w
+'Ic w'
 command and survive to the next level, you will get a bonus of 10%
 for each robot which died after you decided to wait.
 If you die, however, you get nothing.
 For all other commands, the program will save you from typos
 by stopping short of being eaten.
 However, with
-.Sq Ic w
+'Ic w'
 you take the risk of dying by miscalculation.
-.Pp
+.PP
 Only five scores are allowed per user on the score file.
 If you make it into the score file, you will be shown the list at the end
 of the game.
 If an alternative score file is specified, that will be used instead of the
 standard file for scores.
-.Pp
+.PP
 The options are
-.Bl -tag -width indent
-.It Fl s
+.TP
+\fB\-s\fP
 Don't play, just show the score file.
-.It Fl j
+.TP
+\fB\-j\fP
 Jump,
-.Em i.e. ,
+\fIi.e. ,\fP
 when you run, don't show any intermediate positions; only show things at
 the end.
 This is useful on slow terminals.
-.It Fl t
+.TP
+\fB\-t\fP
 Teleport automatically when you have no other option.
 This is a little disconcerting until you get used to it, and then it is
 very nice.
-.It Fl a
+.TP
+\fB\-a\fP
 Advance into the higher levels directly, skipping the lower, easier levels.
-.It Fl A
+.TP
+\fB\-A\fP
 Auto-bot mode.
 Lets the game play itself.
-.It Fl n
+.TP
+\fB\-n\fP
 Increase the number of games played by one.
-.El
-.Sh AUTHOR
+.PP
+.SH AUTHOR
 Ken Arnold
 Christos Zoulas	(autobot mode)
-.Sh FILES
-.Bl -tag -width @robots_scorefile@ -compact
-.It Pa @robots_scorefile@
+.SH FILES
+.TP
+\fI@robots_scorefile@\fP
 the score file
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 Bugs?
 You
-.Em crazy ,
+\fIcrazy ,\fP
 man?!?
+

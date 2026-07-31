@@ -34,19 +34,108 @@
 #
 #	@(#)wargames.sh	8.1 (Berkeley) 5/31/93
 #
-echo -n "Would you like to play a game? "
+echo "Would you like to play a game? \c"
 read x
 
-x=`echo $x | sed 's/[^-a-z0-9]//g'`
+# Clean up input safely using vintage sed (allowing spaces for the easter egg)
+x=`echo "$x" | sed 's/[^-a-z0-9 ]//g'`
 
-if [ -f /usr/games/$x ] ; then
-	tput clear
-	exec /usr/games/$x
+# -------------------------------------------------------------
+# EASTER EGG SECTION
+# -------------------------------------------------------------
+if [ "$x" = "global thermonuclear war" ] || [ "$x" = "thermonuclear war" ]
+then
+    tput clear
+    echo "Awaiting launch code... \c"
+    sleep 2
+    echo ""
+    echo "----------------------------------------"
+    echo "PRTL CHNL  G-021  CMD  A29-X8"
+    echo "DEFCON 1 IMMINENT."
+    echo "----------------------------------------"
+    sleep 1
+    echo ""
+    echo "Wouldn't you prefer a nice game of chess?"
+    echo ""
+    exit 0
+fi
+
+# Re-sanitize x to remove spaces for standard game matching
+x=`echo "$x" | sed 's/ //g'`
+
+# Use a temporary file to hold the unified, sorted list of games
+TMPLIST=/tmp/wargames.$$
+rm -f $TMPLIST
+
+if [ -d /usr/games ]
+then
+    ls /usr/games 2>/dev/null | grep -v wargames >> $TMPLIST
+fi
+
+if [ -d /usr/local/bsdgames/games ]
+then
+    ls /usr/local/bsdgames/games 2>/dev/null | grep -v wargames >> $TMPLIST
+fi
+
+# Clean up list format (sort and make unique)
+if [ -f $TMPLIST ]
+then
+    sort $TMPLIST | uniq > ${TMPLIST}.clean
+    mv ${TMPLIST}.clean $TMPLIST
+fi
+
+# Check if the user wants to see the list first
+if [ "$x" = "list" ] || [ "$x" = "l" ]
+then
+    tput clear
+    echo "Available games on this system:"
+    echo "=============================="
+    pr -4 -t -w75 $TMPLIST
+    echo "=============================="
+    echo ""
+    echo "Which game would you like to play? \c"
+    read x
+    x=`echo "$x" | sed 's/[^-a-z0-9]//g'`
+fi
+
+# If they say yes, y, or leave it blank, pick a random line from our temp file
+if [ "$x" = "yes" ] || [ "$x" = "y" ] || [ "$x" = "" ]
+then
+    if [ -f $TMPLIST ]
+    then
+        num_games=`wc -l < $TMPLIST | sed 's/[  ]//g'`
+        if [ "$num_games" -gt 0 ]
+        then
+            # Slice the last two digits of the PID for a seed
+            seed=`echo "$$" | sed 's/.*\(..\)$/\1/'`
+            rem=`expr $seed % $num_games`
+            idx=`expr $rem + 1`
+            
+            # Extract that exact line
+            x=`sed -n "${idx}p" $TMPLIST`
+        fi
+    fi
+fi
+
+# Clean up our temporary storage file completely before executing
+rm -f $TMPLIST
+
+# Execute the chosen game from whichever path it resides in
+if [ -n "$x" ] && [ -f /usr/games/$x ]
+then
+    tput clear
+    exec /usr/games/$x
 else
-	exec cat <<QUOTE
-A strange game.
-The only winning move is
-not to play.
-QUOTE
+    if [ -n "$x" ] && [ -f /usr/local/bsdgames/games/$x ]
+    then
+        tput clear
+        exec /usr/local/bsdgames/games/$x
+    else
+        tput clear
+        echo "A strange game."
+        echo "The only winning move is"
+        echo "not to play."
+        exit 0
+    fi
 fi
 exit 0

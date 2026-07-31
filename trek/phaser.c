@@ -78,9 +78,9 @@ __RCSID("$NetBSD: phaser.c,v 1.9 2003/08/07 09:37:53 agc Exp $");
 
 struct cvntab	Matab[] =
 {
-	{ "m",		"anual",	(cmdfun) 1,	0 },
-	{ "a",		"utomatic",	(cmdfun) 0,	0 },
-	{ NULL,		NULL,		NULL,		0 }
+	{ "m",		"anual",	1L,	0 },
+	{ "a",		"utomatic",	0L,	0 },
+	{ "",		"",		0L,	0 }
 };
 
 struct banks
@@ -95,7 +95,7 @@ struct banks
 /*ARGSUSED*/
 void
 phaser(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		i;
 	int		j;

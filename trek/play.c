@@ -56,38 +56,51 @@ __RCSID("$NetBSD: play.c,v 1.8 2003/08/07 09:37:53 agc Exp $");
 
 extern jmp_buf env;
 
-const struct cvntab	Comtab[] =
+/* Comtab is filled at runtime by init_comtab() to avoid file-scope
+   initialized function pointers (XCOFF reloc issue on MetaWare/AIX). */
+static struct cvntab	Comtab[25]; /* 24 commands + sentinel */
+
+static void
+init_comtab()
 {
-	{ "abandon",		"",		abandon,	0 },
-	{ "ca",			"pture",	capture,	0 },
-	{ "cl",			"oak",		shield,		-1 },
-	{ "c",			"omputer",	computer,	0 },
-	{ "da",			"mages",	dcrept,		0 },
-	{ "destruct",		"",		destruct,	0 },
-	{ "do",			"ck",		dock,		0 },
-	{ "help",		"",		help,		0 },
-	{ "i",			"mpulse",	impulse,	0 },
-	{ "l",			"rscan",	lrscan,		0 },
-	{ "m",			"ove",		dowarp,		0 },
-	{ "p",			"hasers",	phaser,		0 },
-	{ "ram",		"",		dowarp,		1 },
-	{ "dump",		"",		dumpgame,	0 },
-	{ "r",			"est",		rest,		0 },
-	{ "sh",			"ield",		shield,		0 },
-	{ "s",			"rscan",	srscan,		0 },
-	{ "st",			"atus",		srscan,		-1 },
-	{ "terminate",		"",		myreset,	0 },
-	{ "t",			"orpedo",	torped,		0 },
-	{ "u",			"ndock",	undock,		0 },
-	{ "v",			"isual",	visual,		0 },
-	{ "w",			"arp",		setwarp,	0 },
-	{ NULL,			NULL,		NULL,		0 }
-};
+	int i = 0;
+#define E(ab,fl,fn,v2) \
+	strcpy(Comtab[i].abrev, ab); \
+	strcpy(Comtab[i].full,  fl); \
+	Comtab[i].value  = (long)fn; \
+	Comtab[i].value2 = v2; \
+	i++
+	E("abandon",   "",        abandon,    0);
+	E("ca",        "pture",   capture,    0);
+	E("cl",        "oak",     shield,     -1);
+	E("c",         "omputer", computer,   0);
+	E("da",        "mages",   dcrept,     0);
+	E("destruct",  "",        destruct,   0);
+	E("do",        "ck",      dock,       0);
+	E("help",      "",        help,       0);
+	E("i",         "mpulse",  impulse,    0);
+	E("l",         "rscan",   lrscan,     0);
+	E("m",         "ove",     dowarp,     0);
+	E("p",         "hasers",  phaser,     0);
+	E("ram",       "",        dowarp,     1);
+	E("dump",      "",        dumpgame,   0);
+	E("r",         "est",     rest,       0);
+	E("sh",        "ield",    shield,     0);
+	E("s",         "rscan",   srscan,     0);
+	E("st",        "atus",    srscan,     -1);
+	E("terminate", "",        myreset,    0);
+	E("t",         "orpedo",  torped,     0);
+	E("u",         "ndock",   undock,     0);
+	E("v",         "isual",   visual,     0);
+	E("w",         "arp",     setwarp,    0);
+	Comtab[i].abrev[0] = '\0'; /* sentinel */
+#undef E
+}
 
 /*ARGSUSED*/
 void
 myreset(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 
 	longjmp(env, 1);
@@ -98,6 +111,7 @@ play()
 {
 	const struct cvntab		*r;
 
+	init_comtab();
 	while (1)
 	{
 		Move.free = 1;
@@ -107,7 +121,7 @@ play()
 		Move.resting = 0;
 		skiptonl(0);
 		r = getcodpar("\nCommand", Comtab);
-		(*r->value)(r->value2);
+		((cmdfun)r->value)(r->value2);
 		events(0);
 		attack(0);
 		checkcond();

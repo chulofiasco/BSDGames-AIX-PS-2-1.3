@@ -56,7 +56,7 @@ __RCSID("$NetBSD: dcrept.c,v 1.6 2003/08/07 09:37:50 agc Exp $");
 /*ARGSUSED*/
 void
 dcrept(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		i, f;
 	double		x;

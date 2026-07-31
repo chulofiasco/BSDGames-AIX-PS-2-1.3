@@ -63,13 +63,13 @@ __RCSID("$NetBSD: help.c,v 1.7 2003/08/07 09:37:52 agc Exp $");
 **	to drop you.  After that, it's your problem.
 */
 
-const char	*const Cntvect[3] =
+char	Cntvect[3][8] =
 {"first", "second", "third"};
 
 /*ARGSUSED*/
 void
 help(v)
-	int v __attribute__((__unused__));
+	int v;
 {
 	int		i;
 	double		dist, x;

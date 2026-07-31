@@ -60,22 +60,22 @@ __RCSID("$NetBSD: setup.c,v 1.8 2003/08/07 09:37:54 agc Exp $");
 
 const struct cvntab	Lentab[] =
 {
-	{ "s",		"hort",		(cmdfun)1,	0 },
-	{ "m",		"edium",	(cmdfun)2,	0 },
-	{ "l",		"ong",		(cmdfun)4,	0 },
-	{ "restart",	"",		(cmdfun)0,	0 },
-	{ NULL,		NULL,		NULL,		0 }
+	{ "s",		"hort",		1L,	0 },
+	{ "m",		"edium",	2L,	0 },
+	{ "l",		"ong",		4L,	0 },
+	{ "restart",	"",		0L,	0 },
+	{ "",		"",		0L,	0 }
 };
 
 const struct cvntab	Skitab[] =
 {
-	{ "n",		"ovice",	(cmdfun)1,	0 },
-	{ "f",		"air",		(cmdfun)2,	0 },
-	{ "g",		"ood",		(cmdfun)3,	0 },
-	{ "e",		"xpert",	(cmdfun)4,	0 },
-	{ "c",		"ommodore",	(cmdfun)5,	0 },
-	{ "i",		"mpossible",	(cmdfun)6,	0 },
-	{ NULL,		NULL,		NULL,		0 }
+	{ "n",		"ovice",	1L,	0 },
+	{ "f",		"air",		2L,	0 },
+	{ "g",		"ood",		3L,	0 },
+	{ "e",		"xpert",	4L,	0 },
+	{ "c",		"ommodore",	5L,	0 },
+	{ "i",		"mpossible",	6L,	0 },
+	{ "",		"",		0L,	0 }
 };
 
 void
