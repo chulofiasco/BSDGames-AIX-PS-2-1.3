@@ -1,3 +1,4 @@
+#!/bin/sh
 #	$NetBSD: rot13.sh,v 1.6 2000/04/24 15:42:40 simonb Exp $
 #
 # Copyright (c) 1992, 1993

@@ -77,12 +77,12 @@ double stdf[26] = {
 
 
 int	main(int, char *[]);
-void	printit(const char *) __attribute__((__noreturn__));
+void	printit(const char *);
 
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	int ch, i, nread;
 	double dot, winnerdot;
@@ -144,7 +144,7 @@ main(argc, argv)
 		if ((nread = read(STDIN_FILENO, inbuf, LINELENGTH)) < 0)
 			err(1, "reading from stdin");
 	}
-	exit(0);
+	return 0;
 }
 
 void

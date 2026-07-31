@@ -144,8 +144,8 @@ while :; do
       ;;
   esac
 
-  g=$(($g + 1))
-  v=${v%%???}
+  g=`expr $g + 1`
+  v=`echo "$v" | sed 's/...$//'`
 
 done
 

@@ -67,7 +67,7 @@ __RCSID("$NetBSD: fish.c,v 1.16 2005/02/15 12:56:20 jsm Exp $");
 #define	COMPUTER	0
 #define	OTHER(a)	(1 - (a))
 
-const char *const cards[] = {
+const char * cards[] = {
 	"A", "2", "3", "4", "5", "6", "7",
 	"8", "9", "10", "J", "Q", "K", NULL,
 };
@@ -92,18 +92,21 @@ int	nrandom(int);
 void	printhand(const int *);
 void	printplayer(int);
 int	promove(void);
-void	usage(void) __attribute__((__noreturn__));
+void	usage(void);
 int	usermove(void);
 
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	int ch, move;
 
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
+
+	if (argc < 0)
+		return 0;
 
 	while ((ch = getopt(argc, argv, "p")) != -1)
 		switch(ch) {

@@ -1,3 +1,4 @@
+.TH DM 8 "May 31, 1993"
 .\"	$NetBSD: dm.8,v 1.9 2003/08/07 09:37:11 agc Exp $
 .\"
 .\" Copyright (c) 1987, 1991, 1993
@@ -29,78 +30,79 @@
 .\"
 .\"     @(#)dm.8	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt DM 8
-.Os
-.Sh NAME
-.Nm dm
-.Nd dungeon master
-.Sh SYNOPSIS
-.Nm ln
-.Fl s Cm dm Ar game
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+dm \- dungeon master
+.SH SYNOPSIS
+.B ln
+\fB\-s Cm dm Ar game\fP
+.SH DESCRIPTION
+.B dm
 is a program used to regulate game playing.
-.Nm
+.B dm
 expects to be invoked with the name of a game that a user wishes to play.
 This is done by creating symbolic links to
-.Nm ,
+.B dm
 in the directory
-.Pa @gamesdir@
+\fI@gamesdir@\fP
 for all of the regulated games.
 The actual binaries for these games should be placed in a
-.Dq hidden
+"hidden"
 directory,
-.Pa @libexecdir@ ,
+\fI@libexecdir@ ,\fP
 that may only be accessed by the
-.Nm
+.B dm
 program.
-.Nm
+.B dm
 determines if the requested game is available and, if so, runs it.
 The file
-.Pa @dm_configfile@
+\fI@dm_configfile@\fP
 controls the conditions under which games may be run.
-.Pp
+.PP
 The file
-.Pa @dm_nogamesfile@
+\fI@dm_nogamesfile@\fP
 may be used to
-.Dq turn off
+"turn off"
 game playing.
 If the file exists, no game playing is allowed; the contents of the file
 will be displayed to any user requesting a game.
-.Sh FILES
-.Bl -tag -width @dm_logfile@ -compact
-.It Pa @dm_configfile@
+.SH FILES
+.TP
+\fI@dm_configfile@\fP
 configuration file
-.It Pa @dm_nogamesfile@
+.TP
+\fI@dm_nogamesfile@\fP
 turns off game playing
-.It Pa @libexecdir@
+.TP
+\fI@libexecdir@\fP
 directory of ``real'' binaries
-.It Pa @dm_logfile@
+.TP
+\fI@dm_logfile@\fP
 game logging file
-.El
-.Sh SEE ALSO
-.Xr dm.conf 5
-.Sh HISTORY
+.PP
+.SH SEE ALSO
+dm.conf(5)
+.SH HISTORY
 The
-.Nm
+.B dm
 command appeared in
-.Bx 4.3 tahoe .
-.Sh SECURITY CONSIDERATIONS
+.'"' mdoc: .Bx 4.3 tahoe .
+4.3 tahoe .
+.SH SECURITY CONSIDERATIONS
 Two issues result from
-.Nm
+.B dm
 running the games setgid
-.Dq games .
+"games ."
 First, all games that allow users to run
-.Ux
+UNIX
 commands should carefully
 set both the real and effective group ids immediately before executing
 those commands.
 Probably more important is that
-.Nm
+.B dm
 never be setgid anything but
-.Dq games
+"games"
 so that compromising a game will result only in
 the user's ability to play games at will.
 Secondly, games which previously had no reason to run setgid and which
 accessed user files may have to be modified.
+

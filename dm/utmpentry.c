@@ -47,6 +47,7 @@ __RCSID("$NetBSD: utmpentry.c,v 1.5 2004/10/22 15:50:47 christos Exp $");
 #include <string.h>
 #include <err.h>
 #include <stdlib.h>
+#include <paths.h>
 
 #ifdef SUPPORT_UTMP
 #include <utmp.h>
@@ -274,7 +275,7 @@ getentry(struct utmpentry *e, struct utmp *up)
 	(void)strncpy(e->line, up->ut_line, sizeof(up->ut_line));
 	e->line[sizeof(e->line) - 1] = '\0';
 	(void)strncpy(e->host, up->ut_host, sizeof(up->ut_host));
-	e->name[sizeof(e->host) - 1] = '\0';
+	e->host[sizeof(e->host) - 1] = '\0';
 	e->tv.tv_sec = up->ut_time;
 	e->tv.tv_usec = 0;
 	adjust_size(e);
@@ -290,7 +291,7 @@ getentryx(struct utmpentry *e, struct utmpx *up)
 	(void)strncpy(e->line, up->ut_line, sizeof(up->ut_line));
 	e->line[sizeof(e->line) - 1] = '\0';
 	(void)strncpy(e->host, up->ut_host, sizeof(up->ut_host));
-	e->name[sizeof(e->host) - 1] = '\0';
+	e->host[sizeof(e->host) - 1] = '\0';
 	e->tv = up->ut_tv;
 	adjust_size(e);
 }

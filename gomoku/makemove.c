@@ -224,7 +224,7 @@ update_overlap(osp)
 	int i, f, r, r1, d, d1, n;
 	int a, b, bmask, bmask1;
 	struct spotstr *esp;
-	char *str;
+	u_char *str;
 
 	esp = NULL;
 	for (r = 4; --r >= 0; ) {			/* for each direction */

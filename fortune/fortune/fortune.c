@@ -64,8 +64,12 @@ __RCSID("$NetBSD: fortune.c,v 1.44 2004/11/05 21:30:32 dsl Exp $");
 # include	"strfile.h"
 # include	"pathnames.h"
 
+#ifndef TRUE
 # define	TRUE	1
+#endif
+#ifndef FALSE
 # define	FALSE	0
+#endif
 # define	bool	short
 
 # define	MINW	6		/* minimum wait if desired */
@@ -158,7 +162,7 @@ void	 print_file_list(void);
 void	 print_list(FILEDESC *, int);
 void	 sum_noprobs(FILEDESC *);
 void	 sum_tbl(STRFILE *, STRFILE *);
-void	 usage(void) __attribute__((__noreturn__));
+void	 usage(void);
 void	 zero_tbl(STRFILE *);
 
 #ifndef	NO_REGEX
@@ -183,6 +187,8 @@ char	*regcmp(), *regex();
 # elif HAVE_RE_COMP
 char	*Re_pat, *Re_pat13, *Re_use;
 char	*Re_error;
+char	*re_comp();
+int	re_exec();
 
 #  define	RE_INIT(re)
 #  define	RE_COMP(re, p)	(Re_error = re_comp(p))
@@ -340,7 +346,7 @@ fortlen()
 void
 getargs(argc, argv)
 	int	argc;
-	char	**argv;
+	char	*argv[];
 {
 	int	ignore_case;
 # ifndef NO_REGEX
@@ -796,17 +802,13 @@ is_dir(file)
 int
 is_fortfile(file, datp, posp, check_for_offend)
 	const char	*file;
-	char		**datp, **posp
-# ifndef OK_TO_WRITE_DISK
-	__attribute__((__unused__))
-# endif
-	;
+	char		**datp, **posp;
 	int	check_for_offend;
 {
 	int	i;
 	const char	*sp;
 	char	*datfile;
-	static const char	*const suflist[] = {	/* list of "illegal" suffixes" */
+	static const char	*suflist[] = {	/* list of "illegal" suffixes" */
 				"dat", "pos", "c", "h", "p", "i", "f",
 				"pas", "ftn", "ins.c", "ins,pas",
 				"ins.ftn", "sml",

@@ -476,7 +476,7 @@ makecombo2(ocbp, osp, off, s)
 		ncbp = (struct combostr *)malloc(sizeof(struct combostr) +
 		    2 * sizeof(struct combostr *));
 		if (ncbp == NULL)
-		    panic("Out of memory!");
+		    continue;
 		scbpp = (struct combostr **)(ncbp + 1);
 		fcbp = fsp->s_frame[r];
 		if (ocbp < fcbp) {
@@ -717,7 +717,7 @@ makecombo(ocbp, osp, off, s)
 	    ncbp = (struct combostr *)malloc(sizeof(struct combostr) +
 		(cbp->c_nframes + 1) * sizeof(struct combostr *));
 	    if (ncbp == NULL)
-		panic("Out of memory!");
+		continue;
 	    scbpp = (struct combostr **)(ncbp + 1);
 	    if (sortcombo(scbpp, (struct combostr **)(cbp + 1), ocbp)) {
 		free(ncbp);
@@ -919,7 +919,7 @@ makeempty(ocbp)
 			/* add the combo to the list of empty spots */
 			nep = (struct elist *)malloc(sizeof(struct elist));
 			if (nep == NULL)
-				panic("Out of memory!");
+				continue;
 			nep->e_combo = ocbp;
 			nep->e_off = s;
 			nep->e_frameindex = i;
@@ -1050,7 +1050,7 @@ updatecombo(cbp, color)
 void
 appendcombo(cbp, color)
 	struct combostr *cbp;
-	int color __attribute__((__unused__));
+	int color;
 {
 	struct combostr *pcbp, *ncbp;
 

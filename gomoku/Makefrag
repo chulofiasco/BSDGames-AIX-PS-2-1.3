@@ -26,7 +26,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-gomoku_DIRS := $(GAMESDIR) $(MAN6DIR)
+gomoku_DIRS = $(GAMESDIR) $(MAN6DIR)
+gomoku_DEFS = -DNEW_STYLE
 
 gomoku_all:	gomoku/gomoku gomoku/gomoku.6
 

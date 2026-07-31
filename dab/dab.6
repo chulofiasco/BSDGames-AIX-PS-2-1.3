@@ -1,3 +1,4 @@
+.TH DAB 6 "December 24, 2003"
 .\"	$NetBSD: dab.6,v 1.1.1.1 2003/12/26 17:57:04 christos Exp $
 .\"
 .\" Copyright (c) 2003 Thomas Klausner.
@@ -24,87 +25,86 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd December 24, 2003
-.Dt DAB 6
-.Os
-.Sh NAME
-.Nm dab
-.Nd Dots and Boxes game
-.Sh SYNOPSIS
-.Nm
-.Op Fl aw
-.Op Fl n Ar ngames
-.Op Fl p Ao Ar c|h Ac Ns Ao Ar c|h Ac
-.Op Ar xdim Oo Ar ydim Oc
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+dab \- Dots and Boxes game
+.SH SYNOPSIS
+.B dab
+[\fB\-aw\fP]
+[\fB\-n\fP \fIngames\fP]
+[\fB\-p\fP Ao \fIc|h\fP Ac Ns Ao \fIc|h\fP Ac]
+[\fIxdim\fP Oo \fIydim\fP Oc]
+.SH DESCRIPTION
+.B dab
 is a game where each player tries to complete the most
 boxes.
 A turn consists of putting one border of a box; the player
 setting the fourth and final border of a box gets the
 point for the box and has another turn.
-.Pp
+.PP
 The keys used are the vi keys:
-.Ic k
+\fBk\fP
 for up,
-.Ic j
+\fBj\fP
 for down,
-.Ic h
+\fBh\fP
 for left, and
-.Ic l
+\fBl\fP
 for right.
 To switch between even and odd rows, use one of the following
 keys:
-.Ic u
-.Pq diagonal right up ,
-.Ic y
-.Pq diagonal left up ,
-.Ic b
-.Pq diagonal left down ,
-.Ic n
-.Pq diagonal right down ;
-.Aq Ic space
+\fBu\fP
+(diagonal right up ,)
+\fBy\fP
+(diagonal left up ,)
+\fBb\fP
+(diagonal left down ,)
+\fBn\fP
+(diagonal right down ;)
+<Ic space>
 sets a new border,
-.Ic CTRL-L
+\fBCTRL-L\fP
 and
-.Ic CTRL-R
+\fBCTRL-R\fP
 redraw the screen, and
-.Ic q
+\fBq\fP
 quits the game.
-.Pp
+.PP
 Support options are:
-.Bl -tag -width XXnXngamesXXXXX
-.It Fl a
+.TP
+\fB\-a\fP
 Don't use the alternate character set.
-.It Fl n Ar ngames
-.Ar ngames
+.TP
+\fB\-n\fP \fIngames\fP
+\fIngames\fP
 games will be played.
-.Pq Especially useful in Fl p Ar cc No mode.
-.It Fl p Ao Ar c|h Ac Ns Ao Ar c|h Ac
+(Especially useful in Fl p Ar cc No mode.)
+.TP
+\fB\-p\fP Ao \fIc|h\fP Ac Ns Ao \fIc|h\fP Ac
 Select which of the two players is a human
 or a computer.
 The first argument is the first player;
-.Ic c
+\fBc\fP
 stands for computer and
-.Ic h
+\fBh\fP
 for human.
-.It Fl w 
+.TP
+\fB\-w\fP
 Wait for a character press between games.
-.El
-.Pp
-.Ar xdim
+.PP
+.PP
+\fIxdim\fP
 and
-.Ar ydim
+\fIydim\fP
 define the size of the board in the x and y
 dimensions.
-.Sh AUTHORS
-.An Christos Zoulas
-.Aq christos@NetBSD.org
-.Sh SEE ALSO
-.Rs
+.SH AUTHORS
+Christos Zoulas
+<christos@NetBSD.org>
+.SH SEE ALSO
+.PP
 .%A Elwyn R. Berlekamp
 .%T The Dots and Boxes Game: Sophisticated Child's Play
 .%D 2000
 .%I A K Peters
 .%O http://www.akpeters.com/book.asp?bID=111
-.Re
+

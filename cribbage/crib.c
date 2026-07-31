@@ -154,7 +154,7 @@ main(argc, argv)
 		(void) fclose(f);
 	}
 	bye();
-	exit(0);
+	return 0;
 }
 
 /*
@@ -333,7 +333,7 @@ playhand(mycrib)
  */
 int
 deal(mycrib)
-	BOOLEAN mycrib;
+	int mycrib;
 {
 	int i, j;
 

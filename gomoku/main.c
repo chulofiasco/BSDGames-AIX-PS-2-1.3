@@ -84,12 +84,12 @@ int	main(int, char *[]);
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	char buf[128];
 	int color, curmove, i, ch;
 	int input[2];
-	static const char *const fmt[2] = {
+	static const char * fmt[2] = {
 		"%3d %-6s",
 		"%3d        %-6s"
 	};
@@ -532,7 +532,7 @@ quit()
 
 void
 quitsig(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 	quit();
 }

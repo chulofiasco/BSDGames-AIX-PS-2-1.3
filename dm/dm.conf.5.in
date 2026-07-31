@@ -1,3 +1,4 @@
+.TH DM.CONF 5 "May 31, 1993"
 .\"	$NetBSD: dm.conf.5,v 1.8 2003/08/07 09:37:11 agc Exp $
 .\"
 .\" Copyright (c) 1988, 1991, 1993
@@ -29,86 +30,83 @@
 .\"
 .\"     @(#)dm.conf.5	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt DM.CONF 5
-.Os
-.Sh NAME
-.Nm dm.conf
-.Nd dungeon master configuration file
-.Sh DESCRIPTION
+.SH NAME
+dm.conf \- dungeon master configuration file
+.SH DESCRIPTION
 The
-.Nm
+.B dm.conf
 file is the configuration file for the
-.Xr dm 8
+dm(8)
 program.
 It consists of lines beginning with one of three keywords,
-.Em badtty ,
-.Em game ,
+\fIbadtty ,\fP
+\fIgame ,\fP
 and
-.Em time .
+\fItime .\fP
 All other lines are ignored.
-.Pp
+.PP
 Any tty listed after the keyword
-.Em badtty
+\fIbadtty\fP
 may not have games played on it.
 Entries consist of two white-space separated fields: the string
-.Em badtty
+\fIbadtty\fP
 and the ttyname as returned by
-.Xr ttyname 3 .
+ttyname(3) .
 For example, to keep the uucp dialout,
-.Dq tty19 ,
+"tty19 ,"
 from being used for games, the entry would be:
-.Bd -literal -offset indent
+.nf
 badtty	/dev/tty19
-.Ed
-.Pp
+.fi
+.PP
 Any day/hour combination listed after the keyword
-.Em time
+\fItime\fP
 will disallow games during those hours.
 Entries consist of four white-space separated fields: the string
-.Em time ,
+\fItime ,\fP
 the unabbreviated day of the week and the beginning and ending time
 of a period of the day when games may not be played.
 The time fields are in a 0 based, 24-hour clock.
 For example, the following entry allows games playing before 8AM
 and after 5PM on Mondays:
-.Bd -literal -offset indent
+.nf
 time	Monday	8	17
-.Ed
-.Pp
+.fi
+.PP
 Any game listed after the keyword
-.Em game
+\fIgame\fP
 will set parameters for a specific game.
 Entries consist of five white-space separated fields: the keyword
-.Em game ,
+\fIgame ,\fP
 the name of a game, the highest system load average at which the
 game may be played, the maximum users allowed if the game is to be
 played, and the priority at which the game is to be run.
 Any of these fields may start with a non-numeric character, resulting
 in no game limitation or priority based on that field.
-.Pp
+.PP
 The game
-.Em default
+\fIdefault\fP
 controls the settings for any game not otherwise listed, and must be the last
-.Em game
+\fIgame\fP
 entry in the file.
 Priorities may not be negative.
 For example, the following entries limits the game
-.Dq hack
+"hack"
 to running only when the system has 10 or less users and a load average of 5
 or less; all other games may be run any time the system has 15 or less users.
-.Bd -literal -offset indent
+.nf
 game	hack		5	10	*
 game	default		*	15	*
-.Ed
-.Sh FILES
-.Bl -tag -width @dm_configfile@ -compact
-.It Pa @dm_configfile@
+.fi
+.SH FILES
+.TP
+\fI@dm_configfile@\fP
 The
-.Xr dm 8
+dm(8)
 configuration file.
-.El
-.Sh SEE ALSO
-.Xr setpriority 2 ,
-.Xr ttyname 3 ,
-.Xr dm 8
+.PP
+.SH SEE ALSO
+setpriority(2) ,
+ttyname(3) ,
+dm(8)
+

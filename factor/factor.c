@@ -69,6 +69,9 @@ __RCSID("$NetBSD: factor.c,v 1.15 2004/02/08 11:47:36 jsm Exp $");
 #include <err.h>
 #include <errno.h>
 #include <limits.h>
+#ifndef LINE_MAX
+#define LINE_MAX 2048
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -108,7 +111,7 @@ BN_CTX *ctx;				/* just use a global context */
 int	main(int, char *[]);
 void	pr_fact(BIGNUM *);		/* print factors of a value */
 void	BN_print_dec_fp(FILE *, const BIGNUM *);
-void	usage(void) __attribute__((__noreturn__));
+void	usage(void);
 #ifdef HAVE_OPENSSL
 void	pollard_pminus1(BIGNUM *);	/* print factors for big numbers */
 #else
@@ -184,6 +187,7 @@ main(int argc, char *argv[])
 			pr_fact(val);
 		}
 	exit(0);
+	return 0;
 }
 
 /*

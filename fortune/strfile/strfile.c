@@ -104,8 +104,12 @@ h2nl(u_int32_t h)
  *	Added ordering options.
  */
 
+#ifndef TRUE
 # define	TRUE	1
+#endif
+#ifndef FALSE
 # define	FALSE	0
+#endif
 
 # define	STORING_PTRS	(Oflag || Rflag)
 # define	CHUNKSIZE	512
@@ -279,6 +283,7 @@ main(ac, av)
 		dieperror("fwrite %s", Outfile);
 	(void) fclose(outf);
 	exit(0);
+	return 0;
 }
 
 /*
@@ -287,7 +292,7 @@ main(ac, av)
 void
 getargs(argc, argv)
 	int	argc;
-	char	**argv;
+	char	*argv[];
 {
 	int	ch;
 	extern	int optind;

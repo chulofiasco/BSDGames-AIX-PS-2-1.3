@@ -52,7 +52,7 @@ struct mvstr {
 	int	m_code;
 	const char	*m_text;
 };
-static	const struct	mvstr	mv[] = {
+static	struct	mvstr	mv[] = {
 	{ RESIGN,	"resign" }, 
 	{ RESIGN,	"quit" },
 	{ SAVE,		"save" },

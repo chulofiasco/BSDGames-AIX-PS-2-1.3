@@ -104,7 +104,7 @@ void	 printcard(WINDOW *, int, CARD, BOOLEAN);
 void	 prpeg(int, int, BOOLEAN);
 void	 prtable(int);
 int	 readchar(void);
-void	 receive_intr(int) __attribute__((__noreturn__));
+void	 receive_intr(int);
 int	 score(BOOLEAN);
 int	 scorehand(const CARD [], CARD, int, BOOLEAN, BOOLEAN);
 void	 shuffle(CARD []);

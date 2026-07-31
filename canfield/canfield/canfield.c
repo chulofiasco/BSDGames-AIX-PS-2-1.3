@@ -68,6 +68,8 @@ __RCSID("$NetBSD: canfield.c,v 1.20 2004/11/05 21:30:31 dsl Exp $");
 
 #include "pathnames.h"
 
+/* bool not in C89; MetaWare High C has no stdbool.h */
+typedef int bool;
 #define	decksize	52
 #define originrow	0
 #define origincol	0
@@ -199,7 +201,7 @@ time_t acctstart;
 int dbfd = -1;
 
 void	askquit(int);
-void	cleanup(int) __attribute__((__noreturn__));
+void	cleanup(int);
 void	cleanupboard(void);
 void	clearabovemovebox(void);
 void	clearbelowmovebox(void);
@@ -1585,7 +1587,7 @@ movecard()
 	} while (!done);
 }
 
-const char *const basicinstructions[] = {
+const char * basicinstructions[] = {
 	"Here are brief instuctions to the game of Canfield:\n\n",
 	"     If you have never played solitaire before, it is recom-\n",
 	"mended  that  you  consult  a solitaire instruction book. In\n",
@@ -1607,7 +1609,7 @@ const char *const basicinstructions[] = {
 	"push any key when you are finished: ",
 	0 };
 
-const char *const bettinginstructions[] = {
+const char * bettinginstructions[] = {
 	"     The rules for betting are  somewhat  less  strict  than\n",
 	"those  used in the official version of the game. The initial\n",
 	"deal costs $13. You may quit at this point  or  inspect  the\n",
@@ -1745,7 +1747,7 @@ finish()
  */
 void
 cleanup(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 
 	total.thinktime += 1;
@@ -1769,7 +1771,7 @@ cleanup(dummy)
  */
 void
 askquit(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 	move(msgrow, msgcol);
 	printw("Really wish to quit?    ");

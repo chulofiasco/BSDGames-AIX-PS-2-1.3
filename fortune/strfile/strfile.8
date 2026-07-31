@@ -1,3 +1,4 @@
+.TH STRFILE 8 "June 9, 1993"
 .\"	$NetBSD: strfile.8,v 1.12 2004/09/09 22:03:21 wiz Exp $
 .\"
 .\" Copyright (c) 1989, 1991, 1993
@@ -32,72 +33,77 @@
 .\"
 .\"     @(#)strfile.8	8.1 (Berkeley) 6/9/93
 .\"
-.Dd June 9, 1993
-.Dt STRFILE 8
-.Os
-.Sh NAME
-.Nm strfile ,
-.Nm unstr
-.Nd "create a random access file for storing strings"
-.Sh SYNOPSIS
-.Nm strfile
-.Op Fl iorsx
-.Op Fl c Ar char
-.Ar source_file
-.Op Ar output_file
-.Nm unstr
-.Ar source_file
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+strfile, unstr \- "create a random access file for storing strings"
+.SH SYNOPSIS
+.B strfile
+[\fB\-iorsx\fP]
+[\fB\-c\fP \fIchar\fP]
+\fIsource_file\fP
+[\fIoutput_file\fP]
+.br
+.B unstr
+\fIsource_file\fP
+.SH DESCRIPTION
+.B strfile
 reads a file containing groups of lines separated by a line containing
 a single percent
-.Ql \&%
+.'"' mdoc: .Ql \&%
+\&%
 sign and creates a data file which contains
 a header structure and a table of file offsets for each group of lines.
 This allows random access of the strings.
-.Pp
+.PP
 The output file, if not specified on the command line, is named
-.Ar source_file Ns Sy .out .
-.Pp
+\fIsource_file Ns Sy .out .\fP
+.PP
 The options are as follows:
-.Bl -tag -width "-c char"
-.It Fl c Ar char
+.TP
+\fB\-c\fP \fIchar\fP
 Change the delimiting character from the percent sign to
-.Ar char .
-.It Fl i
+\fIchar .\fP
+.TP
+\fB\-i\fP
 Ignore case when ordering the strings.
-.It Fl o
+.TP
+\fB\-o\fP
 Order the strings in alphabetical order.
 The offset table will be sorted in the alphabetical order of the
 groups of lines referenced.
 Any initial non-alphanumeric characters are ignored.
 This option causes the
-.Dv STR_ORDERED
+.'"' mdoc: .Dv STR_ORDERED
+STR_ORDERED
 bit in the header
-.Ar str_flags
+\fIstr_flags\fP
 field to be set.
-.It Fl r
+.TP
+\fB\-r\fP
 Randomize access to the strings.
 Entries in the offset table will be randomly ordered.
 This option causes the
-.Dv STR_RANDOM
+.'"' mdoc: .Dv STR_RANDOM
+STR_RANDOM
 bit in the header
-.Ar str_flags
+\fIstr_flags\fP
 field to be set.
-.It Fl s
+.TP
+\fB\-s\fP
 Run silently; don't give a summary message when finished.
-.It Fl x
+.TP
+\fB\-x\fP
 Note that each alphabetic character in the groups of lines is rotated
 13 positions in a simple caesar cipher.
 This option causes the
-.Dv STR_ROTATED
+.'"' mdoc: .Dv STR_ROTATED
+STR_ROTATED
 bit in the header
-.Ar str_flags
+\fIstr_flags\fP
 field to be set.
-.El
-.Pp
+.PP
+.PP
 The format of the header is:
-.Bd -literal -offset indent
+.nf
 #define	VERSION	1
 unsigned long	str_version;	/* version number */
 unsigned long	str_numstr;	/* # of strings in the file */
@@ -108,36 +114,38 @@ unsigned long	str_shortlen;	/* length of shortest string */
 #define	STR_ROTATED	0x4	/* rot-13'd text */
 unsigned long	str_flags;	/* bit field for flags */
 char str_delim;			/* delimiting character */
-.Ed
-.Pp
+.fi
+.PP
 All fields are written in big-endian byte order.
-.Pp
+.PP
 The purpose of
-.Nm unstr
+.B u
 is to undo the work of
-.Nm strfile .
+.B strfile
 It prints out the strings contained in the file
-.Ar source_file
+\fIsource_file\fP
 in the order that they are listed in the header file
-.Ar source_file Ns Sy .dat
+\fIsource_file Ns Sy .dat\fP
 to standard output.
 It is possible to create sorted versions of input files by using
-.Fl o
+\fB\-o\fP
 when
-.Nm strfile
+.B s
 is run and then using
-.Nm unstr
+.B u
 to dump them out in the table order.
-.Sh FILES
-.Bl -tag -width strfile.out -compact
-.It Pa strfile.out
+.SH FILES
+.TP
+\fIstrfile.out\fP
 default output file.
-.El
-.Sh SEE ALSO
-.Xr byteorder 3 ,
-.Xr fortune 6
-.Sh HISTORY
+.PP
+.SH SEE ALSO
+byteorder(3) ,
+fortune(6)
+.SH HISTORY
 The
-.Nm strfile
+.B s
 utility first appeared in
-.Bx 4.4 .
+.'"' mdoc: .Bx 4.4 .
+4.4 .
+

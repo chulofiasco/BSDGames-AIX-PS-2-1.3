@@ -1,3 +1,4 @@
+.TH CANFIELD 6 "May 31, 1993"
 .\"	$NetBSD: canfield.6,v 1.9 2003/08/07 09:37:07 agc Exp $
 .\"
 .\" Copyright (c) 1983, 1993
@@ -29,48 +30,44 @@
 .\"
 .\"	@(#)canfield.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt CANFIELD 6
-.Os
-.Sh NAME
-.Nm canfield ,
-.Nm cfscores
-.Nd the solitaire card game canfield
-.Sh SYNOPSIS
-.Nm
-.Nm cfscores
-.Op Fl a
-.Op Ar user
-.Sh DESCRIPTION
+.SH NAME
+canfield, cfscores \- the solitaire card game canfield
+.SH SYNOPSIS
+.B canfield
+.br
+.B cfscores
+[\fB\-a\fP]
+[\fIuser\fP]
+.SH DESCRIPTION
 If you have never played solitaire before, it is recommended
 that you consult a solitaire instruction book. In
 Canfield, tableau cards may be built on each other downward
 in alternate colors. An entire pile must be moved as a unit
 in building. Top cards of the piles are available
 to be played on foundations, but never into empty spaces.
-.Pp
+.PP
 Spaces must be filled from the stock. The top card of
 the stock also is available to be played on foundations or
 built on tableau piles. After the stock is exhausted,
 tableau spaces may be filled from the talon and the player may
 keep them open until he wishes to use them.
-.Pp
+.PP
 Cards are dealt from the hand to the talon by threes
 and this repeats until there are no more cards in the hand
 or the player quits.
 To have cards dealt onto the talon the player types
-.Sq Ic ht
+'Ic ht'
 for his move.
 Foundation base cards are also automatically moved to the foundation
 when they become available.
-.Pp
+.PP
 The command
-.Sq Ic c
+'Ic c'
 causes
-.Nm
+.B canfield
 to maintain card counting statistics on the bottom of the screen.
 When properly used this can greatly increase one's chances of winning.
-.Pp
+.PP
 The rules for betting are somewhat less strict than
 those used in the official version of the game.
 The initial deal costs $13.
@@ -92,31 +89,34 @@ If the information is toggled on, you are only charged for cards
 that became visible since it was last turned on.
 Thus the maximum cost of information is $34.
 Playing time is charged at a rate of $1 per minute.
-.Pp
+.PP
 With no arguments, the program
-.Nm cfscores
+.B c
 prints out the current status of your canfield account.
 If a
-.Ar user
+\fIuser\fP
 name is specified, it prints out the status of their canfield account.
 If the
-.Fl a
+\fB\-a\fP
 flag is specified,
 it prints out the canfield accounts for all users that have
 played the game since the database was set up.
-.Sh FILES
-.Bl -tag -width @gamesdir@/canfield -compact
-.It Pa @gamesdir@/canfield
+.SH FILES
+.TP
+\fI@gamesdir@/canfield\fP
 the game itself
-.It Pa @gamesdir@/cfscores
+.TP
+\fI@gamesdir@/cfscores\fP
 the database printer
-.It Pa @canfield_scorefile@
+.TP
+\fI@canfield_scorefile@\fP
 the database of scores
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 It is impossible to cheat.
-.Sh AUTHORS
+.SH AUTHORS
 Originally written: Steve Levine.
-.Pp
+.PP
 Further random hacking by: Steve Feldman, Kirk McKusick,
 Mikey Olson, and Eric Allman.
+

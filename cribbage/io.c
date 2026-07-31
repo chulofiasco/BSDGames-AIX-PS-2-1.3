@@ -60,18 +60,18 @@ __RCSID("$NetBSD: io.c,v 1.18 2004/11/05 21:30:31 dsl Exp $");
 
 char    linebuf[LINESIZE];
 
-const char   *const rankname[RANKS] = {
+const char   * rankname[RANKS] = {
 	"ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN",
 	"EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING"
 };
 
-const char   *const rankchar[RANKS] = {
+const char   * rankchar[RANKS] = {
 	"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"
 };
 
-const char *const suitname[SUITS] = {"SPADES", "HEARTS", "DIAMONDS", "CLUBS"};
+const char * suitname[SUITS] = {"SPADES", "HEARTS", "DIAMONDS", "CLUBS"};
 
-const char   *const suitchar[SUITS] = {"S", "H", "D", "C"};
+const char   * suitchar[SUITS] = {"S", "H", "D", "C"};
 
 /*
  * msgcard:
@@ -583,7 +583,7 @@ getline()
 
 void
 receive_intr(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	bye();
 	exit(1);

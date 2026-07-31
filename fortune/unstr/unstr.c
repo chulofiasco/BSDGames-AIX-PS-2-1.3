@@ -86,8 +86,8 @@ void	order_unstr(STRFILE *);
 /* ARGSUSED */
 int
 main(ac, av)
-	int	ac __attribute__((__unused__));
-	char	**av;
+	int	ac;
+	char	*av[];
 {
 	static STRFILE	tbl;		/* description table */
 
@@ -111,6 +111,7 @@ main(ac, av)
 	(void) fclose(Inf);
 	(void) fclose(Dataf);
 	exit(0);
+	return 0;
 }
 
 void

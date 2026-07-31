@@ -26,7 +26,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-cribbage_DIRS := $(GAMESDIR) $(MAN6DIR) $(shell dirname $(CRIBBAGE_INSTRFILE))
+cribbage_DIRS = $(GAMESDIR) $(MAN6DIR) $(SHAREDIR)
 
 cribbage_all:	cribbage/cribbage cribbage/cribbage.n cribbage/cribbage.6
 

@@ -51,6 +51,7 @@ __RCSID("$NetBSD: dm.c,v 1.21 2004/11/05 21:30:32 dsl Exp $");
 #include <err.h>
 #include <ctype.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,13 +74,14 @@ const char *hour(int);
 double	load(void);
 int	main(int, char *[]);
 void	nogamefile(void);
-void	play(char **) __attribute__((__noreturn__));
+void	play(char **);
 void	read_config(void);
+char	*ttyname(int);
 int	users(void);
 
 int
 main(argc, argv)
-	int argc __attribute__((__unused__));
+	int argc;
 	char *argv[];
 {
 	char *cp;
@@ -91,7 +93,7 @@ main(argc, argv)
 		exit(0);
 
 	gametty = ttyname(0);
-	unsetenv("TZ");
+	putenv("TZ=");
 	(void)time(&now);
 	read_config();
 #ifdef LOG
@@ -162,7 +164,7 @@ void
 c_day(s_day, s_start, s_stop)
 	const char *s_day, *s_start, *s_stop;
 {
-	static const char *const days[] = {
+	static const char *days[] = {
 		"sunday", "monday", "tuesday", "wednesday",
 		"thursday", "friday", "saturday",
 	};
@@ -287,7 +289,7 @@ const char *
 hour(h)
 	int h;
 {
-	static const char *const hours[] = {
+	static const char *hours[] = {
 	    "midnight", "1am", "2am", "3am", "4am", "5am",
 	    "6am", "7am", "8am", "9am", "10am", "11am",
 	    "noon", "1pm", "2pm", "3pm", "4pm", "5pm",

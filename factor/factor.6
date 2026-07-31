@@ -1,3 +1,4 @@
+.TH FACTOR 6 "February 8, 2004"
 .\"	$NetBSD: factor.6,v 1.9 2004/02/08 13:16:25 jsm Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -37,45 +38,42 @@
 .\"
 .\"   chongo <for a good prime call: 391581 * 2^216193 - 1> /\oo/\
 .\"
-.Dd February 8, 2004
-.Dt FACTOR 6
-.Os
-.Sh NAME
-.Nm factor
-.Nd factor a number
-.Sh SYNOPSIS
-.Nm
-.Op Ar number ...
-.Sh DESCRIPTION
+.SH NAME
+factor \- factor a number
+.SH SYNOPSIS
+.B factor
+[\fInumber\fP ...]
+.SH DESCRIPTION
 The
-.Nm
+.B factor
 utility will factor integers between \-2147483648 and 2147483647 inclusive.
 When a number is factored, it is printed, followed by a
-.Dq \&: ,
+"\&: ,"
 and the list of factors on a single line.
 Factors are listed in ascending order, and are preceded by a space.
 If a factor divides a value more than once, it will be printed more than once.
-.Pp
+.PP
 When
-.Nm
+.B factor
 is invoked with one or more arguments, each argument will be factored.
-.Pp
+.PP
 When
-.Nm
+.B factor
 is invoked with no arguments,
-.Nm
+.B factor
 reads numbers, one per line, from standard input, until end of file or error.
 Leading white-space and empty lines are ignored.
 Numbers may be preceded by a single - or +.
 Numbers are terminated by a non-digit character (such as a newline).
 After a number is read, it is factored.
 Input lines must not be longer than 255 characters.
-.Sh DIAGNOSTICS
+.SH DIAGNOSTICS
 Out of range or invalid input results in
 an appropriate error message
 being written to standard error.
-.Sh BUGS
-.Nm
+.SH BUGS
+.B factor
 cannot handle the
-.Dq 10 most wanted
+"10 most wanted"
 factor list.
+

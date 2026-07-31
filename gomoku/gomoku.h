@@ -36,6 +36,14 @@
 
 #include <sys/types.h>
 #include <sys/endian.h>
+/* sys/param.h (via netinet/in.h) defines stoc/ctos as macros on AIX i386;
+ * undefine them so our function declarations and definitions are not clobbered */
+#ifdef stoc
+#undef stoc
+#endif
+#ifdef ctos
+#undef ctos
+#endif
 #include <stdio.h>
 
 /* board dimensions */
@@ -272,16 +280,16 @@ void	bdisp_init(void);
 void	cursfini(void);
 void	cursinit(void);
 void	bdwho(int);
-void	panic(const char *) __attribute__((__noreturn__));
+void	panic(const char *);
 void	glog(const char *);
 void	dlog(const char *);
-void	quit(void) __attribute__((__noreturn__));
-void	quitsig(int) __attribute__((__noreturn__));
+void	quit(void);
+void	quitsig(int);
 void	whatsup(int);
 int	readinput(FILE *);
-const char   *stoc(int);
-int	lton(int);
-int	ctos(const char *);
+const char   *stoc(int s);
+int	lton(int n);
+int	ctos(const char *mp);
 void	update_overlap(struct spotstr *);
 int	makemove(int, int);
 int	list_eq(struct combostr **, struct combostr **, int);
