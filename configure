@@ -31,10 +31,10 @@
 
 # This will only ask some questions if the previous answers are appropriate.
 # It will substitute values in the directories built in, and the main
-# GNUmakefile.
+# Makefile.
 
 # Allow defaults to be given by a script
-if [ -e ./config.params ]; then
+if [ -f ./config.params ]; then
     . ./config.params
 fi
 
@@ -42,50 +42,69 @@ subst_vars=srcdir
 
 srcdir="`pwd`"
 
+# Portable mkdir -p replacement for SVR2/AIX 1.2 (mkdir has no -p flag)
+mkdirp () {
+    _mdp_path="$1"
+    _mdp_IFS="$IFS"
+    IFS=/
+    set -- $_mdp_path
+    IFS="$_mdp_IFS"
+    _mdp_cur=""
+    for _mdp_seg in "$@"; do
+        if [ -z "$_mdp_seg" ]; then continue; fi
+        _mdp_cur="${_mdp_cur}/${_mdp_seg}"
+        if [ ! -d "$_mdp_cur" ]; then mkdir "$_mdp_cur"; fi
+    done
+}
+
 ask () {
     long_query="$1"
     query_var="$2"
     dflt_var="bsd_games_cfg_$query_var"
-    eval default=\"\$\{${dflt_var}-\$3\}\"
-    printf "%s [%s] " "$long_query" "$default"
+    eval _dflt_val="\$$dflt_var"
+    if [ "x$_dflt_val" = x ]; then
+	default="$3"
+    else
+	default="$_dflt_val"
+    fi
+    echo "$long_query [$default] \c"
     if [ "x$bsd_games_cfg_non_interactive" = xy ]; then
 	# Follow default
 	input=''
 	echo "[ Using default ]"
     else
-	read input
+	read input </dev/tty
     fi
-    case "$input" in
-	('')
-	    input="$default"
-	    ;;
-	(*)
-	    ;;
-    esac
-    eval $query_var=\"\$input\"
+    if [ "x$input" = x ]; then
+	input="$default"
+    fi
+    eval "$query_var=\"\$input\""
     subst_vars="$subst_vars $query_var"
 }
 
 ask_yn () {
-    eval $2=
-    eval answer=\$$2
+    _ay_query="$1"
+    _ay_var="$2"
+    _ay_dflt="$3"
+    eval "$_ay_var="
+    eval answer="\$$_ay_var"
     while test "x$answer" = x; do
-	ask "$1" $2 $3
-	eval answer=\$$2
+	ask "$_ay_query" "$_ay_var" "$_ay_dflt"
+	eval answer="\$$_ay_var"
 	case "$answer" in
-	    ([yY]*)
+	    [yY]*)
 		answer=y
 		;;
-	    ([nN]*)
+	    [nN]*)
 		answer=n
 		;;
-	    (*)
+	    *)
 		answer=
 		echo "Please answer y or n"
 		;;
-        esac
+	esac
     done
-    eval $2=\$answer
+    eval "$_ay_var=\$answer"
 }
 
 askperms () {
@@ -108,17 +127,20 @@ askperms () {
 }
 
 building_in () {
-    echo " $build_dirs " |grep -q " $1 "
+    echo " $build_dirs " |grep " $1 " >/dev/null 2>&1
 }
 
 not_building_in () {
-    echo " $no_build_dirs " |grep -q " $1 "
+    echo " $no_build_dirs " |grep " $1 " >/dev/null 2>&1
 }
 
 game_ask () {
-    game="$1"
-    if building_in "$game"; then
-	ask "$2" "$3" "$4"
+    _ga_game="$1"
+    _ga_query="$2"
+    _ga_var="$3"
+    _ga_dflt="$4"
+    if building_in "$_ga_game"; then
+	ask "$_ga_query" "$_ga_var" "$_ga_dflt"
     fi
 }
 
@@ -126,18 +148,12 @@ check_func () {
     funcname=$1
     subst_vars="$subst_vars ${funcname}_defs"
     cat >conftest.c
-    printf "Checking for %s..." "$funcname"
+    echo "Checking for $funcname...\c"
     compiler="$cc $optimize_flags $other_cflags $other_ldflags"
     if $compiler conftest.c >/dev/null 2>&1; then
 	echo "found."
 	echo "#define HAVE_$funcname 1" >>include/bsd-games.h
-	# Check whether we need _GNU_SOURCE for a prototype.
-	if $compiler -Wall -Werror conftest.c >/dev/null 2>&1; then
-	    eval ${funcname}_defs=
-	else
-	    # Prototype not in headers by default (try _GNU_SOURCE).
-	    eval ${funcname}_defs=-D_GNU_SOURCE
-	fi
+	eval ${funcname}_defs=
 	rm -f a.out conftest.c
 	true
     else
@@ -166,11 +182,13 @@ no_build_dirs="`echo $no_build_dirs`"
 
 def_build_dirs=
 for file in *; do
-    if [ -e "$file/Makefrag" ] && ! not_building_in "$file" && [ "$file" != lib ]; then
-	def_build_dirs="$def_build_dirs $file"
+    if [ -f "$file/Makefrag" ] && [ "$file" != lib ]; then
+	if not_building_in "$file"; then :; else
+	    def_build_dirs="$def_build_dirs $file"
+	fi
     fi
 done
-def_build_dirs=${def_build_dirs## }
+def_build_dirs=`echo "$def_build_dirs" | sed 's/^ //'`
 
 ask "Games to build" build_dirs "$def_build_dirs"
 
@@ -187,7 +205,8 @@ echo "*** the new FHS paths, you may need to remove some old files after"
 echo "*** installation."
 echo
 
-ask "Games directory" gamesdir /usr/games
+ask "Games directory" gamesdir /usr/local/bsdgames/games
+ask "Manpage root directory" mandir /usr/local/bsdgames/man
 
 # We put huntd in /usr/games by default (instead of /usr/sbin as earlier,
 # or /usr/lib) since it can reasonably be called by users and counts
@@ -195,7 +214,7 @@ ask "Games directory" gamesdir /usr/games
 if building_in hunt; then
     echo
     echo "Hunt includes a daemon for coordinating games with multiple players"
-    ask "Daemon directory" sbindir /usr/games
+    ask "Daemon directory" sbindir /usr/local/bsdgames/games
 else
     sbindir=
     subst_vars="$subst_vars sbindir"
@@ -228,22 +247,22 @@ if building_in dm; then
 	hidegame=$srcdir/hide-game
     fi
 fi
-ask "Section 6 manpage directory" man6dir /usr/share/man/man6
+ask "Section 6 manpage directory" man6dir $mandir/man6
 if building_in dm || building_in fortune; then
-    ask "Section 8 manpage directory" man8dir /usr/share/man/man8
+    ask "Section 8 manpage directory" man8dir $mandir/man8
 else
     man8dir=
     subst_vars="$subst_vars man8dir"
 fi
 if building_in dm; then
-    ask "Section 5 manpage directory" man5dir /usr/share/man/man5
+    ask "Section 5 manpage directory" man5dir $mandir/man5
 else
     man5dir=
     subst_vars="$subst_vars man5dir"
 fi
 
 if building_in trek || building_in rogue; then
-    ask "Directory for miscellaneous documentation" docdir /usr/share/doc/bsd-games
+    ask "Directory for miscellaneous documentation" docdir /usr/local/bsdgames/doc
 else
     docdir=
     subst_vars="$subst_vars docdir"
@@ -255,8 +274,8 @@ fi
 # desirable, but I don't feel it necessary at present.
 
 ask "Library directory for constant data
-	(architecture independent)" sharedir /usr/share/games
-ask "Library directory for variable data" varlibdir /var/games
+	(architecture independent)" sharedir /usr/local/bsdgames/share
+ask "Library directory for variable data" varlibdir /usr/local/bsdgames/var
 
 ask_yn "Set owners/groups on installed files" do_chown y
 
@@ -296,12 +315,12 @@ use_dot_so=
 while test x$use_dot_so = x; do
     ask "Use .so or symlinks for manpages" use_dot_so .so
     case "$use_dot_so" in
-        (.so)
+        .so)
     	;;
-        (syml*)
+        syml*)
     	use_dot_so=symlinks
     	;;
-        (*)
+        *)
     	use_dot_so=
 	echo "Please answer \`.so\' or \`symlinks\'"
     	;;
@@ -323,25 +342,25 @@ subst_vars="$subst_vars install_script"
 
 echo
 echo "It is presumed in some places by the Makefiles that the compiler"
-echo "will be some form of gcc."
-ask "C compiler" cc gcc
+echo "will be some form of cc."
+ask "C compiler" cc cc
 if building_in dab; then
-    ask "C++ compiler" cxx g++
+    ask "C++ compiler" cxx CC
 fi
-ask "Optimize flags" optimize_flags "-g -O2"
+ask "Optimize flags" optimize_flags "-O"
 echo
 echo "The default warning flags should give a compile with few warnings."
 # -Wbad-function-cast and -Wshadow give lots of warnings that are basically
 # harmless.
-ask "C compiler warning flags" warning_flags "-Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings"
+ask "C compiler warning flags" warning_flags ""
 if building_in dab; then
-    ask "C++ compiler warning flags" cxx_warning_flags "-Wall -W -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings"
+    ask "C++ compiler warning flags" cxx_warning_flags ""
 fi
 echo
 echo "You probably want the default here, or could use -lncurses_g for"
 echo "debugging ncurses.  Use -lcurses -ltermcap if you want to try that,"
 echo "but note that this is no longer supported and may not work."
-ask "Ncurses library" ncurses_lib -lncurses
+ask "Ncurses library" ncurses_lib -lcurses
 echo
 echo "If you have a directory /usr/include/ncurses with the ncurses include"
 echo "files in it, and the <curses.h>, <termcap.h>, etc. in /usr/include"
@@ -379,6 +398,11 @@ ask "Other LDFLAGS" other_ldflags ''
 # Check for functions - not in glibc 2.1.1, but could be added later.
 echo "#ifndef LINUX_BSD_GAMES_H" >include/bsd-games.h
 echo "#define LINUX_BSD_GAMES_H 1" >>include/bsd-games.h
+echo "" >>include/bsd-games.h
+echo "/* MetaWare High C does not support __attribute__; suppress it */" >>include/bsd-games.h
+echo "#ifndef __attribute__" >>include/bsd-games.h
+echo "#define __attribute__(x)" >>include/bsd-games.h
+echo "#endif" >>include/bsd-games.h
 
 if [ "$use_libcrypto" = "y" ]; then
     echo "#define HAVE_OPENSSL 1" >>include/bsd-games.h
@@ -455,11 +479,11 @@ echo "with.  Unless you know you want this, you can leave it empty."
 ask "Base libraries" base_libs ''
 
 if building_in atc; then
-    ask "Yacc program" yacc "bison -y"
+    ask "Yacc program" yacc "yacc"
 fi
 if building_in atc; then
-    ask "Lex program" lex flex
-    ask "Lex library" lex_lib -lfl
+    ask "Lex program" lex lex
+    ask "Lex library" lex_lib -ll
 fi
 
 echo
@@ -562,24 +586,24 @@ done
 
 substitute () {
     for file in "$@"; do
-	dir="${file%%/*}"
+	dir=`echo "$file" | sed 's/\/.*//'`
 	if building_in $dir || [ "$file" = "$dir" ]; then
 	    source_file="${file}.in"
 	    case "$file" in
-	    (quiz/datfiles/index)
+	    quiz/datfiles/index)
 		# Can't put a comment in this file
 		subst_type=n
 		;;
-	    (Makeconfig)
+	    Makeconfig)
 		subst_type=h
 		;;
-	    (*.[1-9])
+	    *.[1-9])
 		subst_type=m
 		;;
-	    (*.[ch])
+	    *.[ch])
 		subst_type=c
 		;;
-	    (*)
+	    *)
 		subst_type=s
 		;;
 	    esac
@@ -604,13 +628,13 @@ subst_files="`sed '/^#/d' <substfiles2`"
 
 substitute $subst_files
 
-# Now we want to create the main GNUmakefile that includes the subdirectory
+# Now we want to create the main Makefile that includes the subdirectory
 # fragments and all the necessary dependencies.  This may take some time.
 
-echo "Generating the main GNUmakefile, please wait..."
+echo "Generating the main Makefile, please wait..."
 
 prog_to_exec () {
-    if [ "x$(dirname $1)" = x. ]; then
+    if [ "x`dirname $1`" = x. ]; then
 	echo "$1/$1"
     else
 	echo "$1"
@@ -622,19 +646,24 @@ slashdot_to_under () {
 }
 
 exec_to_libs () {
-    eval echo \$$(slashdot_to_under $1)_libs
+    _etl_u=`slashdot_to_under $1`
+    eval echo "\$${_etl_u}_libs"
 }
 
 exec_to_objs () {
-    eval echo \$$(slashdot_to_under $1)_objs
+    _eto_u=`slashdot_to_under $1`
+    eval echo "\$${_eto_u}_objs"
 }
 
-make_dirs_tmp="$(find $build_dirs -depth -type d) lib"
+make_dirs_tmp="lib"
+for _d in $build_dirs; do
+    make_dirs_tmp="$make_dirs_tmp `find $_d -depth -type d -print`"
+done
 
 make_dirs=
 
 for dir in $make_dirs_tmp; do
-    if [ -e $dir/Makefrag ]; then
+    if [ -f $dir/Makefrag ]; then
 	make_dirs="$make_dirs $dir"
     fi
 done
@@ -642,121 +671,153 @@ done
 all_dependencies=
 
 for dir in $make_dirs; do
-    udir=$(slashdot_to_under $dir)
+    udir=`slashdot_to_under $dir`
     all_dependencies="$all_dependencies ${udir}_all"
 done
 
-cat >GNUmakefile <<EOF
-# GNUmakefile - automatically generated by configure.  Do not edit.
+# Fix all Makefrag files for AIX make: convert := to = and
+# pre-compute $(shell dirname ...) expressions.
+echo "Patching Makefrag files for AIX make compatibility..."
 
-# No suffix rules
-.SUFFIXES:
 
-# Include configuration
-include Makeconfig
+for mf in `find . -name Makefrag -print`; do
+    tr -d '\015' < "$mf" | sed 's/:=/=/g' > "$mf.tmp" && mv "$mf.tmp" "$mf"
+done
+if [ -f hunt/Makeconfig ]; then
+    tr -d '\015' < hunt/Makeconfig | sed -e '/^ifneq/d' -e '/^endif/d' -e 's/:=/=/g' > hunt/Makeconfig.tmp && mv hunt/Makeconfig.tmp hunt/Makeconfig
+fi
+tr -d '\015' < Makeconfig > Makeconfig.tmp && mv Makeconfig.tmp Makeconfig
+# Pre-compute dirname values for $(shell dirname ...) in fish and cribbage
+if building_in fish && [ -n "$fish_instrfile" ]; then
+    fish_instrfile_dir=`dirname "$fish_instrfile"`
+    sed "s:\$(shell dirname \$(FISH_INSTRFILE)):$fish_instrfile_dir:g" \
+        fish/Makefrag > fish/Makefrag.tmp && mv fish/Makefrag.tmp fish/Makefrag
+fi
+if building_in cribbage && [ -n "$cribbage_instrfile" ]; then
+    cribbage_instrfile_dir=`dirname "$cribbage_instrfile"`
+    sed "s:\$(shell dirname \$(CRIBBAGE_INSTRFILE)):$cribbage_instrfile_dir:g" \
+        cribbage/Makefrag > cribbage/Makefrag.tmp && mv cribbage/Makefrag.tmp cribbage/Makefrag
+fi
+if building_in monop; then
+    monop_cardsfile_dir=`dirname "$monop_cardsfile"`
+    sed "s:\$(shell dirname \$(MONOP_CARDSFILE)):$monop_cardsfile_dir:g" \
+        monop/Makefrag > monop/Makefrag.tmp && mv monop/Makefrag.tmp monop/Makefrag
+fi
+if building_in wump; then
+    wump_infofile_dir=`dirname "$wump_infofile"`
+    sed "s:\$(shell dirname \$(WUMP_INFOFILE)):$wump_infofile_dir:g" \
+        wump/Makefrag > wump/Makefrag.tmp && mv wump/Makefrag.tmp wump/Makefrag
+fi
+if building_in wtf; then
+    wtf_acronymfile_dir=`dirname "$wtf_acronymfile"`
+    sed "s:\$(shell dirname \$(WTF_ACRONYMFILE)):$wtf_acronymfile_dir:g" \
+        wtf/Makefrag > wtf/Makefrag.tmp && mv wtf/Makefrag.tmp wtf/Makefrag
+fi
 
-.PHONY:	all $all_dependencies
-all:	$all_dependencies
-
-# Include substitution rules.
-include subst.rules
-
-EOF
+echo "# Makefile - automatically generated by configure.  Do not edit." >Makefile
+echo "" >>Makefile
+cat Makeconfig >>Makefile
+echo "" >>Makefile
+for _d in $all_dependencies; do
+    echo "all::	$_d" >>Makefile
+done
+echo "" >>Makefile
 
 for dir in $make_dirs; do
-    udir=$(slashdot_to_under $dir)
+    udir=`slashdot_to_under $dir`
     eval clean_$udir=
-    if [ $dir = dab ]; then
-	cat >>GNUmakefile <<EOF
-include $dir/Makefrag
-
-$dir/%.o:	$dir/%.cc
-	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -c \$< -o \$@
-
-$dir/%.ii:	$dir/%.cc
-	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -E \$< -o \$@
-
-$dir/%.s:	$dir/%.cc
-	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -S -fverbose-asm \$< -o \$@
-
-$dir/%.d:	$dir/%.cc
-	./mkdep \$< \$@ \$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS)
-
-EOF
-    else
-	cat >>GNUmakefile <<EOF
-include $dir/Makefrag
-
-$dir/%.o:	$dir/%.c
-	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -c \$< -o \$@
-
-$dir/%.i:	$dir/%.c
-	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -E \$< -o \$@
-
-$dir/%.s:	$dir/%.c
-	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -S -fverbose-asm \$< -o \$@
-
-$dir/%.d:	$dir/%.c
-	./mkdep \$< \$@ \$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS)
-
-EOF
-    fi
+    tr -d '\015' < $dir/Makefrag >>Makefile
+    echo "" >>Makefile
 done
 
 # This temporary file is needed because we don't know whether the last
 # part of a pipeline is in the current shell execution environment
 # (POSIX.2, 3.12 and rationale).
 sed '/^#/d' <exec.libs >exec.libs.tmp
+exec 3<&0
+exec <exec.libs.tmp
 while read prog libs; do
-    if ! building_in ${prog%%/*}; then
-	continue
+    prog_top=`echo "$prog" | sed 's/\/.*//'`
+    if building_in "$prog_top"; then
+	exec=`prog_to_exec "$prog"`
+	evar=`slashdot_to_under "$exec"`_libs
+	eval $evar=\"\$libs\"
     fi
-    exec=$(prog_to_exec $prog)
-    evar=$(slashdot_to_under $exec)_libs
-    eval $evar=\"\$libs\"
-done <exec.libs.tmp
+done
+exec <&3
+exec 3<&-
 
 sed '/^#/d' <exec.objs >exec.objs.tmp
+seen_compile_objs=
+exec 3<&0
+exec <exec.objs.tmp
 while read prog objs; do
-    if ! building_in ${prog%%/*}; then
-	continue
-    fi
-    exec=$(prog_to_exec $prog)
-    evar=$(slashdot_to_under $exec)_libs
-    eval libs=\"\$$evar\"
-    dir=$(dirname $exec)
-    udir=$(slashdot_to_under $dir)
-    nobjs=
-    deps_to_inc=
-    eval clean_$udir=\"\$clean_$udir $(basename $exec)\"
-    for obj in $objs; do
-	if [ "x$(dirname $obj)" = x. ]; then
-	    obj=$dir/$obj
+    prog_top=`echo "$prog" | sed 's/\/.*//'`
+    if building_in "$prog_top"; then
+	exec=`prog_to_exec "$prog"`
+	evar=`slashdot_to_under "$exec"`_libs
+	eval libs=\"\$$evar\"
+
+	dir=`dirname "$exec"`
+	udir=`slashdot_to_under "$dir"`
+	nobjs=
+	eval clean_$udir=\"\$clean_$udir `basename "$exec"`\"
+	for obj in $objs; do
+	    if [ "x`dirname $obj`" = x. ]; then
+		obj=$dir/$obj
+	    fi
+	    nobjs="$nobjs $obj"
+	done
+	if [ "$dir" = dab ]; then
+	    ccvar=CXX
+	else
+	    ccvar=CC
 	fi
-	nobjs="$nobjs $obj"
-	obj_dep_var=$(slashdot_to_under $obj)
-	obj_dep_var=${obj_dep_var}_deps_included
-	eval obj_dep_val=\$$obj_dep_var
-	if [ "x$obj_dep_val" = "x" ]; then
-	    deps_to_inc="$deps_to_inc ${obj%%.o}.d"
-	    eval $obj_dep_var=y
-	fi
-    done
-    if [ $dir = dab ]; then
-	ccvar=CXX
-    else
-	ccvar=CC
-    fi
-    cat >>GNUmakefile <<EOF
-ifneq (\$(nodep),true)
-include $deps_to_inc
-endif
+	cat >>Makefile <<EOF
 
 $exec:	$nobjs
-	\$($ccvar) \$(LDFLAGS) \$^ $libs \$(BASE_LIBS) -o \$@
+	\$(${ccvar}) \$(LDFLAGS) $nobjs $libs \$(BASE_LIBS) -o $exec
 
 EOF
-done <exec.objs.tmp
+	# Generate explicit compile rules for each object
+	for obj in $nobjs; do
+	    # Skip if a compile rule has already been emitted for this object
+	    if echo " $seen_compile_objs " | grep " $obj " >/dev/null 2>&1; then
+		continue
+	    fi
+	    seen_compile_objs="$seen_compile_objs $obj"
+	    objdir=`dirname "$obj"`
+	    udirobj=`slashdot_to_under "$objdir"`
+	    obj_base=`basename "$obj"`
+	    # lib/ objects are always C, even inside a C++ executable
+	    if [ "$ccvar" = CXX ] && [ "$objdir" != lib ]; then
+		src=`echo "$obj" | sed 's/\.o$/.cc/'`
+		cat >>Makefile <<EOF
+$obj:	$src
+	\$(CXX) \$(CXXFLAGS) \$(${udirobj}_CXXFLAGS) \$(${udirobj}_DEFS) \$(BASE_INCS) -I$objdir \$(${udirobj}_INCS) -c $src
+	mv $obj_base $obj
+
+EOF
+	    else
+		src=`echo "$obj" | sed 's/\.o$/.c/'`
+		# Some files trigger "Reloc entries out of order" with -O on
+		# AIX 1.2 ld; compile them without optimization.
+		case "$src" in
+		    backgammon/backgammon/main.c) cflagsvar=CFLAGS_NOOPT ;;
+		    *) cflagsvar=CFLAGS ;;
+		esac
+		cat >>Makefile <<EOF
+$obj:	$src
+	\$(CC) \$(${cflagsvar}) \$(${udirobj}_CFLAGS) \$(${udirobj}_DEFS) \$(BASE_INCS) -I$objdir \$(${udirobj}_INCS) -c $src
+	mv $obj_base $obj
+
+EOF
+	    fi
+	done
+    fi
+done
+exec <&3
+exec 3<&-
 
 rm -f exec.libs.tmp exec.objs.tmp
 
@@ -764,58 +825,60 @@ clean_dependencies=
 install_dependencies=
 
 for dir in $make_dirs; do
-    udir=$(slashdot_to_under $dir)
+    udir=`slashdot_to_under $dir`
     clean_dependencies="$clean_dependencies ${udir}_clean"
     install_dependencies="$install_dependencies ${udir}_install"
     eval clean=\"\$clean_$udir\"
-    cat >>GNUmakefile <<EOF
-.PHONY:	${udir}_clean
+    cat >>Makefile <<EOF
 ${udir}_clean:
-	cd $dir && rm -f -- a.out core *.o *.d *.i *.s *.d.tmp $clean \$(${udir}_CLEANFILES)
+	cd $dir && rm -f -- a.out core *.o *.i *.s $clean \$(${udir}_CLEANFILES)
 
-.PHONY:	${udir}_install ${udir}_install-strip ${udir}_installdirs
 ${udir}_install:	${udir}_installdirs
 
 ${udir}_install-strip:
 	\$(MAKE) ${udir}_install \$(DEFS_TO_PASS_STRIP)
 
 ${udir}_installdirs:
-	set -e; for d in \$(${udir}_DIRS) /; do mkdir -p \$(INSTALL_PREFIX)\$\$d; done
+	set -e; for d in \$(${udir}_DIRS) /; do \$(SRCDIR)/mkdirp \$(INSTALL_PREFIX)\$\$d; done
 
 EOF
 done
 
-cat >>GNUmakefile <<EOF
-.PHONY:	clean mostlyclean distclean maintainer-clean
-clean mostlyclean:	$clean_dependencies
+for _d in $clean_dependencies; do
+    echo "clean::	$_d" >>Makefile
+    echo "mostlyclean::	$_d" >>Makefile
+done
+cat >>Makefile <<EOF
 
 distclean maintainer-clean:	clean
 	rm -f subst.sed subst.rules
 	rm -f test.out
 	rm -f \`cat substfiles substfiles2 |sed '/^#/d'\`
-	rm -f GNUmakefile
+	rm -f Makefile
 	rm -f a.out conftest.c include/bsd-games.h
 	rm -f exec.libs.tmp exec.objs.tmp
 
-.PHONY:	install install-strip
-
-install:	$install_dependencies
+EOF
+for _d in $install_dependencies; do
+    echo "install::	$_d" >>Makefile
+done
+cat >>Makefile <<EOF
 
 install-strip:
 	\$(MAKE) install \$(DEFS_TO_PASS_STRIP)
 
-.PHONY: check test
 check test:	all
 	set -e; for f in tests/*.test; do echo \$\$f; \$\$f; done
 
 # Standard GNU targets we don't support
-.PHONY:	uninstall TAGS dist
 uninstall TAGS dist:
 	@echo "The GNU target \\\`\$@' is not supported by this package." >&2; exit 1
 
 # GNU targets that can do nothing
-.PHONY:	info dvi
 info dvi:
 	@echo "This package comes with no Texinfo documentation."
 
 EOF
+echo "include subst.rules" >>Makefile
+
+echo "Done."

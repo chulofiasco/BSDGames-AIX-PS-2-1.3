@@ -28,93 +28,51 @@
  * SUCH DAMAGE.
  */
 
-#include <features.h>
+/* AIX 1.2 on PS/2 (x86) is little-endian; use ntohs/ntohl */
 #include <sys/types.h>
-#include <endian.h>
 #include <netinet/in.h>
 
-#if __BYTE_ORDER == __BIG_ENDIAN
+#ifndef LITTLE_ENDIAN
+#define LITTLE_ENDIAN	1234
+#endif
+#ifndef BIG_ENDIAN
+#define BIG_ENDIAN	4321
+#endif
+#ifndef BYTE_ORDER
+#define BYTE_ORDER	LITTLE_ENDIAN	/* IBM PS/2 is x86 little-endian */
+#endif
+
 #ifndef be16toh
-#define be16toh(x)	((u_int16_t)(x))
+#define be16toh(x)	((unsigned short)ntohs((unsigned short)(x)))
 #endif
 #ifndef htobe16
-#define htobe16(x)	((u_int16_t)(x))
+#define htobe16(x)	((unsigned short)htons((unsigned short)(x)))
 #endif
 #ifndef be32toh
-#define be32toh(x)	((u_int32_t)(x))
+#define be32toh(x)	((unsigned long)ntohl((unsigned long)(x)))
 #endif
 #ifndef htobe32
-#define htobe32(x)	((u_int32_t)(x))
-#endif
-#ifndef be64toh
-#define be64toh(x)	((u_int64_t)(x))
-#endif
-#ifndef htobe64
-#define htobe64(x)	((u_int64_t)(x))
+#define htobe32(x)	((unsigned long)htonl((unsigned long)(x)))
 #endif
 #ifndef BE16TOH
-#define BE16TOH(x)	((void)0)
+#define BE16TOH(x)	((x) = be16toh(x))
 #endif
 #ifndef HTOBE16
-#define HTOBE16(x)	((void)0)
+#define HTOBE16(x)	((x) = htobe16(x))
 #endif
 #ifndef BE32TOH
-#define BE32TOH(x)	((void)0)
+#define BE32TOH(x)	((x) = be32toh(x))
 #endif
 #ifndef HTOBE32
-#define HTOBE32(x)	((void)0)
-#endif
-#ifndef BE64TOH
-#define BE64TOH(x)	((void)0)
-#endif
-#ifndef HTOBE64
-#define HTOBE64(x)	((void)0)
-#endif
-#else /* little-endian */
-#ifndef be16toh
-#define be16toh(x)	((u_int16_t)ntohs((u_int16_t)(x)))
-#endif
-#ifndef htobe16
-#define htobe16(x)	((u_int16_t)htons((u_int16_t)(x)))
-#endif
-#ifndef be32toh
-#define be32toh(x)	((u_int32_t)ntohl((u_int32_t)(x)))
-#endif
-#ifndef htobe32
-#define htobe32(x)	((u_int32_t)htonl((u_int32_t)(x)))
+#define HTOBE32(x)	((x) = htobe32(x))
 #endif
 #ifndef be64toh
-#ifdef __bswap_64 /* glibc */
-#define be64toh(x)	((u_int64_t)__bswap_64((u_int64_t)(x)))
-#else /* no __bswap_64 */
-#ifdef __swab64 /* Linux kernel headers (libc5, at least with kernel 2.2) */
-#define be64toh(x)	((u_int64_t)__swab64((u_int64_t)(x)))
-#else /* no __bswap_64 or __swab64 */
-static __inline__ u_int64_t be64toh(u_int64_t __x);
-static __inline__ u_int64_t be64toh(u_int64_t __x) { return (((u_int64_t)be32toh(__x & (u_int64_t)0xFFFFFFFFULL)) << 32) | ((u_int64_t)be32toh((__x & (u_int64_t)0xFFFFFFFF00000000ULL) >> 32)); }
-#define be64toh(x)	be64toh((x))
-#endif /* no __bswap_64 or __swab64 */
-#endif /* no __bswap_64 */
-#endif /* no be64toh */
+#define be64toh(x)	((unsigned long)ntohl((unsigned long)(x)))
+#endif
 #ifndef htobe64
-#define htobe64(x)	be64toh(x)
+#define htobe64(x)	((unsigned long)htonl((unsigned long)(x)))
 #endif
-#ifndef BE16TOH
-#define BE16TOH(x)	((x) = be16toh((x)))
-#endif
-#ifndef HTOBE16
-#define HTOBE16(x)	((x) = htobe16((x)))
-#endif
-#ifndef BE32TOH
-#define BE32TOH(x)	((x) = be32toh((x)))
-#endif
-#ifndef HTOBE32
-#define HTOBE32(x)	((x) = htobe32((x)))
-#endif
+/* BE64TOH: u_int64_t is unsigned long (32-bit) on AIX 1.2; same as BE32TOH */
 #ifndef BE64TOH
-#define BE64TOH(x)	((x) = be64toh((x)))
+#define BE64TOH(x)	((x) = be64toh(x))
 #endif
-#ifndef HTOBE64
-#define HTOBE64(x)	((x) = htobe64((x)))
-#endif
-#endif /* little-endian */

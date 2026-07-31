@@ -36,9 +36,14 @@ else
     perms=@vardata_perms@
 fi
 
-mkdir -p "$(dirname "$scorefile")"
+dir=`expr "x$scorefile" : 'x\(.*\)/[^/]*$'`
+if [ -n "$dir" ] && [ ! -d "$dir" ]; then
+    @srcdir@/mkdirp "$dir"
+fi
 
-test -e "$scorefile" || touch "$scorefile"
+if [ ! -f "$scorefile" ]; then
+    touch "$scorefile"
+fi
 if [ @do_chown@ = y ]; then
     chown @vardata_owner@:@vardata_group@ "$scorefile"
 fi

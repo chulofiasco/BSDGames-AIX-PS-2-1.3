@@ -27,13 +27,15 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
-
 #include <bsd-games.h>
-#include_next <stdio.h>
+#include "/usr/include/stdio.h"
 
 #ifndef HAVE_fgetln
 extern char *fgetln(FILE *stream, size_t *len);
+#endif
+
+#ifndef HAVE_snprintf
+#include "/usr/include/stdarg.h"
+int snprintf(char *, size_t, const char *, ...);
+int vsnprintf(char *, size_t, const char *, va_list);
 #endif

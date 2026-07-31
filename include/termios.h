@@ -27,10 +27,51 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
+/*
+ * /usr/include/termios.h contains an intentional error-trap:
+ *
+ *   #include <sys/ioctl.h>         <- includes sys/termio.h -> defines _h_TERMIO
+ *   #if defined(_h_TERMIO) && !defined(_POSIX_SOURCE)
+ *   <<<< Use only one termioX.h file >>>>   <- MetaWare can't parse <<
+ *   #endif
+ *
+ * Strategy:
+ *   1. Pre-include <sys/ioctl.h> via normal angle-bracket path so MetaWare
+ *      handles it cleanly and struct winsize / struct _Winsize are defined.
+ *      The include guard then makes the re-include inside termios.h a no-op.
+ *   2. Define _POSIX_SOURCE so the #if condition becomes false, skipping
+ *      the <<<<>>>> trap.  Restore _POSIX_SOURCE afterwards.
+ */
+#include <sys/ioctl.h>
+
+/*
+ * When _POSIX_SOURCE is defined, /usr/include/termios.h uses
+ * "struct _Winsize" for the c_winsize member instead of "struct winsize".
+ * sys/ioctl.h only defines the latter; provide the former as an alias.
+ */
+#ifndef _bsdgames_Winsize_defined
+#define _bsdgames_Winsize_defined
+struct _Winsize {
+	unsigned short	ws_row;
+	unsigned short	ws_col;
+	unsigned short	ws_xpixel;
+	unsigned short	ws_ypixel;
+};
 #endif
 
-#include_next <termios.h>
+#ifndef _POSIX_SOURCE
+#define _POSIX_SOURCE
+#define _BSDGAMES_UNDEF_POSIX
+#endif
+#include "/usr/include/termios.h"
+#ifdef _BSDGAMES_UNDEF_POSIX
+#undef _POSIX_SOURCE
+#undef _BSDGAMES_UNDEF_POSIX
+#endif
 
 #include <sys/ttydefaults.h>
+
+/* Output flags that _POSIX_SOURCE may exclude from the system termios.h */
+#ifndef ONLCR
+#define ONLCR  0000004	/* map NL to CR-NL on output */
+#endif

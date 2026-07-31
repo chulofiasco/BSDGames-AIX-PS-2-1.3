@@ -27,17 +27,14 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
+#include <bsd-games.h>
+#include "/usr/include/signal.h"
+
+/* AIX 1.2 does not define sig_atomic_t; provide it */
+#ifndef _SIG_ATOMIC_T
+#define _SIG_ATOMIC_T
+typedef int sig_atomic_t;
 #endif
-
-#include <features.h>
-
-#ifndef __GLIBC__
-#define __USE_BSD_SIGNAL	1 /* Get BSD signal semantics with libc5 */
-#endif
-
-#include_next <signal.h>
 
 #ifndef HAVE_sig_t
 #ifndef LINUX_BSD_GAMES_DEFINED_SIG_T

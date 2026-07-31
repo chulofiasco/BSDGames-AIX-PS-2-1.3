@@ -30,11 +30,12 @@
 #include <stdlib.h>
 
 #ifndef HAVE_getprogname
-extern char *__progname;
+/* AIX 1.2 does not provide __progname; use a private static */
+static const char *_bsdgames_progname = "";
 
 const char *
 getprogname(void)
 {
-  return __progname;
+  return _bsdgames_progname;
 }
 #endif /* !defined(HAVE_getprogname) */

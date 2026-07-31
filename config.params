@@ -5,20 +5,29 @@
 bsd_games_cfg_non_interactive=y
 
 # Install into here for building the package.
-bsd_games_cfg_install_prefix=`pwd`/debian/bsdgames
+bsd_games_cfg_install_prefix=
 
-# Do not build or install these games:
-bsd_games_cfg_no_build_dirs="dm banner fortune factor"
+# Do not build or install these games by default.
+# NOTE: All of these games (dm, banner, fortune, factor) are fully build-ready and portable.
+# To build any or all of them, simply remove their names from this list (e.g. set bsd_games_cfg_no_build_dirs="").
+# Note: 'dab' requires a C++ compiler (CXX); set CXX=g++ (or equivalent) to build dab.
+# bsd_games_cfg_no_build_dirs="dm banner fortune factor dab"
+bsd_games_cfg_no_build_dirs="dab"
 
-# Keep huntd in /usr/sbin as it was in the past. I may 
-# change this later.
-bsd_games_cfg_sbindir=/usr/sbin
+# Disable OpenSSL for factor (AIX 1.3 has no OpenSSL)
+bsd_games_cfg_use_libcrypto=n
 
-# Debian doesn't like cluttering up the /usr/*/games/ dirs too much,
-# use a subdir. /var too.
-bsd_games_cfg_usrlibdir=/usr/lib/games/bsdgames
-bsd_games_cfg_sharedir=/usr/share/games/bsdgames
-bsd_games_cfg_varlibdir=/var/games/bsdgames
+# Keep huntd alongside the games.
+bsd_games_cfg_sbindir=/usr/local/bsdgames/games
+
+# All data under /usr/local/bsdgames
+bsd_games_cfg_usrlibdir=/usr/local/bsdgames/games
+bsd_games_cfg_gamesdir=/usr/local/bsdgames/games
+bsd_games_cfg_sharedir=/usr/local/bsdgames/share
+bsd_games_cfg_varlibdir=/usr/local/bsdgames/var
+bsd_games_cfg_mandir=/usr/local/bsdgames/man
+bsd_games_cfg_docdir=/usr/local/bsdgames/doc
+bsd_games_cfg_wtf_acronymfile=/usr/local/bsdgames/share/acronyms
 
 # Do not do chown now, we arn't running as root.
 bsd_games_cfg_do_chown=n
@@ -32,11 +41,9 @@ bsd_games_cfg_gzip_manpages=n
 # Policy says to use /usr/bin/pager by default.
 bsd_games_cfg_pager=/usr/bin/pager
 
-# Always use the same wordlist for boggle, and don't use web2, it's too
-# big. Instead, use the union of the wenglish and wbritish wordlists.
-bsd_games_cfg_dictionary_src=`pwd`/temp-dictionary
+# Use the AIX system dictionary for boggle and hangman.
+bsd_games_cfg_dictionary_src=/usr/dict/words
+bsd_games_cfg_hangman_wordsfile=/usr/dict/words
 
-# Put it in /usr/share/games with the rest of the games data.
-bsd_games_cfg_wtf_acronymfile=/usr/share/games/bsdgames/acronyms
-
-bsd_games_cfg_docdir=/usr/share/doc/bsdgames
+# Put it in /usr/local/bsdgames/share with the rest of the games data.
+# (wtf_acronymfile is set above with sharedir)

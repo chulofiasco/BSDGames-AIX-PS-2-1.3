@@ -27,13 +27,16 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
-
 #include <bsd-games.h>
-#include_next <string.h>
+#include "/usr/include/string.h"
 
 #ifndef HAVE_strlcpy
 extern size_t strlcpy(char *dst, const char *src, size_t siz);
 #endif
+
+#ifndef HAVE_strdup
+extern char *strdup(const char *s);
+#endif
+
+extern char *rindex(const char *, int);
+extern char *index(const char *, int);

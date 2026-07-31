@@ -1,3 +1,5 @@
+#!/bin/sh
+# Automatically generated from install-man.in.  Do not edit.
 # install-man.in - install a manpage.
 #
 # Copyright (c) 1997, 1998 Joseph Samuel Myers.
@@ -33,17 +35,17 @@ if [ $# = 1 ]; then
     basepage=`basename "$page"`
     section=`echo "$basepage" | sed 's/.*\.//'`
     if [ "$section" = 6 ]; then
-	mandir=@install_prefix@@man6dir@
+	mandir=/usr/local/bsdgames/man/man6
     elif [ "$section" = 8 ]; then
-	mandir=@install_prefix@@man8dir@
+	mandir=/usr/local/bsdgames/man/man8
     elif [ "$section" = 5 ]; then
-	mandir=@install_prefix@@man5dir@
+	mandir=/usr/local/bsdgames/man/man5
     else
 	echo "Unknown manpage section $section" >&2
 	exit 1
     fi
-    @install_manpage@ "$page" "$mandir/$basepage"
-    if [ @gzip_manpages@ = y ]; then
+    install -c -m 0644 "$page" "$mandir/$basepage"
+    if [ n = y ]; then
 	rm -f "$mandir/$basepage.gz"
 	gzip -9 "$mandir/$basepage"
     fi
@@ -55,22 +57,22 @@ elif [ $# = 2 ]; then
     page2=$2
     section2=`echo "$page2" | sed 's/.*\.//'`
     if [ "$section2" = 6 ]; then
-	mandir=@install_prefix@@man6dir@
+	mandir=/usr/local/bsdgames/man/man6
     elif [ "$section2" = 8 ]; then
-	mandir=@install_prefix@@man8dir@
+	mandir=/usr/local/bsdgames/man/man8
     elif [ "$section2" = 5 ]; then
-	mandir=@install_prefix@@man5dir@
+	mandir=/usr/local/bsdgames/man/man5
     else
 	echo "Unknown manpage section $section2" >&2
 	exit 1
     fi
-    if [ @use_dot_so@ = .so ]; then
+    if [ symlinks = .so ]; then
 	echo ".so man$section1/$page1" >"$mandir/$page2"
-	chmod @manpage_perms@ "$mandir/$page2"
-	if [ @do_chown@ = y ]; then
+	chmod 0644 "$mandir/$page2"
+	if [ n = y ]; then
 	    chown @manpage_owner@:@manpage_group@ "$mandir/$page2"
 	fi
-	if [ @gzip_manpages@ = y ]; then
+	if [ n = y ]; then
 	    rm -sf "$mandir/$page2.gz"
 	    gzip -9 "$mandir/$page2"
 	fi
@@ -80,7 +82,7 @@ elif [ $# = 2 ]; then
 	else
 	    linkto="../man$section1/$page1"
 	fi
-	if [ @gzip_manpages@ = y ]; then
+	if [ n = y ]; then
 	    rm -sf "$mandir/$page2.gz"
 	    ln -s "$linkto.gz" "$mandir/$page2.gz"
 	else

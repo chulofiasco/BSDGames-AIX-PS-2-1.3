@@ -27,12 +27,23 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
-
 #include <bsd-games.h>
-#include_next <stdlib.h>
+
+/* Rename malloc/calloc/realloc before pulling in the system header so that
+ * MetaWare sees their system char* declarations under private names only.
+ * We then declare the real names ourselves as void *, giving MetaWare a
+ * clean void * declaration with no prior conflicting char * declaration. */
+#define malloc  _aix_malloc
+#define calloc  _aix_calloc
+#define realloc _aix_realloc
+#include "/usr/include/stdlib.h"
+#undef malloc
+#undef calloc
+#undef realloc
+
+extern void *malloc(unsigned);
+extern void *calloc(unsigned, unsigned);
+extern void *realloc(void *, unsigned);
 
 #ifndef HAVE_getloadavg
 extern int getloadavg(double loadavg[], int nelem);

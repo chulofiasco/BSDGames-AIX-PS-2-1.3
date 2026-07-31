@@ -28,11 +28,11 @@
 # SUCH DAMAGE.
 #
 adventure		crc.o data.o done.o init.o io.o main.o save.o subr.o \
-	vocab.o wizard.o
+	vocab.o wizard.o lib/err.o lib/getprogname.o
 adventure/setup		setup.o
-arithmetic		arithmetic.o lib/getprogname.o
+arithmetic		arithmetic.o lib/getprogname.o lib/err.o
 atc			extern.o grammar.o graphics.o input.o lex.o list.o \
-	log.o main.o tunable.o update.o lib/strlcpy.o
+	log.o main.o tunable.o update.o lib/strlcpy.o lib/flock.o lib/err.o lib/getprogname.o
 backgammon/backgammon/backgammon	extra.o main.o move.o text.o \
 	version.o backgammon/common_source/allow.o \
 	backgammon/common_source/board.o backgammon/common_source/check.o \
@@ -46,28 +46,28 @@ backgammon/teachgammon/teachgammon	data.o teach.o ttext1.o ttext2.o \
 	backgammon/common_source/fancy.o backgammon/common_source/init.o \
 	backgammon/common_source/one.o backgammon/common_source/save.o \
 	backgammon/common_source/subs.o backgammon/common_source/table.o
-banner			banner.o
+banner			banner.o lib/err.o lib/getprogname.o
 battlestar		battlestar.o command1.o command2.o command3.o \
 	command4.o command5.o command6.o command7.o cypher.o dayfile.o \
 	dayobjs.o fly.o getcom.o globals.o init.o misc.o nightfile.o \
-	nightobjs.o parse.o room.o save.o words.o lib/fgetln.o
+	nightobjs.o parse.o room.o save.o words.o lib/fgetln.o lib/err.o lib/getprogname.o
 bcd			bcd.o
-boggle/boggle/boggle	bog.o help.o mach.o prtable.o timer.o word.o
+boggle/boggle/boggle	bog.o help.o mach.o prtable.o timer.o word.o lib/err.o lib/getprogname.o
 boggle/mkdict/mkdict	mkdict.o
 boggle/mkindex/mkindex	mkindex.o
-caesar			caesar.o
+caesar			caesar.o lib/err.o lib/getprogname.o
 canfield/canfield/canfield	canfield.o
-canfield/cfscores/cfscores	cfscores.o
-cribbage		cards.o crib.o extern.o instr.o io.o score.o support.o
+canfield/cfscores/cfscores	cfscores.o lib/err.o lib/getprogname.o
+cribbage		cards.o crib.o extern.o instr.o io.o score.o support.o lib/err.o lib/getprogname.o
 dab			algor.o board.o box.o gamescreen.o human.o main.o \
-	player.o random.o ttyscrn.o
-dm			dm.o utmpentry.o lib/getloadavg.o
-factor			factor.o primes/pr_tbl.o
-fish			fish.o
-fortune/fortune/fortune	fortune.o lib/getprogname.o
-fortune/strfile/strfile	strfile.o
-fortune/unstr/unstr	unstr.o
-gomoku			bdinit.o bdisp.o main.o makemove.o pickmove.o stoc.o
+	player.o random.o ttyscrn.o lib/err.o lib/getprogname.o
+dm			dm.o utmpentry.o lib/getloadavg.o lib/flock.o lib/err.o lib/getprogname.o lib/snprintf.o
+factor			factor.o primes/pr_tbl.o lib/err.o lib/getprogname.o lib/snprintf.o
+fish			fish.o lib/err.o lib/getprogname.o
+fortune/fortune/fortune	fortune.o lib/flock.o lib/getprogname.o lib/err.o
+fortune/strfile/strfile	strfile.o lib/err.o lib/getprogname.o
+fortune/unstr/unstr	unstr.o lib/err.o lib/getprogname.o
+gomoku			bdinit.o bdisp.o main.o makemove.o pickmove.o stoc.o lib/err.o lib/getprogname.o
 hack			alloc.o hack.Decl.o hack.apply.o hack.bones.o hack.o \
 	hack.cmd.o hack.do.o hack.do_name.o hack.do_wear.o hack.dog.o \
 	hack.eat.o hack.end.o hack.engrave.o hack.fight.o hack.invent.o \
@@ -81,31 +81,32 @@ hack			alloc.o hack.Decl.o hack.apply.o hack.bones.o hack.o \
 	hack.wield.o hack.wizard.o hack.worm.o hack.worn.o hack.zap.o rnd.o
 hack/makedefs		makedefs.o
 hangman			endgame.o extern.o getguess.o getword.o main.o \
-	playgame.o prdata.o prman.o prword.o setup.o
+	playgame.o prdata.o prman.o prword.o setup.o lib/err.o lib/getprogname.o
 hunt/hunt/hunt		connect.o hunt.o otto.o playit.o \
-	hunt/huntd/pathname.o
+	hunt/huntd/pathname.o lib/poll.o lib/err.o lib/getprogname.o
 hunt/huntd/huntd	answer.o ctl.o ctl_transact.o draw.o driver.o \
 	execute.o expl.o extern.o faketalk.o get_names.o makemaze.o \
-	pathname.o shots.o terminal.o
+	pathname.o shots.o terminal.o lib/poll.o lib/err.o lib/getprogname.o
 mille			comp.o end.o extern.o init.o mille.o misc.o move.o \
-	print.o roll.o save.o types.o varpush.o
+    print.o roll.o save.o types.o varpush.o lib/err.o lib/getprogname.o
 monop			cards.o execute.o getinp.o houses.o jail.o misc.o \
-	monop.o morg.o print.o prop.o rent.o roll.o spec.o trade.o
+	monop.o morg.o print.o prop.o rent.o roll.o spec.o trade.o lib/err.o lib/getprogname.o
 monop/initdeck		initdeck.o
 morse			morse.o
-number			number.o
+number			number.o lib/err.o lib/getprogname.o
 phantasia		fight.o gamesupport.o interplayer.o io.o main.o \
 	misc.o phantglobs.o
 phantasia/setup		phantglobs.o setup.o
-pig			pig.o
-pom			pom.o
-ppt			ppt.o
-primes			pattern.o pr_tbl.o primes.o
-quiz			quiz.o rxp.o lib/fgetln.o
-rain			rain.o lib/getprogname.o
-random			random.o
+pig			pig.o lib/err.o lib/getprogname.o
+pom			pom.o lib/err.o lib/getprogname.o
+ppt			ppt.o lib/err.o lib/getprogname.o
+primes			pattern.o pr_tbl.o primes.o lib/err.o lib/getprogname.o
+quiz			quiz.o rxp.o lib/fgetln.o lib/snprintf.o lib/err.o lib/getprogname.o
+rain			rain.o lib/getprogname.o lib/err.o
+random			random.o lib/err.o lib/getprogname.o
 robots			auto.o extern.o flush_in.o init_field.o main.o \
-	make_level.o move.o move_robs.o play_level.o query.o rnd_pos.o score.o
+	make_level.o move.o move_robs.o play_level.o query.o rnd_pos.o score.o \
+	lib/err.o lib/getprogname.o
 rogue			hit.o init.o inventory.o level.o machdep.o main.o \
 	message.o monster.o move.o object.o pack.o play.o random.o ring.o \
 	room.o save.o score.o spec_hit.o throw.o trap.o use.o zap.o \
@@ -113,17 +114,18 @@ rogue			hit.o init.o inventory.o level.o machdep.o main.o \
 sail			assorted.o game.o globals.o dr_1.o dr_2.o dr_3.o \
 	dr_4.o dr_5.o dr_main.o lo_main.o main.o misc.o parties.o pl_1.o \
 	pl_2.o pl_3.o pl_4.o pl_5.o pl_6.o pl_7.o pl_main.o sync.o version.o \
-	lib/strlcpy.o
-snake/snake/snake	snake.o
-snake/snscore/snscore	snscore.o
-tetris			input.o scores.o screen.o shapes.o tetris.o
+	lib/strlcpy.o lib/flock.o lib/err.o lib/getprogname.o \
+	lib/vwprintw.o lib/snprintf.o
+snake/snake/snake	snake.o lib/err.o lib/getprogname.o
+snake/snscore/snscore	snscore.o lib/err.o lib/getprogname.o
+tetris			input.o scores.o screen.o shapes.o tetris.o lib/err.o lib/getprogname.o
 trek			abandon.o attack.o autover.o capture.o cgetc.o \
 	check_out.o checkcond.o compkl.o computer.o damage.o damaged.o \
 	dcrept.o destruct.o dock.o dumpgame.o dumpme.o dumpssradio.o events.o \
 	externs.o getcodi.o getpar.o help.o impulse.o initquad.o kill.o \
 	klmove.o lose.o lrscan.o main.o move.o nova.o out.o phaser.o play.o \
 	ram.o ranf.o rest.o schedule.o score.o setup.o setwarp.o shield.o \
-	snova.o srscan.o systemname.o torped.o visual.o warp.o win.o
-worm			worm.o
-worms			worms.o
-wump			wump.o
+	snova.o srscan.o systemname.o torped.o visual.o warp.o win.o lib/err.o lib/getprogname.o
+worm			worm.o lib/err.o lib/getprogname.o
+worms			worms.o lib/err.o lib/getprogname.o
+wump			wump.o lib/err.o lib/getprogname.o

@@ -27,16 +27,14 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
+/* AIX 1.2 / MetaWare High C: sys/cdefs.h not present; provide needed macros */
 
-#include_next <sys/cdefs.h>
+#include <bsd-games.h>
 
 #ifndef __RCSID
-#define __RCSID(arg)	static const char rcsid[] __attribute__((__unused__)) = arg
+#define __RCSID(arg)
 #endif
 
 #ifndef __COPYRIGHT
-#define __COPYRIGHT(arg)	static const char copyright[] __attribute__((__unused__)) = arg
+#define __COPYRIGHT(arg)
 #endif

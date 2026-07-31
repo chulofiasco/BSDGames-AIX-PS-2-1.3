@@ -27,12 +27,28 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
+/* sys/poll.h - AIX 1.2/1.3 does not have sys/poll.h; provide minimal stub. */
 
-#include_next <sys/poll.h>
+#ifndef _BSDGAMES_SYS_POLL_H
+#define _BSDGAMES_SYS_POLL_H
+
+struct pollfd {
+	int	fd;
+	short	events;
+	short	revents;
+};
+
+#define POLLIN		0x0001
+#define POLLPRI		0x0002
+#define POLLOUT		0x0004
+#define POLLERR		0x0008
+#define POLLHUP		0x0010
+#define POLLNVAL	0x0020
 
 #ifndef INFTIM
 #define INFTIM	-1
 #endif
+
+int poll(struct pollfd *, unsigned int, int);
+
+#endif /* _BSDGAMES_SYS_POLL_H */

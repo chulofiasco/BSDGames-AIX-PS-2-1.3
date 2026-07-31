@@ -27,20 +27,15 @@
  * SUCH DAMAGE.
  */
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
-#pragma GCC system_header
-#endif
-
-#include <features.h>
-
-#ifdef __GLIBC__
-#include_next <sys/ttydefaults.h>
-#endif
-
-#ifndef CTRL
+/* AIX sys/ioctl.h defines CTRL(c) as ('c'&037) — a Reiser-preprocessor idiom
+ * that MetaWare mishandles.  Unconditionally override whatever ioctl.h left. */
+#undef  CTRL
 #define CTRL(x)	((x) & 037)
-#endif
 
 #ifndef OXTABS
+#ifdef XTABS
 #define OXTABS	XTABS
+#else
+#define OXTABS	06000
+#endif
 #endif
