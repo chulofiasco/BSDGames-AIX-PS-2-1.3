@@ -69,7 +69,7 @@ __RCSID("$NetBSD: hack.shknam.c,v 1.6 2003/04/02 18:36:40 jsm Exp $");
 #include "hack.h"
 #include "extern.h"
 
-const char           *const shkliquors[] = {
+char shkliquors[][20] = {
 	/* Ukraine */
 	"Njezjin", "Tsjernigof", "Gomel", "Ossipewsk", "Gorlowka",
 	/* N. Russia */
@@ -81,10 +81,10 @@ const char           *const shkliquors[] = {
 	/* Schweiz */
 	"Leuk", "Brig", "Brienz", "Thun", "Sarnen", "Burglen", "Elm",
 	"Flims", "Vals", "Schuls", "Zum Loch",
-	0
+	""
 };
 
-const char           *const shkbooks[] = {
+char shkbooks[][20] = {
 	/* Eire */
 	"Skibbereen", "Kanturk", "Rath Luirc", "Ennistymon", "Lahinch",
 	"Loughrea", "Croagh", "Maumakeogh", "Ballyjamesduff",
@@ -93,10 +93,10 @@ const char           *const shkbooks[] = {
 	"Cahersiveen", "Glenbeigh", "Kilmihil", "Kiltamagh",
 	"Droichead Atha", "Inniscrone", "Clonegal", "Lisnaskea",
 	"Culdaff", "Dunfanaghy", "Inishbofin", "Kesh",
-	0
+	""
 };
 
-const char           *const shkarmors[] = {
+char shkarmors[][20] = {
 	/* Turquie */
 	"Demirci", "Kalecik", "Boyabai", "Yildizeli", "Gaziantep",
 	"Siirt", "Akhalataki", "Tirebolu", "Aksaray", "Ermenak",
@@ -104,10 +104,10 @@ const char           *const shkarmors[] = {
 	"Bayburt", "Ayancik", "Zonguldak", "Balya", "Tefenni",
 	"Artvin", "Kars", "Makharadze", "Malazgirt", "Midyat",
 	"Birecik", "Kirikkale", "Alaca", "Polatli", "Nallihan",
-	0
+	""
 };
 
-const char           *const shkwands[] = {
+char shkwands[][20] = {
 	/* Wales */
 	"Yr Wyddgrug", "Trallwng", "Mallwyd", "Pontarfynach",
 	"Rhaeader", "Llandrindod", "Llanfair-ym-muallt",
@@ -118,10 +118,10 @@ const char           *const shkwands[] = {
 	"Kerloch", "Beinn a Ghlo", "Drumnadrochit", "Morven",
 	"Uist", "Storr", "Sgurr na Ciche", "Cannich", "Gairloch",
 	"Kyleakin", "Dunvegan",
-	0
+	""
 };
 
-const char           *const shkrings[] = {
+char shkrings[][20] = {
 	/* Hollandse familienamen */
 	"Feyfer", "Flugi", "Gheel", "Havic", "Haynin", "Hoboken",
 	"Imbyze", "Juyn", "Kinsky", "Massis", "Matray", "Moy",
@@ -131,10 +131,10 @@ const char           *const shkrings[] = {
 	"Rastegaisa", "Varjag Njarga", "Kautekeino", "Abisko",
 	"Enontekis", "Rovaniemi", "Avasaksa", "Haparanda",
 	"Lulea", "Gellivare", "Oeloe", "Kajaani", "Fauske",
-	0
+	""
 };
 
-const char           *const shkfoods[] = {
+char shkfoods[][20] = {
 	/* Indonesia */
 	"Djasinga", "Tjibarusa", "Tjiwidej", "Pengalengan",
 	"Bandjar", "Parbalingga", "Bojolali", "Sarangan",
@@ -143,10 +143,10 @@ const char           *const shkfoods[] = {
 	"Trenggalek", "Karangkobar", "Njalindoeng", "Pasawahan",
 	"Pameunpeuk", "Patjitan", "Kediri", "Pemboeang", "Tringanoe",
 	"Makin", "Tipor", "Semai", "Berhala", "Tegal", "Samoe",
-	0
+	""
 };
 
-const char           *const shkweapons[] = {
+char shkweapons[][20] = {
 	/* Perigord */
 	"Voulgezac", "Rouffiac", "Lerignac", "Touverac", "Guizengeard",
 	"Melac", "Neuvicq", "Vanzac", "Picq", "Urignac", "Corignac",
@@ -154,10 +154,10 @@ const char           *const shkweapons[] = {
 	"Cazelon", "Eypau", "Carignan", "Monbazillac", "Jonzac",
 	"Pons", "Jumilhac", "Fenouilledes", "Laguiolet", "Saujon",
 	"Eymoutiers", "Eygurande", "Eauze", "Labouheyre",
-	0
+	""
 };
 
-const char           *const shkgeneral[] = {
+char shkgeneral[][20] = {
 	/* Suriname */
 	"Hebiwerie", "Possogroenoe", "Asidonhopo", "Manlobbi",
 	"Adjama", "Pakka Pakka", "Kabalebo", "Wonotobo",
@@ -172,52 +172,34 @@ const char           *const shkgeneral[] = {
 	/* Iceland */
 	"Akureyri", "Kopasker", "Budereyri", "Akranes", "Bordeyri",
 	"Holmavik",
-	0
+	""
 };
 
-const struct shk_nx {
-	char            x;
-	const char          *const *xn;
-}               shk_nx[] = {
-	{
-		POTION_SYM, shkliquors
-	},
-	{
-		SCROLL_SYM, shkbooks
-	},
-	{
-		ARMOR_SYM, shkarmors
-	},
-	{
-		WAND_SYM, shkwands
-	},
-	{
-		RING_SYM, shkrings
-	},
-	{
-		FOOD_SYM, shkfoods
-	},
-	{
-		WEAPON_SYM, shkweapons
-	},
-	{
-		0, shkgeneral
+static char (*
+get_shk_names(char let))[20]
+{
+	switch (let) {
+	case POTION_SYM:  return shkliquors;
+	case SCROLL_SYM:  return shkbooks;
+	case ARMOR_SYM:   return shkarmors;
+	case WAND_SYM:    return shkwands;
+	case RING_SYM:    return shkrings;
+	case FOOD_SYM:    return shkfoods;
+	case WEAPON_SYM:  return shkweapons;
+	default:          return shkgeneral;
 	}
-};
+}
 
 void
 findname(nampt, let)
 	char           *nampt;
-	char            let;
+	int             let;
 {
-	const struct shk_nx  *p = shk_nx;
-	const char          *const *q;
+	char          (*q)[20];
 	int             i;
-	while (p->x && p->x != let)
-		p++;
-	q = p->xn;
+	q = get_shk_names(let);
 	for (i = 0; i < dlevel; i++)
-		if (!q[i]) {
+		if (!q[i][0]) {
 			/* Not enough names, try general name */
 			if (let)
 				findname(nampt, 0);

@@ -69,7 +69,7 @@ __RCSID("$NetBSD: hack.mkmaze.c,v 1.6 2003/04/02 18:36:38 jsm Exp $");
 #include "hack.h"
 #include "extern.h"
 #include "def.mkroom.h"		/* not really used */
-const struct permonst hell_hound =
+struct permonst hell_hound =
 {"hell hound", 'd', 12, 14, 2, 3, 6, 0};
 
 void

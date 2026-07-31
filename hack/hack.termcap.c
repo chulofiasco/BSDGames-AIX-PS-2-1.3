@@ -246,7 +246,7 @@ cmov(x, y)
 
 int
 xputc(c)
-	char            c;
+	int             c;
 {
 	return (fputc(c, stdout));
 }

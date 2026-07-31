@@ -26,11 +26,12 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-include hunt/Makeconfig
+hunt_GAME_PARAM = -DRANDOM -DREFLECT -DMONITOR -DOOZE -DFLY -DVOLCANO -DBOOTS -DOTTO
+hunt_DEFS = $(hunt_GAME_PARAM) -DINTERNET -DLOG -DBSD_RELEASE=44 -DUSE_CURSES -DSIGNAL_TYPE=void -DHUNTD=\"$(SBINDIR)/huntd\"
 
-hunt_hunt_DEFS := $(hunt_DEFS)
-hunt_hunt_DIRS := $(GAMESDIR) $(MAN6DIR)
-hunt_hunt_INCS := -Ihunt/huntd
+hunt_hunt_DEFS = $(hunt_DEFS)
+hunt_hunt_DIRS = $(GAMESDIR) $(MAN6DIR)
+hunt_hunt_INCS = -Ihunt/huntd
 
 hunt_hunt_all:	hunt/hunt/hunt hunt/hunt/hunt.6
 

@@ -59,6 +59,9 @@ main(argc, argv)
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
 
+	if (argc < 0)
+		return 0;
+
 	while ((ch = getopt(argc, argv, "d:m:")) != -1) {
 		switch (ch) {
 		case 'd':
@@ -92,7 +95,7 @@ main(argc, argv)
  */
 void
 die(dummy)
-	int dummy __attribute__((__unused__));
+	int dummy;
 {
 	mvcur(0, COLS - 1, LINES - 1, 0);
 	endwin();

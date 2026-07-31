@@ -583,7 +583,7 @@ pickup(pp, y, x, prob, obj)
 	int	prob;
 	int	obj;
 {
-	int	req;
+	int	req = 0;
 
 	switch (obj) {
 	  case MINE:

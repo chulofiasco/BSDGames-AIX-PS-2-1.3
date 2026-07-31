@@ -134,11 +134,11 @@ const struct permonst mons[CMNUM + 2] = {
 	{"shopkeeper", '@', 12, 18, 0, 4, 8, sizeof(struct eshk)}
 };
 
-const struct permonst pm_ghost = {"ghost", ' ', 10, 3, -5, 1, 1, sizeof(plname)};
-const struct permonst pm_wizard = {
+struct permonst pm_ghost = {"ghost", ' ', 10, 3, -5, 1, 1, sizeof(plname)};
+struct permonst pm_wizard = {
 	"wizard of Yendor", '1', 15, 12, -2, 1, 12, 0
 };
 #ifdef MAIL
-const struct permonst pm_mail_daemon = {"mail daemon", '2', 100, 1, 10, 0, 0, 0};
+struct permonst pm_mail_daemon = {"mail daemon", '2', 100, 1, 10, 0, 0, 0};
 #endif	/* MAIL */
-const struct permonst pm_eel = {"giant eel", ';', 15, 6, -3, 3, 6, 0};
+struct permonst pm_eel = {"giant eel", ';', 15, 6, -3, 3, 6, 0};

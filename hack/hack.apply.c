@@ -137,7 +137,7 @@ xit:
 /* ARGSUSED */
 static void
 use_camera(obj) /* */ 
-	struct obj     *obj __attribute__((__unused__));
+	struct obj     *obj;
 {
 	struct monst *mtmp;
 	if (!getdir(1)) {	/* ask: in what direction? */
@@ -275,7 +275,7 @@ use_ice_box(obj)
 static struct monst *
 bchit(ddx, ddy, range, sym)
 	int    ddx, ddy, range;
-	char            sym;
+	int            sym;
 {
 	struct monst *mtmp = (struct monst *) 0;
 	int    bchx = u.ux, bchy = u.uy;
@@ -303,7 +303,7 @@ bchit(ddx, ddy, range, sym)
 /* ARGSUSED */
 static void
 use_whistle(obj)
-	struct obj     *obj __attribute__((__unused__));
+	struct obj     *obj;
 {
 	struct monst *mtmp = fmon;
 	pline("You produce a high whistling sound.");
@@ -321,7 +321,7 @@ use_whistle(obj)
 /* ARGSUSED */
 static void
 use_magic_whistle(obj)
-	struct obj     *obj __attribute__((__unused__));
+	struct obj     *obj;
 {
 	struct monst *mtmp = fmon;
 	pline("You produce a strange whistling sound.");

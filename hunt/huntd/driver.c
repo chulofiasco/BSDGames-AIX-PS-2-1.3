@@ -85,7 +85,7 @@ static	void	zap(PLAYER *, FLAG, int);
 int
 main(ac, av, ep)
 	int	ac;
-	char	**av, **ep;
+	char	*av[], *ep[];
 {
 	PLAYER	*pp;
 # ifdef INTERNET

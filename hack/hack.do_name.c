@@ -259,7 +259,7 @@ docall(obj)
 	*str1 = str;
 }
 
-const char *const ghostnames[] = {/* these names should have length < PL_NSIZ */
+char ghostnames[][8] = {/* these names should have length < PL_NSIZ */
 	"adri", "andries", "andreas", "bert", "david", "dirk", "emile",
 	"frans", "fred", "greg", "hether", "jay", "john", "jon", "kay",
 	"kenny", "maud", "michiel", "mike", "peter", "robert", "ron",
@@ -370,7 +370,7 @@ Xmonnam(mtmp)
 
 char           *
 visctrl(c)
-	char            c;
+	int            c;
 {
 	static char     ccc[3];
 	if (c < 040) {

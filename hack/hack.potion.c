@@ -292,7 +292,7 @@ strange_feeling(obj, txt)
 	useup(obj);
 }
 
-const char           *const bottlenames[] = {
+char bottlenames[][8] = {
 	"bottle", "phial", "flagon", "carafe", "flask", "jar", "vial"
 };
 

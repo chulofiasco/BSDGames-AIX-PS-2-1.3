@@ -628,7 +628,7 @@ do_it:
 /* Test whether we may genocide all monsters with symbol  ch  */
 int
 monstersym(ch)			/* arnold@ucsfcgl */
-	char            ch;
+	int             ch;
 {
 	const struct permonst *mp;
 

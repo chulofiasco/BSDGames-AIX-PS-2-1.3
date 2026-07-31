@@ -47,7 +47,7 @@ __RCSID("$NetBSD: playgame.c,v 1.5 2003/08/07 09:37:22 agc Exp $");
 void
 playgame()
 {
-	bool *bp;
+char *bp;
 
 	getword();
 	Errors = 0;

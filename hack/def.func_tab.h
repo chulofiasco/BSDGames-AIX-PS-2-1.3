@@ -68,12 +68,12 @@ struct func_tab {
 	int (*f_funct)(void);
 };
 
-extern const struct func_tab cmdlist[];
+extern struct func_tab cmdlist[];
 
 struct ext_func_tab {
 	const char *ef_txt;
 	int (*ef_funct)(void);
 };
 
-extern const struct ext_func_tab extcmdlist[];
+extern struct ext_func_tab extcmdlist[];
 #endif /* _DEF_FUNC_TAB_H_ */

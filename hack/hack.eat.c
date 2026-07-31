@@ -79,7 +79,7 @@ char            POISONOUS[] = "ADKSVabhks";
 #define FAINTED		5
 #define STARVED		6
 
-const char           *const hu_stat[] = {
+char hu_stat[][9] = {
 	"Satiated",
 	"        ",
 	"Hungry  ",
@@ -97,8 +97,8 @@ init_uhunger()
 }
 
 #define	TTSZ	SIZE(tintxts)
-const struct {
-	const char           *txt;
+struct {
+	char             txt[64];
 	int             nut;
 }               tintxts[] = {
 	{ "It contains first quality peaches - what a surprise!", 40 },

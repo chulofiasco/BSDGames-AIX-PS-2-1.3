@@ -238,7 +238,7 @@ setclipped()
 void
 at(x, y, ch)
 	xchar           x, y;
-	char            ch;
+	int             ch;
 {
 #ifndef lint
 	/* if xchar is unsigned, lint will complain about  if(x < 0)  */

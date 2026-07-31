@@ -1,3 +1,4 @@
+.TH HANGMAN 6 "May 31, 1993"
 .\"	$NetBSD: hangman.6,v 1.12 2003/08/07 09:37:21 agc Exp $
 .\"
 .\" Copyright (c) 1983, 1993
@@ -29,37 +30,35 @@
 .\"
 .\"	@(#)hangman.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt HANGMAN 6
-.Os
-.Sh NAME
-.Nm hangman
-.Nd computer version of the game hangman
-.Sh SYNOPSIS
-.Nm
-.Op Fl d Ar wordlist
-.Op Fl m Ar minlen
-.Sh DESCRIPTION
+.SH NAME
+hangman \- computer version of the game hangman
+.SH SYNOPSIS
+.B hangman
+[\fB\-d\fP \fIwordlist\fP]
+[\fB\-m\fP \fIminlen\fP]
+.SH DESCRIPTION
 In
-.Nm ,
+.B hangman
 the computer picks a word from the on-line word list
 and you must try to guess it.
 The computer keeps track of which letters have been guessed
 and how many wrong guesses you have made on the screen in a graphic fashion.
-.Sh OPTIONS
-.Bl -tag -width flag
-.It Fl d
+.SH OPTIONS
+.TP
+\fB\-d\fP
 Use the specified
-.Ar wordlist
+\fIwordlist\fP
 instead of the default one named below.
-.It Fl m
+.TP
+\fB\-m\fP
 Set the minimum word length to use.
 The default is 6 letters.
-.El
-.Sh FILES
-.Bl -tag -width @hangman_wordsfile@ -compact
-.It Pa @hangman_wordsfile@
+.PP
+.SH FILES
+.TP
+\fI@hangman_wordsfile@\fP
 On-line word list
-.El
-.Sh AUTHORS
-.An Ken Arnold
+.PP
+.SH AUTHORS
+Ken Arnold
+

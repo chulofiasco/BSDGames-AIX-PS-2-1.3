@@ -276,7 +276,7 @@ vpline(line, ap)
 
 void
 putsym(c)
-	char            c;
+	int             c;
 {
 	switch (c) {
 	case '\b':

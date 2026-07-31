@@ -107,7 +107,7 @@ struct egd {
 	struct fakecorridor fakecorr[FCSIZ];
 };
 
-static const struct permonst pm_guard =
+static struct permonst pm_guard =
 {"guard", '@', 12, 12, -1, 4, 10, sizeof(struct egd)};
 
 static struct monst *guard;

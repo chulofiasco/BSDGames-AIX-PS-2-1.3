@@ -49,7 +49,7 @@ __RCSID("$NetBSD: setup.c,v 1.10 2003/08/07 09:37:22 agc Exp $");
 void
 setup()
 {
-	const char *const *sp;
+	char (*sp)[15];
 	static struct stat sbuf;
 
 	noecho();
@@ -62,7 +62,7 @@ setup()
 	mvaddstr(AVGY + 1, AVGX, "Overall Average:");
 	mvaddstr(KNOWNY, KNOWNX, "Word: ");
 
-	for (sp = Noose_pict; *sp != NULL; sp++) {
+	for (sp = Noose_pict; (*sp)[0] != '\0'; sp++) {
 		move(sp - Noose_pict, 0);
 		addstr(*sp);
 	}

@@ -72,11 +72,11 @@ __RCSID("$NetBSD: hack.dog.c,v 1.6 2003/04/02 18:36:36 jsm Exp $");
 #include "def.edog.h"
 #include "def.mkroom.h"
 
-const struct permonst li_dog =
+struct permonst li_dog =
 {"little dog", 'd', 2, 18, 6, 1, 6, sizeof(struct edog)};
-const struct permonst dog =
+struct permonst dog =
 {"dog", 'd', 4, 16, 5, 1, 6, sizeof(struct edog)};
-const struct permonst la_dog =
+struct permonst la_dog =
 {"large dog", 'd', 6, 15, 4, 2, 4, sizeof(struct edog)};
 
 

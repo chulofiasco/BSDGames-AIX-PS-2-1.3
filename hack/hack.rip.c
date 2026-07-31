@@ -126,7 +126,7 @@ outrip()
 
 void
 center(line, text)
-	int             line __attribute__((__unused__));
+	int             line;
 	char           *text;
 {
 	int             n = strlen(text) / 2;

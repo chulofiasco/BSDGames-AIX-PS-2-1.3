@@ -73,7 +73,7 @@ __RCSID("$NetBSD: hack.trap.c,v 1.7 2003/04/02 18:36:41 jsm Exp $");
 
 const char            vowels[] = "aeiou";
 
-const char           *const traps[] = {
+char traps[][20] = {
 	" bear trap",
 	"n arrow trap",
 	" dart trap",

@@ -62,7 +62,7 @@
  */
 
 #ifndef lint
-static const char rcsid[] __attribute__((__unused__)) =
+static const char rcsid[] =
     "$NetBSD: makedefs.c,v 1.8 2003/04/02 18:36:42 jsm Exp $";
 #endif				/* not lint */
 
@@ -137,7 +137,7 @@ main(argc, argv)
 		perror("standard output");
 		exit(1);
 	}
-	exit(0);
+	return 0;
 }
 
 char            line[LINSZ], *lp = line, *lp0 = line, *lpe = line;
@@ -324,7 +324,7 @@ capitalize(sp)
 
 static int
 letter(ch)
-	char            ch;
+	int             ch;
 {
 	return (('a' <= ch && ch <= 'z') ||
 		('A' <= ch && ch <= 'Z'));
@@ -332,7 +332,7 @@ letter(ch)
 
 static int
 digit(ch)
-	char            ch;
+	int             ch;
 {
 	return ('0' <= ch && ch <= '9');
 }

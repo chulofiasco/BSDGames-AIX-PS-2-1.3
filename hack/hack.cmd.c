@@ -70,7 +70,7 @@ __RCSID("$NetBSD: hack.cmd.c,v 1.7 2003/04/02 18:36:35 jsm Exp $");
 #include	"extern.h"
 #include	"def.func_tab.h"
 
-const struct func_tab cmdlist[] = {
+struct func_tab cmdlist[] = {
 	{ '\020', doredotopl },
 	{ '\022', doredraw },
 	{ '\024', dotele },
@@ -134,7 +134,7 @@ const struct func_tab cmdlist[] = {
 	{ 0, 0 }
 };
 
-const struct ext_func_tab extcmdlist[] = {
+struct ext_func_tab extcmdlist[] = {
 	{ "dip", dodip },
 	{ "pray", dopray },
 	{ (char *) 0, donull }
@@ -265,14 +265,14 @@ doextcmd()
 
 char
 lowc(sym)
-	char            sym;
+	int            sym;
 {
 	return ((sym >= 'A' && sym <= 'Z') ? sym + 'a' - 'A' : sym);
 }
 
 char
 unctrl(sym)
-	char            sym;
+	int            sym;
 {
 	return ((sym >= ('A' & 037) && sym <= ('Z' & 037)) ? sym + 0140 : sym);
 }
@@ -285,7 +285,7 @@ schar           zdir[10] = {0, 0, 0, 0, 0, 0, 0, 0, 1, -1};
 
 int
 movecmd(sym)			/* also sets u.dz, but returns false for <> */
-	char            sym;
+	int            sym;
 {
 	char  *dp;
 

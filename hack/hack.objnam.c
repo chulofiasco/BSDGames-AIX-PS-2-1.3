@@ -410,7 +410,7 @@ Doname(obj)
 	return (s);
 }
 
-const char *const wrp[] = {"wand", "ring", "potion", "scroll", "gem"};
+char wrp[][8] = {"wand", "ring", "potion", "scroll", "gem"};
 const char wrpsym[] = {WAND_SYM, RING_SYM, POTION_SYM, SCROLL_SYM, GEM_SYM};
 
 struct obj     *

@@ -40,20 +40,20 @@ __RCSID("$NetBSD: extern.c,v 1.8 2003/08/07 09:37:20 agc Exp $");
 
 #include	"hangman.h"
 
-bool    Guessed[26];
+char    Guessed[26];
 
 char    Word[BUFSIZ], Known[BUFSIZ];
-const char *const Noose_pict[] = {
-	"     ______",
-	"     |    |",
-	"     |",
-	"     |",
-	"     |",
-	"     |",
-	"   __|_____",
-	"   |      |___",
-	"   |_________|",
-	NULL
+char Noose_pict[][15] = {
+        "     ______",
+        "     |    |",
+        "     |",
+        "     |",
+        "     |",
+        "     |",
+        "   __|_____",
+        "   |      |___",
+        "   |_________|",
+        ""
 };
 
 int     Errors, Wordnum = 0;
@@ -71,7 +71,7 @@ const ERR_POS Err_pos[MAXERRS] = {
 	{5, 11, '\\'}
 };
 
-const char *Dict_name = _PATH_DICT;
+char *Dict_name = _PATH_DICT;
 
 FILE   *Dict = NULL;
 

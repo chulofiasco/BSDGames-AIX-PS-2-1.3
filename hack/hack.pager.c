@@ -126,7 +126,7 @@ static int      got_intrup;
 
 void
 intruph(n)
-	int n __attribute__((__unused__));
+	int n;
 {
 	got_intrup++;
 }

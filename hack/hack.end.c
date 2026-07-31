@@ -86,7 +86,7 @@ dodone()
 /*ARGSUSED*/
 void
 done1(n)
-	int n __attribute__((__unused__));
+	int n;
 {
 	(void) signal(SIGINT, SIG_IGN);
 	pline("Really quit?");
@@ -108,7 +108,7 @@ int             done_hup;
 /*ARGSUSED*/
 void
 done_intr(n)
-	int n __attribute__((__unused__));
+	int n;
 {
 	done_stopprint++;
 	(void) signal(SIGINT, SIG_IGN);
@@ -627,7 +627,8 @@ eos(s)
 /* it is the callers responsibility to check that there is room for c */
 void
 charcat(s, c)
-	char           *s, c;
+	char           *s;
+	int             c;
 {
 	while (*s)
 		s++;

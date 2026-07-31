@@ -193,12 +193,12 @@ extern boolean restoring;
 extern char *CD;
 extern const char *catmore;
 extern char *hname;
-extern const char *const hu_stat[]; /* in eat.c */
+extern char hu_stat[][9];	/* in eat.c */
 extern const char *nomovemsg;
 extern const char *occtxt;
 extern char *save_cm;
 extern const char *killer;
-extern const char *const traps[];
+extern char traps[][20];
 extern char SAVEF[];
 extern char fut_geno[60]; /* idem */
 extern char genocided[60]; /* defined in Decl.c */
@@ -231,11 +231,11 @@ extern struct obj *uleft, *uright, *fcobj;
 extern struct obj *uball;	/* defined if PUNISHED */
 extern struct obj *uchain;	/* defined iff PUNISHED */
 extern struct obj zeroobj;
-extern const struct permonst li_dog, dog, la_dog;
-extern const struct permonst pm_eel;
-extern const struct permonst pm_ghost;
-extern const struct permonst pm_mail_daemon;
-extern const struct permonst pm_wizard;
+extern struct permonst li_dog, dog, la_dog;
+extern struct permonst pm_eel;
+extern struct permonst pm_ghost;
+extern struct permonst pm_mail_daemon;
+extern struct permonst pm_wizard;
 #ifndef NOWORM
 extern long wgrowtime[32];
 extern struct wseg *m_atseg;

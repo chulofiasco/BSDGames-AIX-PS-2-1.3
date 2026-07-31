@@ -78,7 +78,7 @@ __RCSID("$NetBSD: hack.mon.c,v 1.6 2003/04/02 18:36:38 jsm Exp $");
 int             warnlevel;	/* used by movemon and dochugw */
 long            lastwarntime;
 int             lastwarnlev;
-const char           *const warnings[] = {
+char warnings[][8] = {
 	"white", "pink", "red", "ruby", "purple", "black"
 };
 
@@ -862,12 +862,13 @@ killed(mtmp)
 	{
 		int             ul = u.ulevel;
 		int             ml = mdat->mlevel;
+		int             tmp2;
 
 		if (ul < 14)	/* points are given based on present and
 				 * future level */
 			for (tmp2 = 0; !tmp2 || ul + tmp2 <= ml; tmp2++)
 				if (u.uexp + 1 + (tmp + ((tmp2 <= 0) ? 0 : 4 << (tmp2 - 1))) / nk
-				    >= 10 * pow((unsigned) (ul - 1)))
+				    >= (10 << ((ul) - 1)))
 					if (++ul == 14)
 						break;
 

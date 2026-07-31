@@ -87,7 +87,7 @@ dosave()
 #ifndef NOSAVEONHANGUP
 void
 hangup(n)
-	int n __attribute__((__unused__));
+	int n;
 {
 	(void) dosave0(1);
 	exit(1);

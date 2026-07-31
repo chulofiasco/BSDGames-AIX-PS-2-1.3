@@ -265,7 +265,7 @@ rloc(mtmp)
 
 struct monst   *
 mkmon_at(let, x, y)
-	char            let;
+	int             let;
 	int             x, y;
 {
 	int             ct;

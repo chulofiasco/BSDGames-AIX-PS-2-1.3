@@ -63,7 +63,7 @@ cgoto(pp, y, x)
 void
 outch(pp, ch)
 	PLAYER	*pp;
-	char	ch;
+	int	ch;
 {
 	if (++pp->p_curx >= TERM_WIDTH) {
 		pp->p_curx = 0;

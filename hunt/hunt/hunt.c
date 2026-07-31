@@ -51,9 +51,10 @@ __RCSID("$NetBSD: hunt.c,v 1.23 2004/11/05 21:30:32 dsl Exp $");
 static struct termios saved_tty;
 # endif
 # include	<unistd.h>
-# include	<ifaddrs.h>
-
 # include	"hunt.h"
+# ifdef BROADCAST
+# include	<ifaddrs.h>
+# endif
 
 /*
  * Some old versions of curses don't have these defined
@@ -131,7 +132,7 @@ extern int	Otto_mode;
 int
 main(ac, av)
 	int	ac;
-	char	**av;
+	char	*av[];
 {
 	char		*term;
 	int		c;
@@ -420,7 +421,6 @@ broadcast_vec(s, vector)
 SOCKET	*
 list_drivers()
 {
-	int			option;
 	u_short			msg;
 	u_short			port_num;
 	static SOCKET		test;

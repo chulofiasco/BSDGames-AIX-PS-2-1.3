@@ -74,7 +74,7 @@ __RCSID("$NetBSD: hack.o_init.c,v 1.7 2003/04/02 18:36:38 jsm Exp $");
 
 int
 letindex(let)
-	char            let;
+	int             let;
 {
 	int             i = 0;
 	char            ch;
@@ -139,7 +139,7 @@ check:
 
 int
 probtype(let)
-	char            let;
+	int             let;
 {
 	int             i = bases[letindex(let)];
 	int             prob = rn2(100);

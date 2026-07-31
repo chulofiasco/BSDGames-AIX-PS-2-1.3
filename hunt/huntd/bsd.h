@@ -38,3 +38,21 @@
 # if defined(BSD_RELEASE) && BSD_RELEASE == 42
 # define	SYSLOG_42
 # endif
+
+/* AIX 1.2 has no getifaddrs()/freeifaddrs(); disable broadcast discovery.
+ * Users may specify the hunt server explicitly with -h hostname. */
+#undef BROADCAST
+
+/* Fixed-width integer types: AIX 1.2 has no <stdint.h> or <inttypes.h>.
+ * On i386 with MetaWare High C: int=32-bit, short=16-bit, char=8-bit. */
+#ifndef _BSDGAMES_INT32_T
+#define _BSDGAMES_INT32_T
+typedef int             int32_t;
+typedef unsigned int    u_int32_t;
+typedef unsigned int    uint32_t;
+typedef short           int16_t;
+typedef unsigned short  u_int16_t;
+typedef unsigned short  uint16_t;
+typedef unsigned char   u_int8_t;
+typedef unsigned char   uint8_t;
+#endif

@@ -135,7 +135,7 @@ bwrite(fd, loc, num)
 	const void     *loc;
 	unsigned        num;
 {
-	if (write(fd, loc, num) != (ssize_t)num)
+	if (write(fd, loc, num) != (int)num)
 		panic("cannot write %u bytes to file #%d", num, fd);
 }
 

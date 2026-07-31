@@ -63,10 +63,10 @@ typedef struct {
 	char    ch;
 }       ERR_POS;
 
-extern bool Guessed[];
+extern char Guessed[];
 
 extern char Word[], Known[];
-extern const char *const Noose_pict[];
+extern char Noose_pict[][15];
 
 extern int Errors, Wordnum;
 extern unsigned int Minlen;
@@ -75,13 +75,13 @@ extern double Average;
 
 extern const ERR_POS Err_pos[];
 
-extern const char *Dict_name;
+extern char *Dict_name;
 
 extern FILE *Dict;
 
 extern off_t Dict_size;
 
-void    die(int) __attribute__((__noreturn__));
+void    die(int);
 void    endgame(void);
 int	main(int, char *[]);
 void	getguess(void);

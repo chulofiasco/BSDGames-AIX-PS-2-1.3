@@ -73,6 +73,8 @@ __RCSID("$NetBSD: hack.main.c,v 1.9 2004/01/27 20:30:29 jsm Exp $");
 #include "hack.h"
 #include "extern.h"
 
+extern char *getlogin();
+
 #ifdef QUEST
 #define	gamename	"quest"
 #else
@@ -113,6 +115,9 @@ main(argc, argv)
 
 	hname = argv[0];
 	hackpid = getpid();
+
+	if (argc < 0)
+		return 0;
 
 #ifdef CHDIR			/* otherwise no chdir() */
 	/*

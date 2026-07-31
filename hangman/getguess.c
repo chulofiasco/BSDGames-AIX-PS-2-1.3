@@ -50,7 +50,7 @@ getguess()
 {
 	int i;
 	int ch;
-	bool correct;
+int correct;
 
 	leaveok(stdscr, FALSE);
 	for (;;) {

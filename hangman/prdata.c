@@ -47,7 +47,7 @@ __RCSID("$NetBSD: prdata.c,v 1.5 2003/08/07 09:37:22 agc Exp $");
 void
 prdata()
 {
-	bool *bp;
+char *bp;
 
 	move(GUESSY, GUESSX + sizeof "Guessed: ");
 	bp = Guessed;

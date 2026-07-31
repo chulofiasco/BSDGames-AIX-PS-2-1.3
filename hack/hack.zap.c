@@ -69,7 +69,7 @@ __RCSID("$NetBSD: hack.zap.c,v 1.7 2004/01/27 20:30:29 jsm Exp $");
 #include "hack.h"
 #include "extern.h"
 
-const char           *const fl[] = {
+char fl[][16] = {
 	"magic missile",
 	"bolt of fire",
 	"sleep ray",
@@ -384,7 +384,7 @@ miss(str, mtmp)
 struct monst   *
 bhit(ddx, ddy, range, sym, fhitm, fhito, obj)
 	int             ddx, ddy, range;	/* direction and range */
-	char            sym;	/* symbol displayed on path */
+	int             sym;	/* symbol displayed on path */
 	/* fns called when mon/obj hit */
 	void          (*fhitm)(struct monst *, struct obj *);
 	int	      (*fhito)(struct obj *, struct obj *);
