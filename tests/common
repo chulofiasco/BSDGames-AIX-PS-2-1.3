@@ -38,7 +38,7 @@ testexec () {
 }
 
 testno () {
-    printf "%s" "$testgame test $1... "
+    echo "$testgame test $1... \c"
 }
 
 failtest () {

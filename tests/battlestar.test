@@ -33,7 +33,8 @@ set -e
 
 testexec battlestar battlestar/battlestar
 
-export BATTLESTAR_QUIET=1
+BATTLESTAR_QUIET=1
+export BATTLESTAR_QUIET
 
 if echo quit | battlestar/battlestar |grep wizard >/dev/null; then
     echo "Can't test battlestar as this user."
@@ -68,14 +69,22 @@ compare test.out tests/battlestar.out5
 rm -f test.out
 
 testno 6
-battlestar/battlestar <tests/battlestar.in6 >test.out 2>/dev/null || failtest
-compare test.out tests/battlestar.out6
-rm -f test.out
+if [ -c /dev/full ]; then
+    battlestar/battlestar <tests/battlestar.in6 >test.out 2>/dev/null || failtest
+    compare test.out tests/battlestar.out6
+    rm -f test.out
+else
+    echo "PASS (skipped)"
+fi
 
 testno 7
-battlestar/battlestar <tests/battlestar.in6 >/dev/null 2>test.out || failtest
-compare test.out tests/battlestar.err6
-rm -f test.out
+if [ -c /dev/full ]; then
+    battlestar/battlestar <tests/battlestar.in6 >/dev/null 2>test.out || failtest
+    compare test.out tests/battlestar.err6
+    rm -f test.out
+else
+    echo "PASS (skipped)"
+fi
 
 testno 8
 battlestar/battlestar <tests/battlestar.in8 >test.out 2>&1 || failtest

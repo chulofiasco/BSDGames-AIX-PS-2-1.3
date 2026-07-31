@@ -33,7 +33,8 @@ set -e
 
 testexec pom pom/pom
 
-export TZ=UTC0
+TZ=UTC0
+export TZ
 
 # Should add dates from years before 1998.
 
