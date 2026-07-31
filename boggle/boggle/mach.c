@@ -66,7 +66,7 @@ static int colstarts[MAXCOLS], ncolstarts;
 static int lastline;
 int ncols, nlines;
 
-extern const char *pword[], *mword[];
+extern char *pword[], *mword[];
 extern int ngames, nmwords, npwords, tnmwords, tnpwords;
 extern char board[];
 extern int usedbits, wordpath[];
@@ -74,8 +74,8 @@ extern time_t start_t;
 extern int debug;
 
 static void	cont_catcher(int);
-static int	prwidth(const char *const [], int);
-static void	prword(const char *const [], int);
+static int	prwidth(char *[], int);
+static void	prword(char *[], int);
 static void	stop_catcher(int);
 static void	tty_cleanup(void);
 static int	tty_setup(void);
@@ -148,7 +148,7 @@ results()
 
 static void
 prword(base, indx)
-	const char *const base[];
+	char *base[];
 	int indx;
 {
 	printw("%s", base[indx]);
@@ -156,7 +156,7 @@ prword(base, indx)
 
 static int
 prwidth(base, indx)
-	const char *const base[];
+	char *base[];
 	int indx;
 {
 	return (strlen(base[indx]));
@@ -591,7 +591,7 @@ tty_setup()
 
 static void
 stop_catcher(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	sigset_t sigset, osigset;
 
@@ -612,7 +612,7 @@ stop_catcher(signo)
  
 static void
 cont_catcher(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	noecho();
 	raw();
@@ -628,7 +628,7 @@ cont_catcher(signo)
  */
 static void
 winch_catcher(signo)
-	int signo __attribute__((__unused__));
+	int signo;
 {
 	/*
 	struct winsize win;

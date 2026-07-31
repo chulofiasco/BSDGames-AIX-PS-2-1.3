@@ -130,7 +130,7 @@ void	printcard(unsigned char *);
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	char cardline[80];
 
@@ -148,7 +148,7 @@ main(argc, argv)
 	} else
 		while (fgets(cardline, sizeof(cardline), stdin))
 			printcard((unsigned char *)cardline);
-	exit(0);
+	return 0;
 }
 
 #define	COLUMNS	48

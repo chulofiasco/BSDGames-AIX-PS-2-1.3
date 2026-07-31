@@ -112,12 +112,15 @@ time_t qtime;
 int
 main(argc, argv)
 	int argc;
-	char **argv;
+	char *argv[];
 {
 	int ch, cnt;
 
 	/* Revoke setgid privileges */
 	setregid(getgid(), getgid());
+
+	if (argc < 0)
+		return 0;
 
 	while ((ch = getopt(argc, argv, "r:o:")) != -1)
 		switch(ch) {
@@ -375,7 +378,7 @@ int
 opnum(op)
 	int op;
 {
-	char *p;
+	char *p = NULL;
 
 	if (op == 0 || (p = strchr(keylist, op)) == NULL)
 		errx(1, "arithmetic: bug: op %c not in keylist %s",

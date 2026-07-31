@@ -40,7 +40,7 @@ __RCSID("$NetBSD: text.c,v 1.7 2003/08/07 09:36:56 agc Exp $");
 
 #include "back.h"
 
-const char   *const instr[] = {
+const char   * instr[] = {
 	"    If you did not notice by now, this program reacts to things as",
 	"soon as you type them, without waiting for a newline.  This means that",
 	"the special characters RUBOUT, ESC, and CONTROL-D, will not perform",
@@ -108,7 +108,7 @@ const char   *const instr[] = {
 
 int
 text(t)
-	const char  *const *t;
+	const char  **t;
 {
 	int     i;
 	const char   *s, *a;

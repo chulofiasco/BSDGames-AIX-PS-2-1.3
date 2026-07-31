@@ -44,7 +44,7 @@ __RCSID("$NetBSD: ttext1.c,v 1.7 2003/08/07 09:36:58 agc Exp $");
 const char   *const opts = " QIMRHEDSPT";
 const char   *const prompt = "-->";
 
-const char   *const list[] = {
+const char   * list[] = {
 	"\n\n\tI\tIntroduction to Backgammon",
 	"\tM\tMoves and Points",
 	"\tR\tRemoving Men from the Board",
@@ -60,7 +60,7 @@ const char   *const list[] = {
 	0
 };
 
-const char   *const hello[] = {
+const char   * hello[] = {
 	"\n   These rules consist of text describing how to play Backgammon",
 	"followed by a tutorial session where you play a practice game",
 	"against the computer.  When using this program, think carefuly",
@@ -78,7 +78,7 @@ const char   *const hello[] = {
 	0
 };
 
-const char   *const intro1[] = {
+const char   * intro1[] = {
 	"\nIntroduction:",
 	"\n   Backgammon is a game involving the skill of two players and",
 	"the luck of two dice.  There are two players, red and white, and",
@@ -89,7 +89,7 @@ const char   *const intro1[] = {
 	"",
 0};
 
-const char   *const intro2[] = {
+const char   * intro2[] = {
 	"",
 	"\n   Although not indicated on the board, the players' homes are",
 	"located just to the right of the board.  A player's men are placed",
@@ -103,7 +103,7 @@ const char   *const intro2[] = {
 	"",
 0};
 
-const char   *const moves[] = {
+const char   * moves[] = {
 	"\nMoves and Points:",
 	"\n   Moves are made along the positions on the board according to",
 	"their numbers.  Red moves in the positive direction (clockwise",
@@ -134,7 +134,7 @@ const char   *const moves[] = {
 	"",
 0};
 
-const char   *const removepiece[] = {
+const char   * removepiece[] = {
 	"\nRemoving Men from the Board:",
 	"\n   The most important part of the game is removing men, since",
 	"that is how you win the game.  Once a man is removed, he stays",
@@ -158,7 +158,7 @@ const char   *const removepiece[] = {
 	"",
 0};
 
-const char   *const hits[] = {
+const char   * hits[] = {
 	"\nHitting Blots:",
 	"\n   Although two men on a position form an impenetrable point, a",
 	"lone man is not so secure.  Such a man is called a 'blot' and has",
@@ -175,7 +175,7 @@ const char   *const hits[] = {
 	"",
 0};
 
-const char   *const endgame[] = {
+const char   * endgame[] = {
 	"\nEnding the Game and Scoring:",
 	"\n   Winning a game usually wins one point, the normal value of a",
 	"game.  However, if the losing player has not removed any men yet,",

@@ -443,12 +443,8 @@ delayb(c)
 	xdiff = SGN(xdiff);
 	ydiff = sp->beacon[(int)c].y - p.ypos;
 	ydiff = SGN(ydiff);
-	if (xdiff != displacement[p.dir].dx || ydiff != displacement[p.dir].dy)
-		return ("Beacon is not in flight path");
-	p.delayd = 1;
-	p.delayd_no = c;
 
-	if (dest_type != T_NODEST) {
+	if (dir == D_RIGHT) {
 		switch (dest_type) {
 		case T_BEACON:
 			xdiff = sp->beacon[dest_no].x - sp->beacon[(int)c].x;
@@ -464,7 +460,6 @@ delayb(c)
 			break;
 		default:
 			return ("Bad case in delayb!  Get help!");
-			break;
 		}
 		if (xdiff == 0 && ydiff == 0)
 			return ("Would already be there");
@@ -541,7 +536,6 @@ setrelalt(c)
 		break;
 	default:
 		return ("Unknown case in setrelalt!  Get help!");
-		break;
 	}
 	if (p.new_altitude < 0)
 		return ("Altitude would be too low");
@@ -577,7 +571,6 @@ benum(c)
 		break;
 	default:
 		return ("Unknown case in benum!  Get help!");
-		break;
 	}
 	return (NULL);
 }
@@ -610,7 +603,6 @@ rel_dir(c)
 		break;
 	default:
 		return ("Bizarre direction in rel_dir!  Get help!");
-		break;
 	}
 	return (NULL);
 }

@@ -40,7 +40,7 @@ __RCSID("$NetBSD: table.c,v 1.7 2003/08/07 09:36:57 agc Exp $");
 
 #include "back.h"
 
-const char   *const help2[] = {
+const char   * help2[] = {
 	"   Enter moves as <s>-<f> or <s>/<r> where <s> is the starting",
 	"position, <f> is the finishing position, and <r> is the roll.",
 	"Remember, each die roll must be moved separately.",

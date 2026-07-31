@@ -43,26 +43,26 @@ struct situatn {
 };
 
 
-extern	const char	*const doubl[];
-extern	const char	*const endgame[];
-extern	const char	*const finis[];
-extern	const char	*const hello[];
-extern	const char	*const hits[];
-extern	const char	*const intro1[];
-extern	const char	*const intro2[];
-extern	const char	*const lastch[];
-extern	const char	*const list[];
+extern	const char	* doubl[];
+extern	const char	* endgame[];
+extern	const char	* finis[];
+extern	const char	* hello[];
+extern	const char	* hits[];
+extern	const char	* intro1[];
+extern	const char	* intro2[];
+extern	const char	* lastch[];
+extern	const char	* list[];
 extern	int	 maxmoves;
-extern	const char	*const moves[];
+extern	const char	* moves[];
 extern	const char	*const opts;
-extern	const char	*const prog[];
+extern	const char	* prog[];
 extern	const char	*const prompt;
-extern	const char	*const removepiece[];
-extern	const char	*const stragy[];
+extern	const char	* removepiece[];
+extern	const char	* stragy[];
 extern	const struct situatn	test[];
 
 
 int	brdeq(const int *, const int *);
 void	clrest(void);
-void	leave(void) __attribute__((__noreturn__));
-void	tutor(void) __attribute__((__noreturn__));
+void	leave(void);
+void	tutor(void);

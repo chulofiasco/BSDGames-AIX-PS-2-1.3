@@ -88,7 +88,7 @@ die()
 
 void
 diesig(dummy)
-	int     dummy __attribute__((__unused__));
+	int     dummy;
 {
 	die();
 }

@@ -79,6 +79,9 @@ main(ac, av)
 	open_score_file();
 	setregid(getgid(), getgid());
 
+	if (ac < 0)
+		return 0;
+
 	start_time = seed = time(NULL);
 
 	while ((ch = getopt(ac, av, "ulstpg:f:r:")) != -1) {

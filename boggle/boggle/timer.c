@@ -43,7 +43,6 @@ __RCSID("$NetBSD: timer.c,v 1.9 2004/01/27 20:30:29 jsm Exp $");
 
 #include <sys/param.h>
 #include <sys/time.h>
-#include <sys/poll.h>
 
 #include <curses.h>
 #include <setjmp.h>
@@ -95,27 +94,30 @@ timerch()
 }
 
 /*
- * Wait up to 'delay' microseconds for input to appear
+ * Wait up to 'delay' milliseconds for input to appear
  * Returns 1 if input is ready, 0 oth.
  */
 static int
 waitch(delay)
 	int delay;
 {
-	struct pollfd set[1];
+	fd_set rfds;
+	struct timeval tv;
 
-	set[0].fd = STDIN_FILENO;
-	set[0].events = POLLIN;
-	return (poll(set, 1, delay));
+	FD_ZERO(&rfds);
+	FD_SET(STDIN_FILENO, &rfds);
+	tv.tv_sec = delay / 1000;
+	tv.tv_usec = (delay % 1000) * 1000;
+	return (select(STDIN_FILENO + 1, &rfds, (fd_set *)0, (fd_set *)0, &tv) > 0 ? 1 : 0);
 }
 
 void
 delay(tenths)
 	int tenths;
 {
-	struct timespec duration;
+	struct timeval tv;
 
-	duration.tv_nsec = (tenths % 10 ) * 100000000L;
-	duration.tv_sec = (long) (tenths / 10);
-	nanosleep(&duration, NULL);
+	tv.tv_sec = tenths / 10;
+	tv.tv_usec = (tenths % 10) * 100000L;
+	select(0, (fd_set *)0, (fd_set *)0, (fd_set *)0, &tv);
 }

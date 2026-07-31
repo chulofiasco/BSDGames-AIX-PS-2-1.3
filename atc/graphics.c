@@ -75,6 +75,20 @@ getAChar()
 	return(c);
 }
 
+static chtype
+safe_winch(win)
+	WINDOW *win;
+{
+	if (win != NULL && win->_y != NULL &&
+	    win->_cury >= 0 && win->_cury < win->_maxy &&
+	    win->_curx >= 0 && win->_curx < win->_maxx) {
+		chtype *row = win->_y[win->_cury];
+		if (row != NULL)
+			return row[win->_curx];
+	}
+	return ' ';
+}
+
 void
 erase_all()
 {
@@ -83,10 +97,10 @@ erase_all()
 	for (pp = air.head; pp != NULL; pp = pp->next) {
 		wmove(cleanradar, pp->ypos, pp->xpos * 2);
 		wmove(radar, pp->ypos, pp->xpos * 2);
-		waddch(radar, winch(cleanradar));
+		waddch(radar, safe_winch(cleanradar));
 		wmove(cleanradar, pp->ypos, pp->xpos * 2 + 1);
 		wmove(radar, pp->ypos, pp->xpos * 2 + 1);
-		waddch(radar, winch(cleanradar));
+		waddch(radar, safe_winch(cleanradar));
 	}
 }
 
@@ -306,8 +320,12 @@ quit(dummy)
 	wrefresh(input);
 	fflush(stdout);
 
-	c = getchar();
-	if (c == EOF || c == 'y') {
+	errno = 0;
+	while ((c = getchar()) == EOF && errno == EINTR) {
+		errno = 0;
+		clearerr(stdin);
+	}
+	if (c == 'y' || c == 'Y') {
 		/* disable timer */
 #ifdef BSD
 		itv.it_value.tv_sec = 0;

@@ -1,3 +1,4 @@
+.TH BOGGLE 6 "April 1, 2001"
 .\"	$NetBSD: boggle.6,v 1.7 2003/08/07 09:37:05 agc Exp $
 .\"
 .\" Copyright (c) 1993
@@ -32,23 +33,19 @@
 .\"
 .\"	@(#)boggle.6	8.1 (Berkeley) 6/11/93
 .\"
-.Dd April 1, 2001
-.Dt BOGGLE 6
-.Os
-.Sh NAME
-.Nm boggle
-.Nd word search game
-.Sh SYNOPSIS
-.Nm
-.Op Fl bd
-.Op Fl s Ar seed
-.Op Fl t Ar time
-.Op Fl w Ar length
-.Op + Op +
-.Op boardspec
-.Sh DESCRIPTION
+.SH NAME
+boggle \- word search game
+.SH SYNOPSIS
+.B boggle
+[\fB\-bd\fP]
+[\fB\-s\fP \fIseed\fP]
+[\fB\-t\fP \fItime\fP]
+[\fB\-w\fP \fIlength\fP]
+[+ Op +]
+[boardspec]
+.SH DESCRIPTION
 The object of
-.Nm
+.B boggle
 is to find as many words as possible on the Boggle board within the three
 minute time limit.
 A Boggle board is a four by four arrangement of Boggle cubes, each side of
@@ -59,64 +56,72 @@ The (N+1)th cube in the word must be horizontally,
 vertically, or diagonally adjacent to the Nth cube.
 Cubes cannot be reused.
 Words consist solely of lower case letters and must be at least 3 letters long.
-.Pp
+.PP
 Command line flags can be given to change the rules of the game.
-.Bl -tag -width boardspec
-.It Fl b
+.TP
+\fB\-b\fP
 Run
-.Nm
+.B boggle
 in batch mode.
 A
-.Ar boardspec
+\fIboardspec\fP
 must also be given.
 The dictionary is read from stdin and a list of words appearing in
-.Ar boardspec
+\fIboardspec\fP
 is printed to stdout.
-.It Fl d
+.TP
+\fB\-d\fP
 Enable debugging output.
-.It Fl s Ar seed
+.TP
+\fB\-s\fP \fIseed\fP
 Specify a seed
-.Ar seed
+\fIseed\fP
 other than the time of day.
-.It Fl t Ar time
+.TP
+\fB\-t\fP \fItime\fP
 Set the time limit for each game from the default 3 minutes to
-.Ar time
+\fItime\fP
 seconds.
-.It Fl w Ar length
+.TP
+\fB\-w\fP \fIlength\fP
 Change the minimum word length from 3 letters to
-.Ar length .
-.It Ar +
+\fIlength .\fP
+.TP
+\fI+\fP
 This flag allows a cube to be used multiple times, but not in succession.
-.It Ar ++
+.TP
+\fI++\fP
 This flag allows the same cubes to be considered adjacent to itself.
-.It Ar boardspec
+.TP
+\fIboardspec\fP
 A starting board position can be specified on the command line by
 listing the board left to right and top to bottom.
-.El
-.Pp
+.PP
+.PP
 Help is available during play by typing
-.Sq Ic \&? .
+'Ic \&? .'
 More detailed information on the game is given there.
-.Sh BUGS
+.SH BUGS
 If there are a great many words in the cube the final display of the words
 may scroll off of the screen.
 (On a 25 line screen about 130 words can be displayed.)
-.Pp
+.PP
 No word can contain a
-.Sq q
+'q'
 that is not immediately followed by a
-.Sq u .
-.Pp
+'u .'
+.PP
 When using the
-.Ar +
+\fI+\fP
 or
-.Ar ++
+\fI++\fP
 options the display of words found in the board doesn't indicate reused cubes.
-.Sh AUTHOR
+.SH AUTHOR
 Boggle is a trademark of Parker Brothers.
-.Pp
+.PP
 Barry Brachman
-.br
+.'"' mdoc: .br 
 Dept. of Computer Science
-.br
+.'"' mdoc: .br 
 University of British Columbia
+

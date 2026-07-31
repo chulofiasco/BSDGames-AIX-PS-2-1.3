@@ -1,3 +1,4 @@
+.TH BACKGAMMON 6 "May 31, 1993"
 .\"	$NetBSD: backgammon.6,v 1.11 2003/08/07 09:36:55 agc Exp $
 .\"
 .\" Copyright (c) 1980, 1993
@@ -29,27 +30,21 @@
 .\"
 .\"	@(#)backgammon.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt BACKGAMMON 6
-.Os
-.Sh NAME
-.Nm backgammon
-.Nd the game of backgammon
+.SH NAME
+backgammon, teachgammon \- learn to play backgammon
+.SH SYNOPSIS
+.B backgammon
+[\fB\-\fP]
+[\fB\-nrwb\fP]
+[\fB\-pr\fP]
+[\fB\-pw\fP]
+[\fB\-pb\fP]
+[\fB\-t\fP \fIterm\fP]
+[\fB\-s\fP \fIfile\fP]
+.'"' mdoc: .br 
 .br
-.Nm teachgammon
-.Nd learn to play backgammon
-.Sh SYNOPSIS
-.Nm
-.Op Fl
-.Op Fl nrwb
-.Op Fl pr
-.Op Fl pw
-.Op Fl pb
-.Op Fl t Ar term
-.Op Fl s Ar file
-.br
-.Nm teachgammon
-.Sh DESCRIPTION
+.B teachgammon
+.SH DESCRIPTION
 This program lets you play backgammon against the computer
 or against a "friend".
 All commands are only one letter, so you don't need to type a carriage return,
@@ -62,35 +57,43 @@ instructions on how to use the program,
 and a tutorial consisting of a practice game against the computer.
 A description of how to use the program can be
 obtained by answering `y' when it asks if you want instructions.
-.Pp
+.PP
 The possible arguments for backgammon
 (most are unnecessary but some are very convenient)
 consist of:
-.Bl -tag -width indent
-.It Fl n
+.TP
+\fB\-n\fP
 don't ask for rules or instructions
-.It Fl r
+.TP
+\fB\-r\fP
 player is red (implies n)
-.It Fl w
+.TP
+\fB\-w\fP
 player is white (implies n)
-.It Fl b
+.TP
+\fB\-b\fP
 two players, red and white (implies n)
-.It Fl pr
+.TP
+\fB\-pr\fP
 print the board before red's turn
-.It Fl pw
+.TP
+\fB\-pw\fP
 print the board before white's turn
-.It Fl pb
+.TP
+\fB\-pb\fP
 print the board before both player's turn
-.It Fl t Ar term
+.TP
+\fB\-t\fP \fIterm\fP
 terminal is type
-.Ar term ,
+\fIterm ,\fP
 uses
-.Pa /usr/share/misc/termcap
-.It Fl s Ar file
+\fI/usr/share/misc/termcap\fP
+.TP
+\fB\-s\fP \fIfile\fP
 recover previously saved game from
-.Ar file
-.El
-.Pp
+\fIfile\fP
+.PP
+.PP
 .\"
 .\" Arguments may be optionally preceded by a `-'.
 .\" Several arguments may be concatenated together,
@@ -98,84 +101,93 @@ recover previously saved game from
 .\" since they can be followed by an arbitrary string.
 Any unrecognized arguments are ignored.
 An argument of a lone `-' gets a description of possible arguments.
-.Pp
+.PP
 If
-.Ar term
+\fIterm\fP
 has capabilities for direct cursor movement (see
-.Xr termcap 5 )
-.Nm
+termcap(5) )
+.B backgammon
 ``fixes'' the board after each move,
 so the board does not need to be reprinted,
 unless the screen suffers some horrendous malady.
 Also, any `p' option will be ignored.
 (The `t' option is not necessary unless the terminal type does not match
 the entry in the
-.Pa /usr/share/misc/termcap
+\fI/usr/share/misc/termcap\fP
 data base.)
-.Sh QUICK REFERENCE
+.SH QUICK REFERENCE
 When the program prompts by typing only your color,
 type a space or carriage return to roll, or
-.Bl -tag -width indent
-.It Ic d
+.TP
+\fBd\fP
 to double
-.It Ic p
+.TP
+\fBp\fP
 to print the board
-.It Ic q
+.TP
+\fBq\fP
 to quit
-.It Ic s
+.TP
+\fBs\fP
 to save the game for later
-.El
-.Pp
+.PP
+.PP
 When the program prompts with 'Move:', type
-.Bl -tag -width indent
-.It Ic p
+.TP
+\fBp\fP
 to print the board
-.It Ic q
+.TP
+\fBq\fP
 to quit
-.It Ic s
+.TP
+\fBs\fP
 to save the game
-.El
-.Pp
+.PP
+.PP
 or a
-.Em move ,
+\fImove ,\fP
 which is a sequence of
-.Bl -tag -width indent
-.It Ic s-f
+.TP
+\fBs-f\fP
 move from
-.Ic s
+\fBs\fP
 to
-.Ic f
-.It Ic s/r
+\fBf\fP
+.TP
+\fBs/r\fP
 move one man on
-.Ic s
+\fBs\fP
 the roll
-.Ic r
+\fBr\fP
 separated by commas or spaces and ending with a newline.
 Available abbreviations are
-.Bl -tag -width indent
-.It Ic s-f1-f2
+.TP
+\fBs-f1-f2\fP
 means
-.Ic s-f1,f1-f2
-.It Ic s/r1r2
+\fBs-f1,f1-f2\fP
+.TP
+\fBs/r1r2\fP
 means
-.Ic s/r1,s/r2
-.El
-.El
-.Pp
+\fBs/r1,s/r2\fP
+.PP
+.PP
+.PP
 Use
-.Ic b
+\fBb\fP
 for bar and
-.Ic h
+\fBh\fP
 for home,
 or 0 or 25 as appropriate.
-.Sh AUTHOR
-.An Alan Char
-.Sh FILES
-.Bl -tag -width /usr/share/misc/termcap -compact
-.It Pa @gamesdir@/teachgammon
+.SH AUTHOR
+Alan Char
+.SH FILES
+.TP
+\fI@gamesdir@/teachgammon\fP
 rules and tutorial
-.It Pa /usr/share/misc/termcap
+.TP
+\fI/usr/share/misc/termcap\fP
 terminal capabilities
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 The program's strategy needs much work.
+

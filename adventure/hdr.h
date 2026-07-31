@@ -133,8 +133,12 @@ extern	int     abb[LOCSIZ];
 
 extern	int     maxtrs, tally, tally2;	/* treasure values */
 
+#ifndef FALSE
 #define FALSE   0
+#endif
+#ifndef TRUE
 #define TRUE    1
+#endif
 
 extern	int     keys, lamp, grate, cage, rod, rod2, steps,	/* mnemonics */
 	        bird, door, pillow, snake, fissur, tablet, clam, oyster,

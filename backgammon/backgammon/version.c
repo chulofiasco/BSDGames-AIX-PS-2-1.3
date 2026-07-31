@@ -38,7 +38,7 @@ __RCSID("$NetBSD: version.c,v 1.6 2003/08/07 09:36:56 agc Exp $");
 #endif
 #endif /* not lint */
 
-const char   *const message[] = {
+const char   * message[] = {
 	"Last updated on Friday, October 10, 1997.",
 	0
 };

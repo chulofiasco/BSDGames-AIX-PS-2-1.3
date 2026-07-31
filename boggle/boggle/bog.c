@@ -97,11 +97,11 @@ int wordpath[MAXWORDLEN + 1];
 int wordlen;		/* Length of last word returned by nextword() */
 int usedbits;
 
-const char *pword[MAXPWORDS];
+char *pword[MAXPWORDS];
 char pwords[MAXPSPACE], *pwordsp;
 int npwords;
 
-const char *mword[MAXMWORDS];
+char *mword[MAXMWORDS];
 char mwords[MAXMSPACE], *mwordsp;
 int nmwords;
 
@@ -273,7 +273,7 @@ main(argc, argv)
 		}
 	}
 	cleanup();
-	exit (0);
+	return 0;
 }
 
 /*
@@ -350,7 +350,7 @@ playgame()
 			int remaining;
 
 			remaining = tlimit - (int) (t - start_t);
-			(void)snprintf(buf, sizeof(buf),
+			(void)sprintf(buf,
 			    "%d:%02d", remaining / 60, remaining % 60);
 			showstr(buf, 1);
 			continue;
@@ -553,7 +553,7 @@ void
 checkdict()
 {
 	char *p, *w;
-	const char **pw;
+	char **pw;
 	int i;
 	int prevch, previndex, *pi, *qi, st;
 
@@ -703,7 +703,7 @@ int
 compar(p, q)
 	const void *p, *q;
 {
-	return (strcmp(*(const char *const *)p, *(const char *const *)q));
+	return (strcmp(*(const char **)p, *(const char **)q));
 }
 
 void

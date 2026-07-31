@@ -135,7 +135,7 @@ init()			/* everything for 1st time run */
 
 char   *
 decr(a, b, c, d, e)
-	char    a, b, c, d, e;
+	int    a, b, c, d, e;
 {
 	static char buf[6];
 

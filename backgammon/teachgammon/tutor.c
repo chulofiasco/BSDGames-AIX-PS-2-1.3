@@ -85,7 +85,7 @@ tutor()
 		}
 		if (tflag)
 			curmove(18, 0);
-		text(*test[i].com);
+		text((const char **)*test[i].com);
 		if (!tflag)
 			writec('\n');
 		if (i == maxmoves)

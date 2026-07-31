@@ -46,7 +46,7 @@ __RCSID("$NetBSD: teach.c,v 1.16 2005/02/15 12:56:20 jsm Exp $");
 #include "back.h"
 #include "tutor.h"
 
-const char   *const helpm[] = {
+const char   * helpm[] = {
 	"\nEnter a space or newline to roll, or",
 	"     b   to display the board",
 	"     d   to double",
@@ -54,14 +54,14 @@ const char   *const helpm[] = {
 	0
 };
 
-const char   *const contin[] = {
+const char   * contin[] = {
 	"",
 	0
 };
 
 int
 main(argc, argv)
-	int     argc __attribute__((__unused__));
+	int     argc;
 	char   *argv[];
 {
 	int     i;

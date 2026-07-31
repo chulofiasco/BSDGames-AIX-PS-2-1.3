@@ -583,7 +583,7 @@ clear()
 
 void
 fancyc(c)
-	char    c;		/* character to output */
+	int    c;		/* character to output */
 {
 	int     sp;		/* counts spaces in a tab */
 

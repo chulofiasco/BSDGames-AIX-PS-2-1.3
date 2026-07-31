@@ -58,6 +58,7 @@ getin(wrd1, wrd2)		/* get command from user        */
 	char  **wrd1, **wrd2;	/* no prompt, usually           */
 {
 	char   *s;
+	int     c;
 	static char wd1buf[MAXSTR], wd2buf[MAXSTR];
 	int     first, numch;
 
@@ -65,10 +66,11 @@ getin(wrd1, wrd2)		/* get command from user        */
 	*wrd2 = wd2buf;
 	wd2buf[0] = 0;				/* in case it isn't set here */
 	for (s = wd1buf, first = 1, numch = 0;;) {
-		if ((*s = getchar()) >= 'A' && *s <= 'Z')
-			*s = *s - ('A' - 'a');
-		/* convert to upper case */
-		switch (*s) {			/* start reading from user */
+		c = getchar();
+		if (c >= 'A' && c <= 'Z')
+			c = c - ('A' - 'a');
+		*s = c;
+		switch (c) {			/* start reading from user */
 		case '\n':
 			*s = 0;
 			return;
@@ -169,7 +171,7 @@ next()
 {				/* next virtual char, bump adr  */
 	int     ch;
 
-	ch = (*inptr ^ random()) & 0xFF;	/* Decrypt input data           */
+	ch = (*inptr ^ (long)rand()) & 0xFF;	/* Decrypt input data           */
 	if (outsw) {		/* putting data in tmp file     */
 		if (*tape == 0)
 			tape = iotape;	/* rewind encryption tape       */
@@ -188,7 +190,7 @@ rdata()
 	char    ch;
 
 	inptr = data_file;	/* Pointer to virtual data file */
-	srandom(SEED);		/* which is lightly encrypted.  */
+	srand((unsigned int)SEED);	/* which is lightly encrypted.  */
 
 	clsses = 1;
 	for (;;) {		/* read data sections           */

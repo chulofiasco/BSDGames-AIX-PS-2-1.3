@@ -43,7 +43,7 @@
 #include <termcap.h>
 #include <unistd.h>
 
-#define rnum(r)	(random()%r)
+#define rnum(r)	(rand()%r)
 #define D0	dice[0]
 #define D1	dice[1]
 #define swap	{D0 ^= D1; D1 ^= D0; D0 ^= D1; d0 = 1-d0;}
@@ -116,7 +116,7 @@ extern	char	cin[100];	/* input line of current move
 				   (used for reconstructing input after
 				   a backspace) */
 
-extern	const char	*const color[];
+extern	const char	*color[];
 				/* colors as strings */
 extern	const char	*const *colorptr;	/* color of current player */
 extern	const char	*const *Colorptr;	/* color of current player, capitalized */
@@ -142,7 +142,7 @@ void	cline(void);
 int	count(void);
 void	curmove(int, int);
 int	dotable(char, int);
-void	errexit(const char *) __attribute__((__noreturn__));
+void	errexit(const char *);
 void	fancyc(int);
 void	fboard(void);
 void	fixcol(int, int, int, int, int);
@@ -151,7 +151,7 @@ void	fixtty(struct termios *);
 void	getarg(char ***);
 int	getcaps(const char *);
 void	getmove(void);
-void	getout(int) __attribute__((__noreturn__));
+void	getout(int);
 void	gwrite(void);
 void	init(void);
 int	last(void);
@@ -164,7 +164,7 @@ int	movokay(int);
 void	newline(void);
 void	newpos(void);
 void	nexturn(void);
-void	norec(const char *) __attribute__((__noreturn__));
+void	norec(const char *);
 void	odds(int, int, int);
 void	proll(void);
 int	quit(void);
@@ -174,7 +174,7 @@ void	refresh(void);
 void	roll(void);
 int	rsetbrd(void);
 void	save(int);
-int	text(const char *const *);
+int	text(const char **);
 void	wrboard(void);
 void	wrbsub(void);
 void	wrhit(int);

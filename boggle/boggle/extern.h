@@ -31,6 +31,7 @@
  *	@(#)extern.h	8.1 (Berkeley) 6/11/93
  */
 
+#include <stdio.h>
 #include <time.h>
 
 void	 addword(const char *);
@@ -54,8 +55,8 @@ char	*nextword(FILE *);
 FILE	*opendict(const char *);
 void	 playgame(void);
 void	 prompt(const char *);
-void	 prtable(const char *const [],
-	    int, int, int, void (*)(const char *const [], int), int (*)(const char *const [], int));
+void	 prtable(char *[],
+	    int, int, int, void (*)(char *[], int), int (*)(char *[], int));
 void	 putstr(const char *);
 void	 redraw(void);
 void	 results(void);
@@ -67,5 +68,5 @@ void	 starttime(void);
 void	 startwords(void);
 void	 stoptime(void);
 int	 timerch(void);
-void	 usage(void) __attribute__((__noreturn__));
+void	 usage(void);
 int	 validword(const char *);

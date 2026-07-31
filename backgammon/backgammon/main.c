@@ -50,20 +50,18 @@ __RCSID("$NetBSD: main.c,v 1.21 2005/02/15 12:56:20 jsm Exp $");
 
 #define MVPAUSE	5		/* time to sleep when stuck */
 
-extern const char   *const instr[];		/* text of instructions */
-extern const char   *const message[];		/* update message */
-#ifndef NCURSES_VERSION
-short ospeed;			/* tty output speed */
-#endif
+extern const char   * instr[];		/* text of instructions */
+extern const char   * message[];		/* update message */
+/* ospeed is provided by libcurses.a; declared extern in <termcap.h> */
 
-const char   *const helpm[] = {		/* help message */
+const char   *helpm[] = {		/* help message */
 	"Enter a space or newline to roll, or",
 	"     R   to reprint the board\tD   to double",
 	"     S   to save the game\tQ   to quit",
 	0
 };
 
-const char   *const contin[] = {		/* pause message */
+const char   *contin[] = {		/* pause message */
 	"(Type a newline to continue.)",
 	"",
 	0
@@ -89,13 +87,14 @@ static const char svpromt[] = "Would you like to save this game?";
 static const char password[] = "losfurng";
 static char pbuf[10];
 
+static void bg_game_loop(void);	/* forward declaration */
+
 int
 main(argc, argv)
 	int     argc __attribute__((__unused__));
-	char  **argv;
+	char  *argv[];
 {
 	int     i;		/* non-descript index */
-	int     l;		/* non-descript index */
 	char    c;		/* non-descript character storage */
 	long    t;		/* time for random num generator */
 
@@ -119,7 +118,7 @@ main(argc, argv)
 	if (tflag)
 		begscr = 0;
 	t = time(NULL);
-	srandom(t);		/* 'random' seed */
+	srand((unsigned int)t);		/* 'random' seed */
 
 #ifdef V7
 	while (*++argv != 0)	/* process arguments */
@@ -239,6 +238,18 @@ main(argc, argv)
 	/* limit text to bottom of screen */
 	if (tflag)
 		begscr = 17;
+
+	bg_game_loop();
+	/* NOTREACHED */
+	return (0);
+}
+
+static void
+bg_game_loop()
+{
+	int     i;		/* non-descript index */
+	int     l;		/* non-descript index */
+	char    c;		/* non-descript character storage */
 
 	for (;;) {		/* begin game! */
 		/* initial roll if needed */
@@ -528,6 +539,4 @@ main(argc, argv)
 	}
 	/* leave peacefully */
 	getout(0);
-	/* NOTREACHED */
-	return (0);
 }

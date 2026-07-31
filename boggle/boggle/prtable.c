@@ -45,7 +45,7 @@ __RCSID("$NetBSD: prtable.c,v 1.8 2004/01/27 20:30:29 jsm Exp $");
 
 #define NCOLS	5
 
-static int	get_maxlen(const char *const [], int, int (*)(const char *const *, int));
+static int	get_maxlen(char *[], int, int (*)(char *[], int));
 
 /*
  * Routine to print a table
@@ -64,10 +64,10 @@ static int	get_maxlen(const char *const [], int, int (*)(const char *const *, in
  */
 void
 prtable(base, num, d_cols, width, prentry, length)
-	const char *const base[];
+	char *base[];
 	int num, d_cols, width;
-	void (*prentry)(const char *const [], int);
-	int (*length)(const char *const [], int);
+	void (*prentry)(char *[], int);
+	int (*length)(char *[], int);
 {
         int c, j;
         int a, b, cols, loc, maxlen, nrows, z;
@@ -115,9 +115,9 @@ prtable(base, num, d_cols, width, prentry, length)
 
 static int
 get_maxlen(base, num, length)
-	const char *const base[];
+	char *base[];
 	int num;
-	int (*length)(const char *const *, int);
+	int (*length)(char *[], int);
 {
 	int i, len, max;
 

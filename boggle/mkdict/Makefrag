@@ -26,17 +26,17 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-boggle_mkdict_CLEANFILES := dictionary
+boggle_mkdict_CLEANFILES = dictionary
 
 # boggle_mkdict_DICTSRC is the dictionary that will be used to construct the
 # word list used by boggle.
-boggle_mkdict_DICTSRC := $(DICTIONARY_SRC)
+boggle_mkdict_DICTSRC = $(DICTIONARY_SRC)
 
-boggle_mkdict_DIRS := $(BOGGLE_DIR)
-boggle_mkdict_INCS := -Iboggle/boggle
+boggle_mkdict_DIRS = $(BOGGLE_DIR)
+boggle_mkdict_INCS = -Iboggle/boggle
 
 boggle/mkdict/dictionary:	boggle/mkdict/mkdict $(boggle_mkdict_DICTSRC)
-	$< <$(boggle_mkdict_DICTSRC) >$@
+	boggle/mkdict/mkdict <$(boggle_mkdict_DICTSRC) >boggle/mkdict/dictionary
 
 boggle_mkdict_all:	boggle/mkdict/dictionary
 

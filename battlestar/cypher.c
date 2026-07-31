@@ -382,7 +382,6 @@ cypher()
 			} else
 				puts("I can't see anything.");
 			return (-1);
-			break;
 
 		case SU:
 			if (wiz || tempwiz) {
@@ -548,7 +547,6 @@ cypher()
 		default:
 			puts("How's that?");
 			return (-1);
-			break;
 
 		}
 		if (wordnumber < wordcount && *words[wordnumber++] == ',')

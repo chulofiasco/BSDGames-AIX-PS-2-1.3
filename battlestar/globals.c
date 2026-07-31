@@ -43,7 +43,7 @@ __RCSID("$NetBSD: globals.c,v 1.19 2003/08/07 09:37:02 agc Exp $");
 int     WEIGHT = MAXWEIGHT;
 int     CUMBER = MAXCUMBER;
 
-const char   *const objdes[NUMOFOBJECTS] = {
+const char   * objdes[NUMOFOBJECTS] = {
 	"There is a knife here.",
 	"There are an exquisitely crafted sword and scabbard here.",
 	NULL,			/* Can land from here. */
@@ -111,7 +111,7 @@ const char   *const objdes[NUMOFOBJECTS] = {
 
 };
 
-const char   *const objsht[NUMOFOBJECTS] = {
+const char   * objsht[NUMOFOBJECTS] = {
 	"knife",
 	"fine sword",
 	NULL,			/* Can land from here. */
@@ -178,7 +178,7 @@ const char   *const objsht[NUMOFOBJECTS] = {
 	"diamond block"
 };
 
-const char   *const ouch[NUMOFINJURIES] = {
+const char   * ouch[NUMOFINJURIES] = {
 	"some minor abrasions",
 	"some minor lacerations",
 	"a minor puncture wound",

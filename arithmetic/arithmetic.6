@@ -1,3 +1,4 @@
+.TH ARITHMETIC 6 "May 31, 1993"
 .\"	$NetBSD: arithmetic.6,v 1.11 2003/08/07 09:36:52 agc Exp $
 .\"
 .\" Copyright (c) 1989, 1993
@@ -32,75 +33,74 @@
 .\"
 .\"	@(#)arithmetic.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd May 31, 1993
-.Dt ARITHMETIC 6
-.Os
-.Sh NAME
-.Nm arithmetic
-.Nd quiz on simple arithmetic
-.Sh SYNOPSIS
-.Nm
-.Op Fl o Ar +\-x/
-.Op Fl r Ar range
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+arithmetic \- quiz on simple arithmetic
+.SH SYNOPSIS
+.B arithmetic
+[\fB\-o\fP \fI+\-x/\fP]
+[\fB\-r\fP \fIrange\fP]
+.SH DESCRIPTION
+.B arithmetic
 asks you to solve problems in simple arithmetic.
 Each question must be answered correctly before going on to the next.
 After every 20 problems, it prints the score so far and the time taken.
 You can quit at any time by typing the interrupt or end-of-file character.
-.Pp
+.PP
 The options are as follows:
-.Bl -tag -width indent
-.It Fl o
+.TP
+\fB\-o\fP
 By default,
-.Nm
+.B arithmetic
 asks questions on addition of numbers from 0 to 10, and corresponding
 subtraction.
 By supplying one or more of the characters
-.Ar +\-x/ ,
+\fI+\-x/ ,\fP
 you can ask for problems in addition, subtraction, multiplication, and
 division, respectively.
 If you give one of these characters more than once, that kind of problem
 will be asked correspondingly more often.
-.It Fl r
+.TP
+\fB\-r\fP
 If a
-.Ar range
+\fIrange\fP
 is supplied,
-.Nm
+.B arithmetic
 selects the numbers in its problems in the following way.
 For addition and multiplication, the numbers to be added or multiplied
 are between 0 and
-.Ar range ,
+\fIrange ,\fP
 inclusive.
 For subtraction and division, both the required result and the number to
 divide by or subtract will be between 0 and
-.Ar range .
+\fIrange .\fP
 (Of course,
-.Nm
+.B arithmetic
 will not ask you to divide by 0.)
 The default
-.It range
+.TP
+range
 is 10.
-.El
-.Pp
+.PP
+.PP
 When you get a problem wrong,
-.Nm
+.B arithmetic
 will remember the numbers involved, and will tend to select those numbers
 more often than others, in problems of the same sort.
 Eventually it will forgive and forget.
-.Pp
-.Nm
+.PP
+.B arithmetic
 cannot be persuaded to tell you the right answer.
 You must work it out for yourself.
-.Sh DIAGNOSTICS
-.Dq What?
+.SH DIAGNOSTICS
+"What?"
 if you get a question wrong.
-.Dq Right!
+"Right!"
 if you get it right.
-.Dq Please type a number.
+"Please type a number."
 if
-.Nm
+.B arithmetic
 doesn't understand what you typed.
-.Sh SEE ALSO
-.Xr bc 1 ,
-.Xr dc 1
+.SH SEE ALSO
+bc(1) ,
+dc(1)
+

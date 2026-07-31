@@ -57,7 +57,7 @@ int main(int, char *[]);
 int
 main(argc, argv)
 	int     argc;
-	char  **argv;
+	char   *argv[];
 {
 	char    mainbuf[LINELENGTH];
 	char   *next;
@@ -65,6 +65,9 @@ main(argc, argv)
 	/* Open the score file then revoke setgid privileges */
 	open_score_file();
 	setregid(getgid(), getgid());
+
+	if (argc < 0)
+		return 0;
 
 	if (argc < 2)
 		initialize(NULL);

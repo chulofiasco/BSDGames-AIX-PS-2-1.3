@@ -124,5 +124,5 @@ main(argc, argv)
 		perror("error writing standard output");
 		exit(1);
 	}
-	exit(0);
+	return 0;
 }

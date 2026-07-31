@@ -41,7 +41,7 @@ __RCSID("$NetBSD: init.c,v 1.14 2004/01/27 20:30:29 jsm Exp $");
 #include "extern.h"
 
 static int checkout(const char *);
-static const char *getutmp(void);
+static char *getutmp(void);
 static int wizard(const char *);
 
 void
@@ -77,7 +77,7 @@ initialize(filename)
 	signal(SIGINT, diesig);
 }
 
-static const char *
+static char *
 getutmp()
 {
 	struct passwd *ptr;
@@ -90,7 +90,7 @@ getutmp()
 }
 
 /* Hereditary wizards.  A configuration file might make more sense. */
-static const char *const list[] = {
+static const char * list[] = {
 	"riggle",
 	"chris",
 	"edward",
@@ -101,7 +101,7 @@ static const char *const list[] = {
 	0
 };
 
-static const char *const badguys[] = {
+static const char * badguys[] = {
 	"wnj",
 	"root",
 	"ted",

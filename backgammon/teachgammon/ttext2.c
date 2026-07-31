@@ -41,7 +41,7 @@ __RCSID("$NetBSD: ttext2.c,v 1.7 2003/08/07 09:36:58 agc Exp $");
 #include "back.h"
 #include "tutor.h"
 
-const char   *const doubl[] = {
+const char   * doubl[] = {
 	"\nDoubling:",
 	"\n   If a player thinks he is in a good position, he may double the",
 	"value of the game.  However, his opponent may not accept the pro-",
@@ -56,7 +56,7 @@ const char   *const doubl[] = {
 	"",
 0};
 
-const char   *const stragy[] = {
+const char   * stragy[] = {
 	"\nStrategy:",
 	"\n   Some general hints when playing:  Try not to leave men open",
 	"unless absolutely necessary.  Also, it is good to make as many",
@@ -72,7 +72,7 @@ const char   *const stragy[] = {
 	"",
 0};
 
-const char   *const prog[] = {
+const char   * prog[] = {
 	"\nThe Program and How It Works:",
 	"\n   A general rule of thumb is when you don't know what to do,",
 	"type a question mark, and you should get some help.  When it is",
@@ -106,7 +106,7 @@ const char   *const prog[] = {
 	"",
 0};
 
-const char   *const lastch[] = {
+const char   * lastch[] = {
 	"\nTutorial (Practice Game):",
 	"\n   This tutorial, for simplicity's sake, will let you play one",
 	"predetermined game.  All the rolls have been pre-arranged, and",
@@ -128,9 +128,9 @@ const char   *const lastch[] = {
 
 int
 text(txt)
-	const char  *const *txt;
+	const char  **txt;
 {
-	const char  *const *begin;
+	const char  **begin;
 	const char   *a;
 	char    b;
 	const char   *c;

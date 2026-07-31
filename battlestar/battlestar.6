@@ -1,3 +1,4 @@
+.TH BATTLESTAR 6 "September 7, 2000"
 .\"	$NetBSD: battlestar.6,v 1.14 2003/08/07 09:37:00 agc Exp $
 .\"
 .\" Copyright (c) 1983, 1993
@@ -29,46 +30,42 @@
 .\"
 .\"	@(#)battlestar.6	8.1 (Berkeley) 5/31/93
 .\"
-.Dd September 7, 2000
-.Dt BATTLESTAR 6
-.Os
-.Sh NAME
-.Nm battlestar
-.Nd a tropical adventure game
-.Sh SYNOPSIS
-.Nm
-.Op Fl r
-.Op Ar saved-file
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+battlestar \- a tropical adventure game
+.SH SYNOPSIS
+.B battlestar
+[\fB\-r\fP]
+[\fIsaved-file\fP]
+.SH DESCRIPTION
+.B battlestar
 is an adventure game in the classic style.
 However, it's slightly less of a puzzle and more a game of exploration.
 There are a few magical words in the game, but on the whole, simple English
 should suffice to make one's desires understandable to the parser.
-.Sh THE SETTING
+.SH THE SETTING
 In the days before the darkness came, when battlestars ruled the heavens...
-.Bd -literal -offset indent
+.nf
 Three He made and gave them to His daughters,
 Beautiful nymphs, the goddesses of the waters.
 One to bring good luck and simple feats of wonder,
 Two to wash the lands and churn the waves asunder,
 Three to rule the world and purge the skies with thunder.
-.Ed
-.Pp
+.fi
+.PP
 In those times great wizards were known and their powers were beyond belief.
 They could take any object from thin air, and, uttering the word
-.Sq su
+'su'
 could disappear.
-.Pp
+.PP
 In those times men were known for their lust for gold and desire to
 wear fine weapons.
 Swords and coats of mail were fashioned that could withstand a laser blast.
-.Pp
+.PP
 But when the darkness fell, the rightful reigns were toppled.
 Swords and helms and heads of state went rolling across the grass.
 The entire fleet of battlestars was reduced to a single ship.
-.Sh SAMPLE COMMANDS
-.Bd -literal -offset indent
+.SH SAMPLE COMMANDS
+.nf
 take	---	take an object
 drop	---	drop an object
 
@@ -81,9 +78,9 @@ take off --	draw an object and drop it
 throw  \*[Lt]object\*[Gt] \*[Lt]direction\*[Gt]
 
 !	\*[Lt]shell esc\*[Gt]
-.Ed
-.Sh IMPLIED OBJECTS
-.Bd -literal -offset indent
+.fi
+.SH IMPLIED OBJECTS
+.nf
 \*[Gt]-: take watermelon
 watermelon:
 Taken.
@@ -106,69 +103,69 @@ Dropped.
 \*[Gt]-: get
 knife:
 Taken.
-.Ed
-.Pp
+.fi
+.PP
 Notice that the "shadow" of the next word stays around if you
 want to take advantage of it.
 That is, saying "take knife" and then "drop"
 will drop the knife you just took.
-.Sh SCORE \*[Am] INVEN
+.SH SCORE \*[AM] INVEN
 The two commands
-.Dq score
+"score"
 and
-.Dq inven
+"inven"
 will print out your current status in the game.
-.Sh SAVING A GAME
+.SH SAVING A GAME
 The command
-.Dq save
+"save"
 will save your game in a file called
-.Pa .Bstar
+\fI.Bstar\fP
 in your home directory by default.
 You can recover a saved game by using the
-.Fl r
+\fB\-r\fP
 option when you start up the
 game, or by giving the name of the saved file as an argument.
 Save files will be saved to and restored from your home directory unless a
 path is specified - i.e.,
-.Dq Li battlestar -r savedgame
+"Li battlestar -r savedgame"
 will look for
-.Pa savedgame
+\fIsavedgame\fP
 in your home directory, but
-.Dq Li battlestar -r ./savedgame
+"Li battlestar -r ./savedgame"
 will look in the current directory.
-.Dq Li battlestar -r
+"Li battlestar -r"
 will look for the default file,
-.Pa .Bstar
+\fI.Bstar\fP
 in your home directory.
-.Sh DIRECTIONS
+.SH DIRECTIONS
 The compass directions N, S, E, and W can be used if you have a compass.
 If you don't have a compass, you'll have to say R, L, A, or B, which
 stand for Right, Left, Ahead, and Back.
 Directions printed in room descriptions are
 always printed in R, L, A, and B relative directions.
-.Sh HISTORY
+.SH HISTORY
 I wrote Battlestar in 1979 in order to experiment with the niceties of
 the C Language.
 Most interesting things that happen in the game are hardwired into the
 code, so don't send me any hate mail about it!
 Instead, enjoy art for art's sake!
-.Sh AUTHOR
-.An David Riggle
-.Sh INSPIRATION \*[Am] ASSISTANCE
-.Bl -item -compact
-.It
+.SH AUTHOR
+David Riggle
+.SH INSPIRATION \*[AM] ASSISTANCE
+.IP
 Chris Guthrie
-.It
+.IP
 Peter Da Silva
-.It
+.IP
 Kevin Brown
-.It
+.IP
 Edward Wang
-.It
+.IP
 Ken Arnold \*[Am] Company
-.El
-.Sh BUGS
+.PP
+.SH BUGS
 Countless.
-.Sh FAN MAIL
+.SH FAN MAIL
 Send to edward%ucbarpa@berkeley.arpa, chris%ucbcory@berkeley.arpa,
 riggle.pa@xerox.arpa.
+

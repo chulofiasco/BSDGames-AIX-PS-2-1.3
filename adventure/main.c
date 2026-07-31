@@ -73,6 +73,9 @@ main(argc, argv)
 	/* revoke setgid privileges from dm */
 	setregid(getgid(), getgid());
 
+	if (argc < 0)
+		return 0;
+
 	init();		/* Initialize everything */
 	signal(SIGINT, trapdel);
 

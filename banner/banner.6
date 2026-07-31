@@ -1,3 +1,4 @@
+.TH BANNER 6 "April 29, 1995"
 .\"	$NetBSD: banner.6,v 1.13 2003/08/07 09:36:59 agc Exp $
 .\"
 .\" Copyright (c) 1980, 1993, 1995
@@ -29,38 +30,35 @@
 .\"
 .\"	@(#)banner.6	8.2 (Berkeley) 4/29/95
 .\"
-.Dd April 29, 1995
-.Dt BANNER 6
-.Os
-.Sh NAME
-.Nm banner
-.Nd print large banner on printer
-.Sh SYNOPSIS
-.Nm
-.Op Fl w Ar width
-.Ar message ...
-.Sh DESCRIPTION
-.Nm
+.SH NAME
+banner \- print large banner on printer
+.SH SYNOPSIS
+.B banner
+[\fB\-w\fP \fIwidth\fP]
+\fImessage ...\fP
+.SH DESCRIPTION
+.B banner
 prints a large, high quality banner on the standard output.
 If the message is omitted, it prompts for and
 reads one line of its standard input.
 If
-.Fl w
+\fB\-w\fP
 is given, the output is scrunched down from a width of 132 to
-.Ar width ,
+\fIwidth ,\fP
 suitable for a narrow terminal.
-.Pp
+.PP
 The output should be printed on paper of the appropriate width,
 with no breaks between the pages.
-.Sh BUGS
+.SH BUGS
 Several ASCII characters are not defined, notably \*[Lt], \*[Gt], [, ], \\,
 ^, _, {, }, |, and ~.  Also, the characters ", ', and \*[Am] are funny
 looking (but in a useful way.)
-.Pp
+.PP
 The
-.Fl w
+\fB\-w\fP
 option is implemented by skipping some rows and columns.
 The smaller it gets, the grainier the output.
 Sometimes it runs letters together.
-.Sh AUTHOR
-.An Mark Horton
+.SH AUTHOR
+Mark Horton
+

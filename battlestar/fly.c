@@ -62,7 +62,7 @@ static void target(void);
 
 static void
 succumb(dummy)
-	int     dummy __attribute__((__unused__));
+	int     dummy;
 {
 	if (oldsig == SIG_DFL) {
 		endfly();
@@ -248,7 +248,7 @@ blast()
 
 static void
 moveenemy(dummy)
-	int     dummy __attribute__((__unused__));
+	int     dummy;
 {
 	double  d;
 	int     oldr, oldc;
